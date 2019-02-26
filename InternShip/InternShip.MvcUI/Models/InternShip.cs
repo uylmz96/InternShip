@@ -14,7 +14,7 @@ namespace InternShip.MvcUI.Models
         public int InternShipID { get; set; }
         public Nullable<int> StudentID { get; set; }
         public Nullable<int> CompanyID { get; set; }
-        public Nullable<int> AdviserID { get; set; }
+        public string AdviserID { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public string Time { get; set; }

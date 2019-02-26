@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Kullanıcı Yetkilendir";
+}
+@model string
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Kullanıcı Yetkilendir
+                </div>
+                <div class="block-controls">
+                    <a href="/User/Index" class="block-control block-control-remove"></a>
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    @if (Model == null)
+                    {
+                        <form role="form" action="/Role/AddUser2Role" method="post">
+                            <div class="ui-widget form-group">
+                                <label for="username">Kullanıcı Adı: </label>
+                                <input id="username" class="form-control" name="Username">
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Yetki : </label>
+                                <select id="role" class="form-control" name="Role">
+                                    @{ if (ViewBag.Roles != null)
+                                        {
+                                            foreach (string item in ViewBag.Roles)
+                                            {
+                                                <option value="@item">@item</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form role="form" action="/Role/AddUser2Role" method="post">
+                            <div class="ui-widget form-group">
+                                <label for="username">Kullanıcı Adı: </label>
+                                <input id="username" class="form-control" name="Username" value="@Model" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Yetki : </label>
+                                <select id="role" class="form-control" name="Role">
+                                    @{ if (ViewBag.Roles != null)
+                                        {
+                                            foreach (string item in ViewBag.Roles)
+                                            {
+                                                <option value="@item">@item</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <span id="spnmessage" style="font-size:20px">@ViewBag.Message</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptSection{
+    <script>
+        $("#username").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/User/GetUser",
+                    dataType: "json",
+                    data: {
+                        query: request.term
+                    },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.value,
+                                value: item.value
+                            }
+                        }))
+                    }
+                });
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+            },
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
+    </script>
+}

@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace InternShip.MvcUI.Models.Mapping
@@ -12,8 +12,7 @@ namespace InternShip.MvcUI.Models.Mapping
 
             // Properties
             this.Property(t => t.StudentNumber)
-                .IsFixedLength()
-                .HasMaxLength(10);
+                .HasMaxLength(15);
 
             this.Property(t => t.Name)
                 .HasMaxLength(150);

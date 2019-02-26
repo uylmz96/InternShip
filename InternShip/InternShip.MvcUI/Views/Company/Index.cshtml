@@ -12,13 +12,13 @@
                 </div>
                 <div class="block-controls">
                     <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
-                    <a href="/Company/CompanyAdd" class="btn btn-success rounded" role="button">Yeni Ekle</a>
+                    <a href="/Company/Company/-1" class="btn btn-success rounded" role="button">Yeni Ekle</a>
                 </div>
             </div>
             <div class="block-content-outer">
                 <div class="block-content-inner" style="overflow-x: auto;">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-condensed">
+                        <table class="table table-bordered table-striped table-condensed" id="datatable">
                             <thead>
                                 <tr>
                                     <th>Şiket Adı</th>
@@ -32,31 +32,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (Company item in ViewBag.Companies)
-                                {
-                                    <tr>
-                                        <td>@item.CompanyName</td>
-                                        <td>@item.Address</td>
-                                        <td>@item.Mail</td>
-                                        <td>@item.Phone</td>
-                                        <td>@item.Desc</td>
-                                        <td>@item.InternShips.Count</td>
-                                        <td>
-                                            @{if (item.IsBlackCompany == true)
-                                                {
-                                                    <a href="/Company/RemoveBlackList/@item.CompanyID" class="btn btn-primary rounded ">Çıkar</a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="/Company/AddBlackList/@item.CompanyID" class="btn btn-danger rounded ">Ekle</a>
-                                                }
-                                            }
-                                        </td>
-                                        <td>
-                                            <a href="/Company/CompanyUpdate/@item.CompanyID" class="btn btn-warning rounded ">Güncelle</a>
-                                            <a href="#" class="btn btn-danger rounded companydelete" data-companyid="@item.CompanyID">Sil</a>
-                                        </td>
-                                    </tr>
+                                @{if (ViewBag.Companies != null)
+                                    {
+                                        foreach (Company item in ViewBag.Companies)
+                                        {
+                                            <tr>
+                                                <td>@item.CompanyName</td>
+                                                <td>@item.Address</td>
+                                                <td>@item.Mail</td>
+                                                <td>@item.Phone</td>
+                                                <td>@item.Desc</td>
+                                                <td>@item.InternShips.Count</td>
+                                                <td>
+                                                    @{if (item.IsBlackCompany == true)
+                                                        {
+                                                            <a href="/Company/RemoveBlackList/@item.CompanyID" class="btn btn-primary rounded ">Çıkar</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/Company/AddBlackList/@item.CompanyID" class="btn btn-danger rounded ">Ekle</a>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <a href="/Company/Company/@item.CompanyID" class="btn btn-warning rounded ">Güncelle</a>
+                                                    <a href="/Company/CompanyDelete/@item.CompanyID" class="btn btn-danger rounded">Sil</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
                                 }
                             </tbody>
                         </table>
@@ -66,30 +70,3 @@
         </div>
     </div>
 </div>
-@section scriptSection{
-    <script>
-        $(".companydelete").click(function () {
-            alert("Confirm Tasarlanacak");
-            var sonuc = confirm("İşlemi onaylıyor musunuz ?");
-            if (sonuc) {
-                var companyID = $(this).data("companyid");
-                debugger;
-                $.ajax({
-                    type: "POST",
-                    url: "/Company/CompanyDelete/",
-                    data: { id: companyID },
-                    success: function () {
-                        window.location.replace("/Company/Index");
-                        alert("Kayıt Silindi");
-                    },
-                    error: function () {
-                        alert("Kayıt Silme işlemi başarısız.");
-                    }
-                });
-            }
-            else {
-                //alert("Cancel");
-            }
-        });
-    </script>
-}

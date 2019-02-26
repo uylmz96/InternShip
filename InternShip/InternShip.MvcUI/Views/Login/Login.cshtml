@@ -60,7 +60,7 @@
             <div class="standalone-page">
                 <div class="standalone-page-logo">
                     <a href="/Content/index.html">
-                        <img src="/Content/assets/images/required/logo-default.png" width="156" height="44" alt="Logo" />
+                        <img src="/Content/img/meu-logo.png" width="100" height="100" alt="Logo" />
                     </a>
                 </div>
                 <div class="standalone-page-/Content" data-border-top="multi">
@@ -77,33 +77,37 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <form role="form" class="login-form form-horizontal" method="post" action="index.html">
+                                <form role="form" class="login-form form-horizontal" method="post" action="/Login/Login">
                                     <div class="form-group">
                                         <label for="inputEmail" class="col-sm-3 control-label">Kullanıcı Adı</label>
                                         <div class="col-sm-9">
-                                            <input autocomplete="off" class="form-control" id="inputEmail" placeholder="Kullanıcı adı giriniz." type="email" name="email">
+                                            <input autocomplete="off" class="form-control" id="inputEmail" placeholder="Kullanıcı adı giriniz." type="text" name="UserName">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputPassword" class="col-sm-3 control-label">Şifre</label>
                                         <div class="col-sm-9">
-                                            <input autocomplete="off" class="form-control" id="inputPassword" placeholder="Şifre giriniz." type="password" name="password">
+                                            <input autocomplete="off" class="form-control" id="inputPassword" placeholder="Şifre giriniz." type="password" name="Password">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    
+                                        <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-9">
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox"> Beni Hatırla.
-                                                    <span id="message"></span>
+                                                    @if (ViewBag.Message != null)
+                                                    {
+                                                        <span id="spnmessage" style="font-size:20px">@ViewBag.Message</span>
+                                                    }
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>                                  
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-9">
                                             <button type="submit" class="btn btn-success">Giriş Yap</button>
-                                            <a href="/Login/ForgotPassword" class="btn btn-link btn-sm pull-right">Şifremi unuttum.</a>
+                                            <a href="/User/ForgotPassword" class="btn btn-link btn-sm pull-right">Şifremi unuttum.</a>
                                         </div>
                                     </div>
                                 </form>

@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>InternShip.MvcUI</RootNamespace>
     <AssemblyName>InternShip.MvcUI</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,6 +51,7 @@
       <HintPath>..\..\..\InternShip\InternShip.Entity\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -57,16 +59,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -948,6 +948,8 @@
     <Content Include="Content\img\ico\favicon.png" />
     <Content Include="Content\img\intro_sections.png" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\meu-logo%402x.png" />
+    <Content Include="Content\img\meu-logo-small%402x.png" />
     <Content Include="Content\img\meu-logo-small.png" />
     <Content Include="Content\img\meu-logo.png" />
     <Content Include="Content\img\site-bg.png" />
@@ -1006,8 +1008,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Classes\User.cs" />
     <Compile Include="Controllers\InternShipController.cs" />
-    <Compile Include="ExtensionMapTo.cs" />
+    <Compile Include="Controllers\PersonalController.cs" />
+    <Compile Include="Controllers\RefusalReasonController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="App_Classes\ExtensionMapTo.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1015,6 +1022,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="App_Classes\autocomplete.cs" />
     <Compile Include="Models\aspnet_Applications.cs" />
     <Compile Include="Models\aspnet_Membership.cs" />
     <Compile Include="Models\aspnet_Paths.cs" />
@@ -1122,13 +1130,23 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_viewstart.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Student\StudentAdd.cshtml" />
-    <Content Include="Views\Student\StudentUpdate.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
-    <Content Include="Views\Company\CompanyAdd.cshtml" />
-    <Content Include="Views\Company\CompanyUpdate.cshtml" />
     <Content Include="Views\Company\CompanyBlackList.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\AddUser2Role.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\InternShip\Index.cshtml" />
+    <Content Include="Views\RefusalReason\Index.cshtml" />
+    <Content Include="Views\RefusalReason\Reason.cshtml" />
+    <Content Include="Views\Company\Company.cshtml" />
+    <Content Include="Views\Student\Student.cshtml" />
+    <Content Include="Views\User\User.cshtml" />
+    <Content Include="Views\Role\Role.cshtml" />
+    <Content Include="Views\User\PasswordChange.cshtml" />
+    <Content Include="Views\Personal\PasswordChange.cshtml" />
+    <Content Include="Views\Personal\UpdateUser.cshtml" />
+    <Content Include="Views\InternShip\Internship.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

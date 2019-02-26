@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Yetki";
+}
+@model string
+<div class="row">
+    <div class="col-md-6">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Yetki
+                </div>
+                <div class="block-controls">
+                    <a href="/Role/Index" class="block-control block-control-remove"></a>
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    @if (string.IsNullOrEmpty(Model))
+                    {
+                        <form role="form" action="/Role/RoleAdd" method="post">
+                            <div class="form-group">
+                                <label for="role">Rol Adı : </label>
+                                <input type="text" class="form-control" id="role" placeholder="Rol adı giriniz." name="RolName">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form role="form" action="/Role/RoleUpdate" method="post">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="role" name="oldRolName" value="@Model" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Rol Adı : </label>
+                                <input type="text" class="form-control" id="role" name="RolName" value="@Model">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <span id="spnmessage" style="font-size:20px">@ViewBag.Message</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

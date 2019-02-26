@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace InternShip.MvcUI.Models.Mapping
@@ -11,6 +11,9 @@ namespace InternShip.MvcUI.Models.Mapping
             this.HasKey(t => t.InternShipID);
 
             // Properties
+            this.Property(t => t.AdviserID)
+                .HasMaxLength(256);
+
             this.Property(t => t.Time)
                 .IsFixedLength()
                 .HasMaxLength(10);

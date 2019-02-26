@@ -1,12 +1,15 @@
-﻿using InternShip.MvcUI.Models;
+﻿using InternShip.MvcUI.App_Classes.DTO;
+using InternShip.MvcUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace InternShip.MvcUI.Controllers
 {
+    [Authorize]
     public class CompanyController : Controller
     {
         InternShipContext context = new InternShipContext();
@@ -14,81 +17,96 @@ namespace InternShip.MvcUI.Controllers
         public ActionResult Index()
         {
             ViewBag.Companies = context.Companies.Where(x => x.DelDate == null).ToList();
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View();
         }
 
-        //GET: CompanyAdd
-        public ActionResult CompanyAdd()
+        //GET: Company
+        public ActionResult Company(int id)
         {
-            return View();
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
+            Company company = context.Companies.SingleOrDefault(x => x.CompanyID == id);
+            return View(company);
         }
 
         //POST: CompanyAdd
         [HttpPost]
         public ActionResult CompanyAdd(Company company)
         {
-            context.Set<Company>().Add(company);
             try
             {
+                context.Set<Company>().Add(company);
                 context.SaveChanges();
+                TempData["JsFunc"] = "success();";
                 return RedirectToAction("Index");
             }
             catch (Exception)
             {
-                return View();
+                TempData["JsFunc"] = "error();";
+                return RedirectToAction("Company");
             }
-        }
-
-        //POST: CompanyDelete
-        [HttpPost]
-        public ActionResult CompanyDelete(int id)
-        {
-            Company deletedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
-            try
-            {
-                deletedCompany.DelDate = DateTime.Now;
-                context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch (Exception)
-            {
-                return View();
-            }
-        }
-
-        //GET: CompanyUpdate
-        public ActionResult CompanyUpdate(int id)
-        {
-            Company company = context.Companies.SingleOrDefault(x => x.CompanyID == id);
-            return View(company);
         }
 
         //POST: CompanyUpdate
         [HttpPost]
         public ActionResult CompanyUpdate(Company company)
         {
+            Company updatedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == company.CompanyID);
             try
-            {
-                Company updatedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == company.CompanyID);
+            {               
                 if (updatedCompany != null)
                 {
                     company.MapTo<Company>(updatedCompany);
+                    context.SaveChanges();
+                    TempData["JsFunc"] = "success();";
                 }
-                context.SaveChanges();
+                else
+                {
+                    TempData["JsFunc"] = "warning();";
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception)
             {
-                return View();
+                TempData["JsFunc"] = "error();";
+                return RedirectToAction("Company", "Company");
             }
         }
 
-        //GET: BlackList
+        //GET: CompanyDelete
+        [HttpGet]
+        public ActionResult CompanyDelete(int id)
+        {
+            try
+            {
+                Company deletedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
+                if (deletedCompany != null)
+                {
+                    deletedCompany.DelDate = DateTime.Now;
+                }
+                context.SaveChanges();
+                TempData["JsFunc"] = "success();";
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["JsFunc"] = "error();";
+                return RedirectToAction("Index");
+            }
+        }
+
+        //GET: CompanyBlackList
         public ActionResult CompanyBlackList()
         {
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
+
             ViewBag.Companies = context.Companies.Where(x => x.IsBlackCompany == true & x.DelDate == null).ToList();
             return View();
         }
+
         //GET: AddBlackList        
         public ActionResult AddBlackList(int id)
         {
@@ -98,10 +116,12 @@ namespace InternShip.MvcUI.Controllers
             try
             {
                 context.SaveChanges();
+                TempData["JsFunc"] = "success();";
                 return RedirectToAction("Index");
             }
             catch (Exception)
             {
+                TempData["JsFunc"] = "error();";
                 return RedirectToAction("Index");
             }
         }
@@ -115,13 +135,32 @@ namespace InternShip.MvcUI.Controllers
             try
             {
                 context.SaveChanges();
+                TempData["JsFunc"] = "success();";
                 return RedirectToAction("Index");
             }
             catch (Exception)
             {
+                TempData["JsFunc"] = "error();";
                 return RedirectToAction("Index");
             }
         }
 
+        //GET: GetCompany Autocomplete
+        [HttpGet]
+        public JsonResult GetCompany(string query)
+        {
+            var list = context.Companies.ToList();
+
+            var autoCompleteList = new List<autocomplete>();
+            foreach (Company item in list)
+            {
+                autoCompleteList.Add(new autocomplete
+                {
+                    id = item.CompanyID.ToString(),
+                    value = item.CompanyName
+                });
+            }
+            return Json(autoCompleteList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

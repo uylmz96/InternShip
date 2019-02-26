@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Yetkiler";
+}
+
+
+@model List<string>
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Yetkiler
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    <a href="/Role/Role/-1" class="btn btn-success rounded" role="button">Yeni Yetki</a>
+                    <a class="btn btn-default rounded" href="/Role/AddUser2Role">Kullanıcı Yetkilendir</a>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner" style="overflow-x: auto;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-condensed" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>Yetki Adı</th>
+                                    <th>Sil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ if (Model != null)
+                                    {
+                                        foreach (string item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item</td>
+                                                <td>
+                                                    @*Admin Silinemez*@
+                                                    @if (item != "Admin")
+                                                    {
+                                                        <a href="/Role/RoleDelete/@item" class="btn btn-danger rounded">Sil</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

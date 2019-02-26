@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Şirket Ekle";
+}
+@using InternShip.MvcUI.Models;
+@model Company
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Şirket
+                </div>
+                <div class="block-controls">
+                    <a href="/Company/Index" class="block-control block-control-remove"></a>
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    @if (Model == null)
+                    {
+                        <form role="form" action="/Company/CompanyAdd" method="post">
+                            <div class="form-group">
+                                <label for="companyname">Şirket Adı : </label>
+                                <input type="text" class="form-control" id="companyname" placeholder="" name="CompanyName">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Adres : </label>
+                                <input type="text" class="form-control" id="address" placeholder="" name="Address">
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">E-Mail</label>
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Telefon</label>
+                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="desc">Açıklama</label>
+                                <input type="text" class="form-control" id="desc" placeholder="Şirket Hakkında ... " name="Desc">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form role="form" action="/Company/CompanyUpdate" method="post">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="companyname" placeholder="" name="CompanyID" value="@Model.CompanyID" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyname">Şirket Adı : </label>
+
+                                <input type="text" class="form-control" id="companyname" placeholder="" name="CompanyName" value="@Model.CompanyName">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Adres : </label>
+                                <input type="text" class="form-control" id="address" placeholder="" name="Address" value="@Model.Address">
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">E-Mail</label>
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model.Mail">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Telefon</label>
+                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone" value="@Model.Phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="desc">Açıklama</label>
+                                <input type="text" class="form-control" id="desc" placeholder="Şirket Hakkında ... " name="Desc" value="@Model.Desc">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <span id="spnmessage" style="font-size:20px">@ViewBag.Message</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptSection{
+    <script>
+        document.getElementById('phone').addEventListener('blur', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{4})/);
+            e.target.value = '(' + x[1] + ') ' + x[2] + '-' + x[3];
+        });
+    </script>
+}
+

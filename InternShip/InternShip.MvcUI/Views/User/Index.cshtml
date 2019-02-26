@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Kullanıcılar";
+}
+
+@using System.Web.Security;
+@model MembershipUserCollection
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Kullanıcılar
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    <a href="/User/User/-1" class="btn btn-success rounded" role="button">Yeni Kullanıcı</a>
+                    <a class="btn btn-default rounded" href="/Role/AddUser2Role">Kullanıcı Yetkilendir</a>
+
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner" style="overflow-x: auto;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-condensed" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı</th>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>Mail</th>
+                                    <th>Kayıt Tarihi</th>
+                                    <th>Son Giriş Tarihi</th>
+                                    <th>Yetkileri</th>
+                                    <th>Sil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ if (Model != null)
+                                    {
+                                        foreach (MembershipUser item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.Comment</td>
+                                                <td>@item.UserName</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.CreationDate</td>
+                                                <td>@item.LastLoginDate</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-info rounded user-roles" data-username="@item.UserName" data-toggle="modal" data-target="#default-modal-alert">Göster</a>
+                                                </td>
+                                                <td>
+                                                    @{ if (item.IsApproved == true)
+                                                        {
+                                                            <a href="/User/ActivePasive/@item.UserName" class="btn btn-warning rounded">Pasif Yap</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/User/ActivePasive/@item.UserName" class="btn btn-primary rounded">Aktif Yap</a>
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scriptSection{
+    <script>
+        //Kullanıcının Rollerini Modalda göstermek için
+        $('.user-roles').click(function () {
+            var username = $(this).data("username");
+            $.ajax({
+                type: "POST",
+                url: "/User/GetUserRoles",
+                data: { Username: username },
+                success: function (data) {
+                    //Gelen data split edilip tablo hazırlanıyor.
+                    //Hazırlanan tablo modal içine basılıyor.
+                    $("#default-modal-alert #default-modal-label").html(username + " Kullanıcısının Yetkileri");
+
+                    var html = "";
+
+                    if (data != "") {
+                        var splitedData = data.split(',');
+                        html = " <table class='table table - bordered table - striped table - condensed' id='datatable'>" +
+                            "<thead >" +
+                            "<tr>" +
+                            "<th>Yetki</th>" +
+                            "<th>Sil</th>" +
+                            "</tr>" +
+                            "</thead >" +
+                            "<tbody>";
+                        splitedData.forEach(function (element) {
+                            html = html +
+                                "<tr>" +
+                                "<td>" + element + "</td>" +
+                                "<td><a href='/User/RemoveUserRole?username=" + username + "&role=" + element + "' class='btn btn-danger rounded'>Sil</a></td>" +
+                                "</tr>";
+                        });
+                        html = html +
+                            "</tbody>" +
+                            "</table>";
+                    }
+                    else {
+                        html = "<table><tr><td>Henüz Yetki Atanmamış</td></tr></table>";
+                    }
+                    $("#default-modal-alert .modal-body").html(html);
+
+                }
+            });
+        });
+    </script>
+
+}
