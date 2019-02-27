@@ -305,9 +305,6 @@
     <script type="text/javascript" src="/Content/assets/js/demo-files/index.js"></script>
     @RenderSection("scriptSection", false)
 
-
-    <!--DatetimePickers-->
-    <!--Datatable Search-->
     <script>
         if ($('#datatable') != null) {
             $('#datatable').DataTable({
@@ -334,6 +331,22 @@
         }
         function warning() {
             $("#mainnav-horizontal-inner").append("<div class='alert alert-warning'><strong>İşlemi kontrol ediniz.</strong></div>");
+            setTimeout(function () {
+                $("div.alert").fadeOut("slow", function () {
+                    $("div.alert").remove();
+                });
+            }, 2500);
+        }
+        function successMessage(val) {
+            $("#mainnav-horizontal-inner").append("<div class='alert alert-success alert-dismissable'><strong>" + val + "</strong></div>");
+            setTimeout(function () {
+                $("div.alert").fadeOut("slow", function () {
+                    $("div.alert").remove();
+                });
+            }, 2500);
+        }
+        function errorMessage(val) {
+            $("#mainnav-horizontal-inner").append("<div class='alert alert-danger alert-dismissable'><strong>" + val + "</strong></div>");
             setTimeout(function () {
                 $("div.alert").fadeOut("slow", function () {
                     $("div.alert").remove();

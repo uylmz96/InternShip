@@ -36,11 +36,13 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 MembershipUser _user = Membership.GetUser(user.UserName);
-                if (_user == null)
-                    ViewBag.Message = "Kullanıcı adı veya şifre hatalı.";
+                if (!_user.IsApproved)
+                    TempData["JsFunc"] = "errorMessage('Kullanıcı engellenmiş.');";
                 else
-                    ViewBag.Message = "Kullanıcı Engellenmiş.";
-                return View();
+                    TempData["JsFunc"] = "errorMessage('Kullanıcı adı yada şifre hatalı.');";
+
+
+                return RedirectToAction("Login");
             }
 
         }

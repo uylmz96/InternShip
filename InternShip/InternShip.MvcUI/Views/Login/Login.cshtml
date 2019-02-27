@@ -90,8 +90,8 @@
                                             <input autocomplete="off" class="form-control" id="inputPassword" placeholder="Şifre giriniz." type="password" name="Password">
                                         </div>
                                     </div>
-                                    
-                                        <div class="form-group">
+
+                                    <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-9">
                                             <div class="checkbox">
                                                 <label>
@@ -103,7 +103,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>                                  
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-9">
                                             <button type="submit" class="btn btn-success">Giriş Yap</button>
@@ -111,9 +111,9 @@
                                         </div>
                                     </div>
                                 </form>
-                                
+
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,5 +139,30 @@
     <!-- add additional User Editable files here -->
     <!-- Demo JS Files -->
     <script type="text/javascript" src="/Content/assets/js/demo-files/pages-signin-1.js"></script>
+    <script>
+        function successMessage(val) {
+            $(".container-fluid").append("<div class='alert alert-success alert-dismissable'><strong>" + val + "</strong></div>");
+            setTimeout(function () {
+                $("div.alert").fadeOut("slow", function () {
+                    $("div.alert").remove();
+                });
+            }, 2500);
+        }
+        function errorMessage(val) {
+            $(".container-fluid").append("<div class='alert alert-danger alert-dismissable'><strong>" + val + "</strong></div>");
+            setTimeout(function () {
+                $("div.alert").fadeOut("slow", function () {
+                    $("div.alert").remove();
+                });
+            }, 2500);
+        }
+    </script>
+    @if (ViewBag.JsFunc != null)
+    {
+        <script type="text/javascript">
+            @Html.Raw(ViewBag.JsFunc);
+        </script>
+    }
+
 </body>
 </html>
