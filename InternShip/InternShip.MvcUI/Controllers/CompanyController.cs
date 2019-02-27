@@ -6,9 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using InternShip.MvcUI.App_Classes;
 
 namespace InternShip.MvcUI.Controllers
 {
+
     [Authorize]
     public class CompanyController : Controller
     {
@@ -35,18 +37,9 @@ namespace InternShip.MvcUI.Controllers
         [HttpPost]
         public ActionResult CompanyAdd(Company company)
         {
-            try
-            {
-                context.Set<Company>().Add(company);
-                context.SaveChanges();
-                TempData["JsFunc"] = "success();";
-                return RedirectToAction("Index");
-            }
-            catch (Exception)
-            {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Company",new {id=-1});
-            }
+            context.Set<Company>().Add(company);
+            TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
+            return RedirectToAction("Index");
         }
 
         //POST: CompanyUpdate
@@ -54,54 +47,34 @@ namespace InternShip.MvcUI.Controllers
         public ActionResult CompanyUpdate(Company company)
         {
             Company updatedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == company.CompanyID);
-            try
+            if (updatedCompany != null)
             {
-                if (updatedCompany != null)
-                {
-                    company.MapTo<Company>(updatedCompany);
-                    context.SaveChanges();
-                    TempData["JsFunc"] = "success();";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["JsFunc"] = "warning();";
-                    return RedirectToAction("Company", new { id = updatedCompany.CompanyID});
-                }
-                
+                company.MapTo<Company>(updatedCompany);
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
+                return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Company", new { id = -1 });
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
             }
         }
 
-        //GET: CompanyDelete
+        //GET: CompanyDelete 
         [HttpGet]
         public ActionResult CompanyDelete(int id)
         {
-            try
+            Company updatedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
+            if (updatedCompany != null)
             {
-                Company deletedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
-                if (deletedCompany != null)
-                {
-                    deletedCompany.DelDate = DateTime.Now;
-                    context.SaveChanges();
-                    TempData["JsFunc"] = "success();";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["JsFunc"] = "warning();";
-                    return RedirectToAction("Index");
-                }
-                
-            }
-            catch (Exception)
-            {
-                TempData["JsFunc"] = "error();";
+                updatedCompany.DelDate = DateTime.Now;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
             }
         }
 
@@ -117,38 +90,34 @@ namespace InternShip.MvcUI.Controllers
         //GET: AddBlackList        
         public ActionResult AddBlackList(int id)
         {
-            Company blackCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
-            if (blackCompany != null)
-                blackCompany.IsBlackCompany = true;
-            try
+            Company updatedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
+            if (updatedCompany != null)
             {
-                context.SaveChanges();
-                TempData["JsFunc"] = "success();";
+                updatedCompany.IsBlackCompany = true;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
             }
         }
 
         //GET: RemoveBlackList
         public ActionResult RemoveBlackList(int id)
         {
-            Company blackCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
-            if (blackCompany != null)
-                blackCompany.IsBlackCompany = false;
-            try
+            Company updatedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == id);
+            if (updatedCompany != null)
             {
-                context.SaveChanges();
-                TempData["JsFunc"] = "success();";
+                updatedCompany.IsBlackCompany = false;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
             }
         }
 

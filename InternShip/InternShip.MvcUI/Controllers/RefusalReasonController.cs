@@ -1,4 +1,5 @@
-﻿using InternShip.MvcUI.Models;
+﻿using InternShip.MvcUI.App_Classes;
+using InternShip.MvcUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace InternShip.MvcUI.Controllers
         //GET: Reason
         public ActionResult Reason(int id)
         {
-            // id=1?Ekleme:Güncelleme
             RefusalReason reason = ctx.RefusalReasons.SingleOrDefault(x => x.ReasonID == id);
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
@@ -32,48 +32,32 @@ namespace InternShip.MvcUI.Controllers
 
         //POST: ReasonAdd
         [HttpPost]
-        public ActionResult ReasonAdd(string Reason,string Desc)
+        public ActionResult ReasonAdd(string Reason, string Desc)
         {
-            try
-            {
-                RefusalReason _reason = new RefusalReason();
-                _reason.Reason = Reason;
-                _reason.Desc = Desc;
-                ctx.Set<RefusalReason>().Add(_reason);
-                // ctx.Set<RefusalReason>().Add(reason);
-                ctx.SaveChanges();
-                TempData["JsFunc"] = "success();";
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
-
-            }
-
+            RefusalReason _reason = new RefusalReason();
+            _reason.Reason = Reason;
+            _reason.Desc = Desc;
+            ctx.Set<RefusalReason>().Add(_reason);
+            TempData["JsFunc"] = Result.isAppliedSaveChanges(ctx);
+            return RedirectToAction("Index");
         }
 
         //POST: ReasonUpdate
         [HttpPost]
         public ActionResult ReasonUpdate(int ReasonID, string Reason, string Desc)
         {
-            try
+            RefusalReason updatedReason = ctx.RefusalReasons.FirstOrDefault(x => x.ReasonID == ReasonID);
+            if (updatedReason != null)
             {
-                RefusalReason updatedReason = ctx.RefusalReasons.FirstOrDefault(x => x.ReasonID == ReasonID);
-                if (updatedReason != null)
-                {
-                    updatedReason.Reason = Reason;
-                    updatedReason.Desc = Desc;
-                }
-                ctx.SaveChanges();
-                TempData["JsFunc"] = "success();";
+                updatedReason.Reason = Reason;
+                updatedReason.Desc = Desc;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(ctx);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Reason", new { id = ReasonID });
             }
         }
 
@@ -81,20 +65,16 @@ namespace InternShip.MvcUI.Controllers
         [HttpGet]
         public ActionResult ReasonDelete(int id)
         {
-            try
+            RefusalReason updatedReason = ctx.RefusalReasons.FirstOrDefault(x => x.ReasonID == id);
+            if (updatedReason != null)
             {
-                RefusalReason deletedReason = ctx.RefusalReasons.FirstOrDefault(x => x.ReasonID == id);
-                if (deletedReason != null)
-                {
-                    deletedReason.DelDate = DateTime.Now;
-                }
-                ctx.SaveChanges();
-                TempData["JsFunc"] = "success();";
+                updatedReason.DelDate = DateTime.Now;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(ctx);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
                 return RedirectToAction("Index");
             }
         }

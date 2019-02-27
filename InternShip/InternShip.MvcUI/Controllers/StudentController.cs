@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace InternShip.MvcUI.Controllers
 {
+    using InternShip.MvcUI.App_Classes;
     using InternShip.MvcUI.App_Classes.DTO;
     using Models;
     using System.Reflection;
@@ -34,70 +35,54 @@ namespace InternShip.MvcUI.Controllers
         [HttpPost]
         public ActionResult StudentAdd(Student student)
         {
-            try
-            {
-                context.Set<Student>().Add(student);
-                context.SaveChanges();
-                TempData["JsFunc"] = "success();";
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
-            }
-
+            context.Set<Student>().Add(student);
+            TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
+            return RedirectToAction("Index");
         }
         //POST: StudentUpdate
         [HttpPost]
         public ActionResult StudentUpdate(Student student)
         {
-            try
+            Student updatedStudent = context.Students.SingleOrDefault(x => x.StudentID == student.StudentID);
+            if (updatedStudent != null)
             {
-                Student updatedStudent = context.Students.SingleOrDefault(x => x.StudentID == student.StudentID);
-                if (updatedStudent != null)
-                {
-                    student.MapTo<Student>(updatedStudent);
-                }
-                context.SaveChanges();
-                TempData["JsFunc"] = "success();";
+                student.MapTo<Student>(updatedStudent);
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
-            }
-
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Student", new { id = updatedStudent.StudentID });
+            }           
         }
         //POST: StudentDelete
         [HttpGet]
         public ActionResult StudentDelete(int id)
         {
-            try
+            Student updatedStudent = context.Students.SingleOrDefault(x => x.StudentID == id);
+            if (updatedStudent != null)
             {
-                Student deletedStudent = context.Students.SingleOrDefault(x => x.StudentID == id);
-                if (deletedStudent != null)
-                    deletedStudent.DelDate = DateTime.Now;
-                context.SaveChanges();
-                TempData["JsFunc"] = "success();";
+                updatedStudent.DelDate = DateTime.Now;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Student", new { id = updatedStudent.StudentID });
             }
         }
         //GET: GetStudent Autocomplete
         [HttpGet]
         public JsonResult AutoComplete(string search)
         {
-            List<autocomplete> allsearch = context.Students.Where(x => x.StudentNumber.Contains(search) & x.DelDate==null).Select(x => new autocomplete {
+            List<autocomplete> allsearch = context.Students.Where(x => x.StudentNumber.Contains(search) & x.DelDate == null).Select(x => new autocomplete
+            {
                 id = x.StudentID.ToString(),
-                value = x.StudentNumber+" - "+x.Name+" "+x.Surname
+                value = x.StudentNumber + " - " + x.Name + " " + x.Surname
             }).ToList();
-            return new JsonResult { Data=allsearch,JsonRequestBehavior=JsonRequestBehavior.AllowGet};
-        }               
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }

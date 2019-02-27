@@ -1008,6 +1008,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Classes\Result.cs" />
     <Compile Include="App_Classes\User.cs" />
     <Compile Include="Controllers\InternShipController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />

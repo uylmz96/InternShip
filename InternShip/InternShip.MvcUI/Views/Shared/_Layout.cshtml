@@ -353,6 +353,14 @@
                 });
             }, 2500);
         }
+        function warningMessage(val) {
+            $("#mainnav-horizontal-inner").append("<div class='alert alert-warning alert-dismissable'><strong>" + val + "</strong></div>");
+            setTimeout(function () {
+                $("div.alert").fadeOut("slow", function () {
+                    $("div.alert").remove();
+                });
+            }, 2500);
+        }
     </script>
     @if (ViewBag.JsFunc != null)
     {
