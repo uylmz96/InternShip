@@ -32,19 +32,22 @@ namespace InternShip.MvcUI.Controllers
                     MembershipUser _user = Membership.GetUser(username);
                     if (_user != null)
                     {
-                        _user.ChangePassword(u.OldPassword, u.Password);
+                        bool isChanged=_user.ChangePassword(u.OldPassword, u.Password);
+                        if(isChanged)
                         TempData["JsFunc"] = "success();";
+                        else
+                            TempData["JsFunc"] = "errorMessage('Girilen eski şifre yanlış');";
                         return RedirectToAction("PasswordChange");
                     }
                     else
                     {
-                        ViewBag.Message = "Kullanıcı Bulunamadı";
-                        return View();
+                        TempData["JsFunc"] = "warning();";
+                        return RedirectToAction("PasswordChange");
                     }
                 }
                 else
                 {
-                    ViewBag.Message = "Parolalar uyuşmamaktadır.";
+                    TempData["JsFunc"] = "errorMessage('Girilen parolalar eşleşmemektedir.');";
                     return View();
                 }
             }
@@ -52,7 +55,6 @@ namespace InternShip.MvcUI.Controllers
             {
                 TempData["JsFunc"] = "error();";
                 return RedirectToAction("PasswordChange");
-
             }
 
         }
