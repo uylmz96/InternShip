@@ -4,7 +4,7 @@
 }
 @using System.Web.Security;
 @using InternShip.MvcUI.Models;
-
+@model MembershipUserCollection
 <div class="row">
     <div class="col-md-12">
         <div class="block">
@@ -30,7 +30,20 @@
                         </div>
                         <div class="ui-widget form-group">
                             <label for="adviser">Danışman </label>
-                            <input id="adviser" class="form-control" name="AdviserID">
+                            <select id="adviser" class="form-control" name="AdviserID">
+                                @if (Model == null)
+                                {
+                                    <option value="-1" disabled>Danışman Kullanıcı Bulunamadı.</option>
+                                }
+                                else
+                                {
+                                    foreach (MembershipUser item in Model)
+                                    {
+                                        <option value="@item.UserName">@item.Comment</option>
+                                    }
+
+                                }
+                            </select>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Başlangıç Tarihi</label>
@@ -70,18 +83,22 @@
         $("#company").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/Company/GetCompany",
+                    url: "/Company/AutoComplete",
                     dataType: "json",
                     data: {
-                        query: request.term
+                        search: $("#company").val()
                     },
                     success: function (data) {
+                        debugger;
                         response($.map(data, function (item) {
                             return {
-                                label: item.value,
+                                label: item.Name,
                                 value: item.value
                             }
                         }))
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: company autocomplete");
                     }
                 });
             },
@@ -99,18 +116,22 @@
         $("#student").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/Student/GetStudent",
+                    url: "/Student/AutoComplete",
                     dataType: "json",
                     data: {
-                        query: request.term
+                        search: $("#student").val()
                     },
                     success: function (data) {
+                        debugger;
                         response($.map(data, function (item) {
                             return {
-                                label: item.value,
+                                label: item.Name,
                                 value: item.value
                             }
                         }))
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: student autocomplete");
                     }
                 });
             },
@@ -125,34 +146,7 @@
                 $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
             }
         });
-        $("#adviser").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/User/GetUser",
-                    dataType: "json",
-                    data: {
-                        query: request.term
-                    },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.value,
-                                value: item.value
-                            }
-                        }))
-                    }
-                });
-            },
-            minLength: 2,
-            select: function (event, ui) {
-                console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
-            },
-            open: function () {
-                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-            },
-            close: function () {
-                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-            }
-        });
+
+
     </script>
 }

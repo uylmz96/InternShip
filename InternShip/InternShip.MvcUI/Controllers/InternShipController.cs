@@ -28,8 +28,7 @@ namespace InternShip.MvcUI.Controllers
         {
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
-            InternShip model = ctx.InternShips.FirstOrDefault(x => x.InternShipID == id);
-
+            MembershipUserCollection model = Membership.GetAllUsers();
             return View(model);
         }
         //POST: InternshipAdd

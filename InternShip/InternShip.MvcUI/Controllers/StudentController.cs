@@ -22,20 +22,18 @@ namespace InternShip.MvcUI.Controllers
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View();
         }
-
         //GET: StudentAdd
         public ActionResult Student(int id)
         {
-            Student student = context.Students.SingleOrDefault(x=>x.StudentID==id);
+            Student student = context.Students.SingleOrDefault(x => x.StudentID == id);
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View(student);
         }
-
         //POST: StudentAdd
         [HttpPost]
         public ActionResult StudentAdd(Student student)
-        {            
+        {
             try
             {
                 context.Set<Student>().Add(student);
@@ -50,7 +48,6 @@ namespace InternShip.MvcUI.Controllers
             }
 
         }
-
         //POST: StudentUpdate
         [HttpPost]
         public ActionResult StudentUpdate(Student student)
@@ -73,11 +70,10 @@ namespace InternShip.MvcUI.Controllers
             }
 
         }
-
         //POST: StudentDelete
         [HttpGet]
         public ActionResult StudentDelete(int id)
-        {           
+        {
             try
             {
                 Student deletedStudent = context.Students.SingleOrDefault(x => x.StudentID == id);
@@ -92,24 +88,16 @@ namespace InternShip.MvcUI.Controllers
                 TempData["JsFunc"] = "error();";
                 return RedirectToAction("Index");
             }
-        }        
-
+        }
         //GET: GetStudent Autocomplete
         [HttpGet]
-        public JsonResult GetStudent(string query)
+        public JsonResult AutoComplete(string search)
         {
-            var list = context.Students.ToList();
-
-            var autoCompleteList = new List<autocomplete>();
-            foreach (Student item in list)
-            {
-                autoCompleteList.Add(new autocomplete
-                {
-                    id = item.StudentID.ToString(),
-                    value = String.Format("{0} - {1} {2}",item.StudentNumber,item.Name,item.Surname)
-                });
-            }
-            return Json(autoCompleteList, JsonRequestBehavior.AllowGet);
-        }
+            List<autocomplete> allsearch = context.Students.Where(x => x.StudentNumber.Contains(search) & x.DelDate==null).Select(x => new autocomplete {
+                id = x.StudentID.ToString(),
+                value = x.StudentNumber+" - "+x.Name+" "+x.Surname
+            }).ToList();
+            return new JsonResult { Data=allsearch,JsonRequestBehavior=JsonRequestBehavior.AllowGet};
+        }               
     }
 }

@@ -119,30 +119,36 @@ namespace InternShip.MvcUI.Controllers
         [HttpGet]
         public ActionResult RemoveUserRole()
         {
-            string Username, RoleName;
-            Username = Request.QueryString["username"];
-            RoleName = Request.QueryString["role"];
-            if (Roles.RoleExists(RoleName) & Membership.GetUser(Username) != null)
-                Roles.RemoveUserFromRole(Username, RoleName);
-            return RedirectToAction("Index");
+            try
+            {
+                string Username, RoleName;
+                Username = Request.QueryString["username"];
+                RoleName = Request.QueryString["role"];
+                if (Roles.RoleExists(RoleName) & Membership.GetUser(Username) != null)
+                    Roles.RemoveUserFromRole(Username, RoleName);
+                TempData["JsFunc"] = "success();";
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                TempData["JsFunc"] = "error();";
+                return RedirectToAction("Index");
+            }
         }
 
-        //GET: GetUser Autocomplete
-        [HttpGet]
-        public JsonResult GetUser(string query)
+        //Autocomplete
+        public JsonResult AutoComplete(string search)
         {
-            var users = Membership.GetAllUsers();
-
-            var userList = new List<autocomplete>();
-            foreach (MembershipUser user in users)
+            List<autocomplete> allsearch = new List<autocomplete>();
+            foreach (MembershipUser item in Membership.GetAllUsers())
             {
-                userList.Add(new autocomplete
+                allsearch.Add(new autocomplete
                 {
-                    id = user.UserName,
-                    value = user.UserName
+                    id = item.UserName,
+                    value = string.Format("{0} - [{1}]", item.Comment,item.UserName)
                 });
             }
-            return Json(userList, JsonRequestBehavior.AllowGet);
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [AllowAnonymous]
@@ -195,7 +201,7 @@ namespace InternShip.MvcUI.Controllers
             }
             else
             {
-                ViewBag.Message = "Kullanıcı bulunamadı.";
+                TempData["JsFunc"] = "error();";
                 return View();
             }
         }

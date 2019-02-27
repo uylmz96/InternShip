@@ -55,7 +55,7 @@ namespace InternShip.MvcUI.Controllers
         {
             Company updatedCompany = context.Companies.SingleOrDefault(x => x.CompanyID == company.CompanyID);
             try
-            {               
+            {
                 if (updatedCompany != null)
                 {
                     company.MapTo<Company>(updatedCompany);
@@ -146,21 +146,14 @@ namespace InternShip.MvcUI.Controllers
         }
 
         //GET: GetCompany Autocomplete
-        [HttpGet]
-        public JsonResult GetCompany(string query)
+        public JsonResult AutoComplete(string search)
         {
-            var list = context.Companies.ToList();
-
-            var autoCompleteList = new List<autocomplete>();
-            foreach (Company item in list)
+            List<autocomplete> allsearch = context.Companies.Where(x => x.CompanyName.Contains(search) & x.DelDate == null).Select(x => new autocomplete
             {
-                autoCompleteList.Add(new autocomplete
-                {
-                    id = item.CompanyID.ToString(),
-                    value = item.CompanyName
-                });
-            }
-            return Json(autoCompleteList, JsonRequestBehavior.AllowGet);
+                id = x.CompanyID.ToString(),
+                value = x.CompanyName
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

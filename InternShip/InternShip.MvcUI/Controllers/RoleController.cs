@@ -84,12 +84,12 @@ namespace InternShip.MvcUI.Controllers
             {
                 Roles.AddUserToRole(Username, Role);
                 TempData["JsFunc"] = "success();";
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("AddUser2Role", "Role");
             }
             catch (Exception)
             {
                 TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("AddUser2Role", "Role");
             }
         }
 
