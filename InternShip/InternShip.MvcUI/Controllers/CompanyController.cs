@@ -45,7 +45,7 @@ namespace InternShip.MvcUI.Controllers
             catch (Exception)
             {
                 TempData["JsFunc"] = "error();";
-                return RedirectToAction("Company");
+                return RedirectToAction("Company",new {id=-1});
             }
         }
 
@@ -61,17 +61,19 @@ namespace InternShip.MvcUI.Controllers
                     company.MapTo<Company>(updatedCompany);
                     context.SaveChanges();
                     TempData["JsFunc"] = "success();";
+                    return RedirectToAction("Index");
                 }
                 else
                 {
                     TempData["JsFunc"] = "warning();";
+                    return RedirectToAction("Company", new { id = updatedCompany.CompanyID});
                 }
-                return RedirectToAction("Index");
+                
             }
             catch (Exception)
             {
                 TempData["JsFunc"] = "error();";
-                return RedirectToAction("Company", "Company");
+                return RedirectToAction("Company", new { id = -1 });
             }
         }
 
@@ -85,10 +87,16 @@ namespace InternShip.MvcUI.Controllers
                 if (deletedCompany != null)
                 {
                     deletedCompany.DelDate = DateTime.Now;
+                    context.SaveChanges();
+                    TempData["JsFunc"] = "success();";
+                    return RedirectToAction("Index");
                 }
-                context.SaveChanges();
-                TempData["JsFunc"] = "success();";
-                return RedirectToAction("Index");
+                else
+                {
+                    TempData["JsFunc"] = "warning();";
+                    return RedirectToAction("Index");
+                }
+                
             }
             catch (Exception)
             {
@@ -102,7 +110,6 @@ namespace InternShip.MvcUI.Controllers
         {
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
-
             ViewBag.Companies = context.Companies.Where(x => x.IsBlackCompany == true & x.DelDate == null).ToList();
             return View();
         }
