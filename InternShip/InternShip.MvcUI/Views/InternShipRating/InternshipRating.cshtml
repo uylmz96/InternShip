@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "InternshipRating";
+}
+@model InternShipResult
+@using InternShip.MvcUI.Models;
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Gerekçe
+                </div>
+                <div class="block-controls">
+                    @*<a href="/RefusalReason/Index" class="block-control block-control-remove"></a>*@
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    @{if (Model == null)
+                        {
+                            <form role="form" action="/InternShipRating/InternshipRatingAdd" method="post">
+                                <div class="form-group">
+                                    <label for="reason_select">Staj Değerlendirme Sonucu Seçiniz : </label>
+                                    <select id="reason_select" class="form-control" name="RefusalReasonID_select">
+                                        @if (ViewBag.Reasons != null)
+                                        {
+                                            foreach (RefusalReason item in ViewBag.Reasons)
+                                            {
+                                                <option value="@item.ReasonID">@item.Reason</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option value="-1" disabled>Lütfen parametre ekleyiniz.</option>
+                                        }
+                                    </select>      
+                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID" value="@Model.RefusalReasonID" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="acceptedTime">Kabul Edilen Gün Sayısı : </label>
+                                    <input type="number" class="form-control" id="acceptedTime" placeholder="Gerekçe başlığını giriniz." name="AcceptedTime">
+                                </div>
+                                <div class="form-group">
+                                    <label for="desc">Açıklama</label>
+                                    <input type="text" class="form-control" id="desc" placeholder="Açıklama giriniz." name="Desc">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form role="form" action="/InternShipRating/InternshipRatingUpdate" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="resultid" placeholder="Gerekçe başlığını giriniz." name="ResultID" value="@Model.ResultID">
+                                    <input type="hidden" class="form-control" id="internshipid" placeholder="Gerekçe başlığını giriniz." name="InternShipID" value="@Model.InternShipID"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reason_select">Staj Değerlendirme Sonucu Seçiniz : </label>
+                                    <select id="reason_select" class="form-control" name="RefusalReasonID_select">
+                                        @if (ViewBag.Reasons != null)
+                                        {
+                                            foreach (RefusalReason item in ViewBag.Reasons)
+                                            {
+                                                <option value="@item.ReasonID">@item.Reason</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option value="-1" disabled>Lütfen parametre ekleyiniz.</option>
+                                        }
+                                    </select>
+                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID" value="@Model.RefusalReasonID" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="acceptedTime">Kabul Edilen Gün Sayısı : </label>
+                                    <input type="number" class="form-control" id="acceptedTime" placeholder="Gerekçe başlığını giriniz." name="AcceptedTime" value="@Model.AcceptedTime">
+                                </div>
+                                <div class="form-group">
+                                    <label for="desc">Açıklama</label>
+                                    <input type="text" class="form-control" id="desc" placeholder="Açıklama giriniz." name="Desc" value="@Model.Desc">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </form>
+                        }
+                    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <span id="spnmessage" style="font-size:20px">@ViewBag.Message</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ScriptSection{
+    <script>
+        $("#reason_select").change(function () {
+            $("#reason").val($("#reason_select").val());
+        });
+        if ($("#reason").val() != "") {
+            $("#reason_select").val($("#reason").val());
+        }
+    </script>        
+}

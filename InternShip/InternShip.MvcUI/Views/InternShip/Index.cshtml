@@ -67,11 +67,11 @@
                                                 }
                                                 <td>@item.Time</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-primary rounded user-roles" data-internshipid="@item.InternShipID" data-toggle="modal" data-target="#default-modal-alert">Detay</a>
+                                                    <a href="/InternShip/IntershipDetail/@item.InternShipID" class="btn btn-warning rounded">Detay</a>
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="btn btn-danger rounded" data-username="@item.InternShipID">Güncelle</a>
-                                                    <a href="#" class="btn btn-danger rounded userdelete" data-username="@item.InternShipID">Sil</a>
+                                                    <a href="/InternShip/Internship/@item.InternShipID" class="btn btn-warning rounded">Güncelle</a>
+                                                    <a href="/InternShip/InternshipDelete/@item.InternShipID" class="btn btn-danger rounded">Sil</a>
                                                 </td>
                                             </tr>
                                         }

@@ -1011,6 +1011,7 @@
     <Compile Include="App_Classes\Result.cs" />
     <Compile Include="App_Classes\User.cs" />
     <Compile Include="Controllers\InternShipController.cs" />
+    <Compile Include="Controllers\InternShipRatingController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\RefusalReasonController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -1148,6 +1149,9 @@
     <Content Include="Views\Personal\PasswordChange.cshtml" />
     <Content Include="Views\Personal\UpdateUser.cshtml" />
     <Content Include="Views\InternShip\Internship.cshtml" />
+    <Content Include="Views\InternShip\IntershipDetail.cshtml" />
+    <Content Include="Views\InternShipRating\Index.cshtml" />
+    <Content Include="Views\InternShipRating\InternshipRating.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

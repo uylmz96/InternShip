@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace InternShip.MvcUI.Controllers
 {
+    using InternShip.MvcUI.App_Classes;
     using Models;
     using System.Web.Security;
 
@@ -18,84 +19,76 @@ namespace InternShip.MvcUI.Controllers
         public ActionResult Index()
         {
             ViewBag.Internships = ctx.InternShips.ToList().Where(x => x.DelDate == null);
-            if (TempData["JsFunc"] != null)            
+            if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
-            
+
             return View();
         }
+        
         //GET: InternshipAdd
         public ActionResult Internship(int id)
         {
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
-            MembershipUserCollection model = Membership.GetAllUsers();
+            ViewBag.Users = Membership.GetAllUsers();
+            InternShip model = ctx.InternShips.SingleOrDefault(x => x.InternShipID == id);
             return View(model);
         }
+        
         //POST: InternshipAdd
         public ActionResult InternshipAdd(InternShip internship)
         {
-            try
-            {
-                ctx.Set<InternShip>().Add(internship);
-                ctx.SaveChanges();
-                TempData["JsFunc"] = "success();";
-                return RedirectToAction("Index");
-            }
-            catch (Exception)
-            {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("InternshipAdd");
-            }
-
+            ctx.Set<InternShip>().Add(internship);
+            TempData["JsFunc"] = Result.isAppliedSaveChanges(ctx);
+            return RedirectToAction("Index");
         }
+        
         //POST: InternshipUpdate
         public ActionResult InternshipUpdate(InternShip internship)
         {
             InternShip updatedInternship = ctx.InternShips.FirstOrDefault(x => x.InternShipID == internship.InternShipID);
-            try
-            {                
-                if (updatedInternship != null)
-                {
-                    internship.MapTo<InternShip>(updatedInternship);
-                    TempData["JsFunc"] = "success();";
-                    ctx.SaveChanges();
-                }
-                else
-                {
-                    TempData["JsFunc"] = "warning();";
-                }
+            if (updatedInternship != null)
+            {
+                internship.MapTo<InternShip>(updatedInternship);
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(ctx);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("InternshipAdd");
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Internship", new { id = updatedInternship.InternShipID });
             }
-
         }
+       
         //GET: InternshipDelete
         public ActionResult InternshipDelete(int id)
         {
-            try
+            InternShip updatedInternship = ctx.InternShips.FirstOrDefault(x => x.InternShipID == id);
+            if (updatedInternship != null)
             {
-                InternShip updatedInternship = ctx.InternShips.FirstOrDefault(x => x.InternShipID == id);
-                if (updatedInternship != null)
-                {
-                    updatedInternship.DelDate = DateTime.Now;
-                    TempData["JsFunc"] = "success();";
-                    ctx.SaveChanges();
-                }
-                else
-                {
-                    TempData["JsFunc"] = "warning();";
-                }
+                updatedInternship.DelDate = DateTime.Now;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(ctx);
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
-                TempData["JsFunc"] = "error();";
-                return RedirectToAction("InternshipAdd");
+                TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
+                return RedirectToAction("Internship", new { id = updatedInternship.InternShipID });
             }
+        }
+
+        //GET: Internship Detail
+        public ActionResult IntershipDetail(string id)
+        {
+            int _id = Convert.ToInt32(id);
+            InternShip _internship = ctx.InternShips.FirstOrDefault(x => x.InternShipID == _id);
+            Company _company = ctx.Companies.FirstOrDefault(x => x.CompanyID == _internship.CompanyID);
+            Student _student = ctx.Students.FirstOrDefault(x=>x.StudentID==_internship.StudentID);
+            MembershipUser _adviser = Membership.GetUser(_internship.AdviserID);
+            ViewBag.InternShip = _internship;
+            ViewBag.Student = _student;
+            ViewBag.Company = _company;
+            return View(_adviser);
         }
     }
 }

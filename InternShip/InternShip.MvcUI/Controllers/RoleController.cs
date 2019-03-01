@@ -60,7 +60,7 @@ namespace InternShip.MvcUI.Controllers
             }
             else
             {
-                TempData["JsFunc"] = "warning();";
+                TempData["JsFunc"] = "warningMessage('Yetki Kullanılmaktadır.');";
                 return RedirectToAction("Index");
             }
            

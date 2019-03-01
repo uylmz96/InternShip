@@ -23,6 +23,7 @@ namespace InternShip.MvcUI.Controllers
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View();
         }
+
         //GET: StudentAdd
         public ActionResult Student(int id)
         {
@@ -31,14 +32,25 @@ namespace InternShip.MvcUI.Controllers
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View(student);
         }
+
         //POST: StudentAdd
         [HttpPost]
         public ActionResult StudentAdd(Student student)
         {
-            context.Set<Student>().Add(student);
-            TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
-            return RedirectToAction("Index");
+            Student insertedStudent = context.Students.SingleOrDefault(x => x.StudentNumber == student.StudentNumber & x.DelDate == null);
+            if (insertedStudent == null)
+            {
+                context.Set<Student>().Add(student);
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["JsFunc"] = "warningMessage('Öğrenci numarasına ait öğrenci zaten mevcut ');";
+                return RedirectToAction("Student",new { id=insertedStudent.StudentID});
+            }
         }
+
         //POST: StudentUpdate
         [HttpPost]
         public ActionResult StudentUpdate(Student student)
@@ -54,8 +66,9 @@ namespace InternShip.MvcUI.Controllers
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
                 return RedirectToAction("Student", new { id = updatedStudent.StudentID });
-            }           
+            }
         }
+
         //POST: StudentDelete
         [HttpGet]
         public ActionResult StudentDelete(int id)
@@ -73,6 +86,7 @@ namespace InternShip.MvcUI.Controllers
                 return RedirectToAction("Student", new { id = updatedStudent.StudentID });
             }
         }
+
         //GET: GetStudent Autocomplete
         [HttpGet]
         public JsonResult AutoComplete(string search)
@@ -84,5 +98,19 @@ namespace InternShip.MvcUI.Controllers
             }).ToList();
             return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        //GET: GetCompanyName
+        public JsonResult AutoCompleteName(string search)
+        {
+            int id = Convert.ToInt32(search);
+            List<autocomplete> allsearch = context.Students.Where(x => x.StudentID == id & x.DelDate == null).Select(x => new autocomplete
+            {
+                id = x.StudentID.ToString(),
+                value = x.StudentNumber + " - " + x.Name + " " + x.Surname
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+
     }
 }

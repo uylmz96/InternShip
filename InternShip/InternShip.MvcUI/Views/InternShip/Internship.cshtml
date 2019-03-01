@@ -4,7 +4,7 @@
 }
 @using System.Web.Security;
 @using InternShip.MvcUI.Models;
-@model MembershipUserCollection
+@model InternShip
 <div class="row">
     <div class="col-md-12">
         <div class="block">
@@ -19,56 +19,125 @@
             </div>
             <div class="block-content-outer">
                 <div class="block-content-inner">
-                    <form role="form" action="/Role/AddUser2Role" method="post">
-                        <div class="ui-widget form-group">
-                            <label for="student">Öğrenci </label>
-                            <input id="student" class="form-control" name="StudentID">
-                        </div>
-                        <div class="ui-widget form-group">
-                            <label for="company">Şirket </label>
-                            <input id="company" class="form-control" name="CompanyID">
-                        </div>
-                        <div class="ui-widget form-group">
-                            <label for="adviser">Danışman </label>
-                            <select id="adviser" class="form-control" name="AdviserID">
-                                @if (Model == null)
-                                {
-                                    <option value="-1" disabled>Danışman Kullanıcı Bulunamadı.</option>
-                                }
-                                else
-                                {
-                                    foreach (MembershipUser item in Model)
-                                    {
-                                        <option value="@item.UserName">@item.Comment</option>
-                                    }
 
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Başlangıç Tarihi</label>
-                            <div class="input-group" id="datetimepicker5">
-                                <span class="input-group-addon input-group-icon">
-                                    <span class="glyphicon-calendar glyphicon"></span>
-                                </span>
-                                <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly />
+                    @if (Model == null)
+                    {
+                        <form role="form" action="/InternShip/InternshipAdd" method="post">
+                            <div class="ui-widget form-group">
+                                <label for="student_autocomplete">Öğrenci </label>
+                                <input id="student_autocomplete" class="form-control" name="autocomplete">
+                                <input type="hidden" id="student" class="form-control" name="StudentID">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Bitiş Tarihi</label>
-                            <div class="input-group" id="datetimepicker6">
-                                <span class="input-group-addon input-group-icon">
-                                    <span class="glyphicon-calendar glyphicon"></span>
-                                </span>
-                                <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" readonly />
+                            <div class="ui-widget form-group">
+                                <label for="company_autocomplete">Şirket </label>
+                                <input id="company_autocomplete" class="form-control" name="autocomplete">
+                                <input type="hidden" id="company" class="form-control" name="CompanyID">
+
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="time">Süre : </label>
-                            <input type="number" class="form-control" id="time" placeholder="" name="Time">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Kaydet</button>
-                    </form>
+                            <div class="ui-widget form-group">
+                                <label for="adviser_select">Danışman </label>
+                                <select id="adviser_select" class="form-control" name="AdviserID_select">
+                                    @if (ViewBag.Users == null)
+                                    {
+                                        <option value="-1" disabled>Danışman Kullanıcı Bulunamadı.</option>
+                                    }
+                                    else
+                                    {
+                                        foreach (MembershipUser item in ViewBag.Users)
+                                        {
+                                            <option value="@item.UserName">@item.Comment</option>
+                                        }
+
+                                    }
+                                </select>
+                                <input type="hidden" name="AdviserID" id="adviser"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Başlangıç Tarihi</label>
+                                <div class="input-group" id="datetimepicker5">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bitiş Tarihi</label>
+                                <div class="input-group" id="datetimepicker6">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Süre : </label>
+                                <input type="number" class="form-control" id="time" placeholder="" name="Time">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form role="form" action="/InternShip/InternshipUpdate" method="post">
+                            <div class="ui-widget form-group">                                
+                                <input type="hidden" id="studentID" class="form-control" name="InternShipID" value="@Model.InternShipID">
+                            </div>
+                            <div class="ui-widget form-group">
+                                <label for="student_autocomplete">Öğrenci </label>
+                                <input id="student_autocomplete" class="form-control" name="autocomplete">
+                                <input type="hidden" id="student" class="form-control" name="StudentID" value="@Model.StudentID">
+                            </div>
+                            <div class="ui-widget form-group">
+                                <label for="company">Şirket </label>
+                                <input id="company_autocomplete" class="form-control" name="autocomplete">
+                                <input type="hidden" id="company" class="form-control" name="CompanyID" value="@Model.CompanyID">
+                            </div>
+                            <div class="ui-widget form-group">
+                                <label for="adviser_select">Danışman </label>
+                                <select id="adviser_select" class="form-control" name="AdviserID_select">
+                                    @if (ViewBag.Users == null)
+                                    {
+                                        <option value="-1" disabled>Danışman Kullanıcı Bulunamadı.</option>
+                                    }
+                                    else
+                                    {
+                                        foreach (MembershipUser item in ViewBag.Users)
+                                        {
+                                            <option value="@item.UserName">@item.Comment</option>
+                                        }
+
+                                    }
+                                </select>
+                                <input type="hidden" name="AdviserID" id="adviser" value="@Model.AdviserID"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Başlangıç Tarihi</label>
+                                <div class="input-group" id="datetimepicker5">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly value="@Model.StartDate" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bitiş Tarihi</label>
+                                <div class="input-group" id="datetimepicker6">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Süre : </label>
+                                <input type="number" class="form-control" id="time" placeholder="" name="Time" value="@Model.Time">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+
+
                     @if (ViewBag.Message != null)
                     {
                         <span id="spnmessage" style="font-size:20px">@ViewBag.Message</span>
@@ -80,20 +149,56 @@
 </div>
 @section scriptSection{
     <script>
-        $("#company").autocomplete({
-            source: function (request, response) {
+        setTimeout(function () {
+            if ($("#student").val() != "") {
+                debugger;
                 $.ajax({
-                    url: "/Company/AutoComplete",
+                    url: "/Student/AutoCompleteName",
+                    dataType: "json",
+                    data: {
+                        search: $("#student").val()
+                    },
+                    success: function (data) {
+                        debugger;
+                        $("#student_autocomplete").val(data[0].value);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: student autocompleteName");
+                    }
+                });
+            }
+        }, 50);
+        setTimeout(function () {
+            if ($("#company").val() != "") {
+                debugger;
+                $.ajax({
+                    url: "/Company/AutoCompleteName",
                     dataType: "json",
                     data: {
                         search: $("#company").val()
                     },
                     success: function (data) {
-                        debugger;
+                        $("#company_autocomplete").val(data[0].value);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: company autocompleteName");
+                    }
+                });
+            }
+        }, 100);
+        $("#company_autocomplete").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Company/AutoComplete",
+                    dataType: "json",
+                    data: {
+                        search: $("#company_autocomplete").val()
+                    },
+                    success: function (data) {                       
                         response($.map(data, function (item) {
                             return {
-                                label: item.Name,
-                                value: item.value
+                                label: item.value,
+                                id: item.id
                             }
                         }))
                     },
@@ -105,6 +210,7 @@
             minLength: 2,
             select: function (event, ui) {
                 console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+                $("#company").val(ui.item.id);
             },
             open: function () {
                 $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
@@ -113,31 +219,32 @@
                 $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
             }
         });
-        $("#student").autocomplete({
+        $("#student_autocomplete").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     url: "/Student/AutoComplete",
                     dataType: "json",
                     data: {
-                        search: $("#student").val()
+                        search: $("#student_autocomplete").val()
                     },
                     success: function (data) {
-                        debugger;
                         response($.map(data, function (item) {
                             return {
-                                label: item.Name,
-                                value: item.value
+                                label: item.value,
+                                id: item.id
+
                             }
                         }))
                     },
                     error: function (xhr, status, error) {
-                        console.log("Error: student autocomplete");
+                        console.log("Error: student autocomplete " + error);
                     }
                 });
             },
             minLength: 2,
             select: function (event, ui) {
-                console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+                console.log("Selected: " + ui.item.label + " aka " + ui.item.id);
+                $("#student").val(ui.item.id);
             },
             open: function () {
                 $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
@@ -147,6 +254,12 @@
             }
         });
 
-
+        $("#adviser_select").change(function () {
+            $("#adviser").val($("#adviser_select").val());
+        });
+        if ($("#adviser").val() != "") {
+            $("#adviser_select").val($("#adviser").val());
+        }
+     
     </script>
-}
+}   

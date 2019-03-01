@@ -131,5 +131,17 @@ namespace InternShip.MvcUI.Controllers
             }).ToList();
             return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        //GET: GetCompanyName
+        public JsonResult AutoCompleteName(string search)
+        {
+            int id = Convert.ToInt32(search);
+            List<autocomplete> allsearch = context.Companies.Where(x => x.CompanyID == id & x.DelDate == null).Select(x => new autocomplete
+            {
+                id = x.CompanyID.ToString(),
+                value = x.CompanyName
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }
