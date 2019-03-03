@@ -30,6 +30,7 @@ namespace InternShip.MvcUI.Models
         public DbSet<Document> Documents { get; set; }
         public DbSet<InternShip> InternShips { get; set; }
         public DbSet<InternShipResult> InternShipResults { get; set; }
+        public DbSet<PreInternship> PreInternships { get; set; }
         public DbSet<RefusalReason> RefusalReasons { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
@@ -59,6 +60,7 @@ namespace InternShip.MvcUI.Models
             modelBuilder.Configurations.Add(new DocumentMap());
             modelBuilder.Configurations.Add(new InternShipMap());
             modelBuilder.Configurations.Add(new InternShipResultMap());
+            modelBuilder.Configurations.Add(new PreInternshipMap());
             modelBuilder.Configurations.Add(new RefusalReasonMap());
             modelBuilder.Configurations.Add(new StudentMap());
             modelBuilder.Configurations.Add(new sysdiagramMap());

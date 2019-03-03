@@ -56,7 +56,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
-                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
+                return RedirectToAction("Company", new { id = company.CompanyID });
             }
         }
 
@@ -74,7 +74,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
-                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
+                return RedirectToAction("Company", new { id = id });
             }
         }
 
@@ -100,7 +100,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
-                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
+                return RedirectToAction("Company", new { id = id });
             }
         }
 
@@ -117,7 +117,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
-                return RedirectToAction("Company", new { id = updatedCompany.CompanyID });
+                return RedirectToAction("Company", new { id = id });
             }
         }
 

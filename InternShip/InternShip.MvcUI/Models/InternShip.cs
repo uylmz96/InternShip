@@ -9,6 +9,7 @@ namespace InternShip.MvcUI.Models
         {
             this.Documents = new List<Document>();
             this.InternShipResults = new List<InternShipResult>();
+            this.PreInternships = new List<PreInternship>();
         }
 
         public int InternShipID { get; set; }
@@ -24,5 +25,6 @@ namespace InternShip.MvcUI.Models
         public virtual ICollection<Document> Documents { get; set; }
         public virtual Student Student { get; set; }
         public virtual ICollection<InternShipResult> InternShipResults { get; set; }
+        public virtual ICollection<PreInternship> PreInternships { get; set; }
     }
 }

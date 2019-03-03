@@ -4,13 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace InternShip.MvcUI.Controllers
 {
     using App_Classes;
+    using Models;
     using System.Web.Security;
 
     public class LoginController : Controller
     {
+
+        InternShipContext context = new InternShipContext();
         // GET: Login
         public ActionResult Login()
         {
@@ -52,6 +56,32 @@ namespace InternShip.MvcUI.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Login");
+        }
+
+        //GET: StudentLogin
+        public ActionResult StudentLogin()
+        {
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
+            return View();
+        }
+
+        //POST: StudentLogin
+        [HttpPost]
+        public ActionResult StudentLogin(string studentNumber)
+        {
+            Student student = context.Students.SingleOrDefault(x => x.StudentNumber == studentNumber & x.DelDate == null);
+            if (student != null)
+            {
+                Session.Add("studentNumber", student.StudentNumber);
+                Session.Add("studentName", string.Format(" {0} {1}",student.Name,student.Surname));
+                return RedirectToAction("Index", "Home", new { id = studentNumber });
+            }
+            else
+            {
+                TempData["JsFunc"] = "errorMessage('Öğrenci bulunamadı. Yetkili ile görüşünüz.');";
+                return RedirectToAction("StudentLogin");
+            }
         }
 
     }

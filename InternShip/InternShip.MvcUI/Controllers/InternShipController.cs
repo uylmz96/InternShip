@@ -56,7 +56,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
-                return RedirectToAction("Internship", new { id = updatedInternship.InternShipID });
+                return RedirectToAction("Internship", new { id = internship.InternShipID });
             }
         }
        
@@ -73,7 +73,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
-                return RedirectToAction("Internship", new { id = updatedInternship.InternShipID });
+                return RedirectToAction("Internship", new { id = id });
             }
         }
 

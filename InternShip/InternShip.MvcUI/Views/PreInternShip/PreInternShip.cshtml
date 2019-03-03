@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "Ön Başvuru";
+    Layout = "/Views/Shared/_Layout2.cshtml";
+}
+
+@using InternShip.MvcUI.Models;
+@model PreInternship
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Şirket
+                </div>
+                <div class="block-controls">
+                    <a href="/PreInternShip/Index" class="block-control block-control-remove"></a>
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    @if (Model == null)
+                    {
+                        <form role="form" action="/PreInternShip/PreInternShipAdd" method="post">
+                            <div class="form-group">
+                                <label for="studentNumber">Öğrenci Numarası</label>
+                                <input type="text" class="form-control" id="studentNumber" placeholder="Öğrenci numaranızı giriniz." name="StudentNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="companyname">Şirket Adı</label>
+                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Şirket Adresi</label>
+                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress">
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">Şirket E-Mail</label>
+                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Şirket Telefon</label>
+                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone">
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Departman</label>
+                                <input type="text" class="form-control" id="department" placeholder="Varsa,Staj yapılacak departmanı giriniz." name="Department">
+                            </div>
+                            <div class="form-group">
+                                <label for="activity">Faaliyet Alanı</label>
+                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity">
+                            </div>
+                            <div class="form-group">
+                                <label for="tech">Teknolojiler</label>
+                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeDesc">Çalışan Bilgileri</label>
+                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Staj Konusu</label>
+                                <input type="text" class="form-control" id="subject" placeholder="Stajın konusu" name="Subject">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Başlangıç Tarihi</label>
+                                <div class="input-group" id="datetimepicker5">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bitiş Tarihi</label>
+                                <div class="input-group" id="datetimepicker6">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" readonly />
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form role="form" action="/PreInternShip/PreInternShipUpdate" method="post">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="preinternshipID" placeholder="Öğrenci numaranızı giriniz." name="PreInternShipID" value="@Model.PreInternshipID">
+                                <input type="hidden" class="form-control" id="preinternshipID" placeholder="Öğrenci numaranızı giriniz." name="StudentID" value="@Model.StudentID">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentNumber">Öğrenci Numarası</label>
+                                <input type="text" class="form-control" id="studentNumber" placeholder="Öğrenci numaranızı giriniz." name="StudentNumber" value="@Model.StudentNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="companyname">Şirket Adı</label>
+                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName"  value="@Model.CompanyName">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Şirket Adresi</label>
+                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress"  value="@Model.CompanyAddress">
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">Şirket E-Mail</label>
+                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail"  value="@Model.CompanyMail">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Şirket Telefon</label>
+                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone"  value="@Model.CompanyPhone">
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Departman</label>
+                                <input type="text" class="form-control" id="department" placeholder="Varsa,Staj yapılacak departmanı giriniz." name="Department" value="@Model.Department">
+                            </div>
+                            <div class="form-group">
+                                <label for="activity">Faaliyet Alanı</label>
+                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity"  value="@Model.Activity">
+                            </div>
+                            <div class="form-group">
+                                <label for="tech">Teknolojiler</label>
+                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech"  value="@Model.Tech">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeDesc">Çalışan Bilgileri</label>
+                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc"  value="@Model.EmployeeDesc">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Staj Konusu</label>
+                                <input type="text" class="form-control" id="subject" placeholder="Stajın konusu" name="Subject">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Başlangıç Tarihi</label>
+                                <div class="input-group" id="datetimepicker5">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate" readonly />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bitiş Tarihi</label>
+                                <div class="input-group" id="datetimepicker6">
+                                    <span class="input-group-addon input-group-icon">
+                                        <span class="glyphicon-calendar glyphicon"></span>
+                                    </span>
+                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly />
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    @if (ViewBag.Message != null)
+                    {
+                        <span id="spnmessage" style="font-size:20px">@ViewBag.Message</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptSection{
+    <script>
+        document.getElementById('phone').addEventListener('blur', function (e) {
+            var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{4})/);
+            e.target.value = '(' + x[1] + ') ' + x[2] + '-' + x[3];
+        });
+    </script>
+}
+

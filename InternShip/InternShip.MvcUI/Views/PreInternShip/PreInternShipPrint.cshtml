@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "PreInternShipPrint";
+    Layout = "/Views/Shared/_Layout2.cshtml";
+}
+@using InternShip.MvcUI.Models;
+@model PreInternship
+<div class="row hidden-print">
+    <div class="col-md-6">
+        <h1>
+            <span aria-hidden="true" class="icon icon-documents"></span>
+            <span class="main-text">
+                Ön Başvuru Çıktısı
+            </span>
+        </h1>
+    </div>
+    <div class="col-md-6">
+        <div class="page-heading-controls">
+            <a class="btn btn-primary" role="button" href="javascript:window.print();">
+                Yazdır
+                <span class="glyphicon glyphicon-print"></span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row" style="background:white;">
+    <div class="block" style="min-height:888px;">
+        <div class="col-md-12">
+            @if (Model != null)
+            {
+                <div class="col-md-12">
+                    <p style="text-align:center;">MEÜ BİLGİSAYAR MÜHENDİSLİĞİ STAJ ÖN BAŞVURU FORMU</p>
+                </div>
+                <table class="table table-bordered table-striped ">
+                    <tr>
+                        <td class="col-md-3">Kuruluş Adı</td>
+                        <td class="col-md-9">@Model.CompanyName</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3">Varsa,kuruluşta staj yapılacak birimin adı</td>
+                        <td class="col-md-9">@Model.Department</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3">Kuruluş faaliyet alanları</td>
+                        <td class="col-md-9">@Model.Activity</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3">Staj yapılacak birimdeki mühendis sayısı ve genel olarak mezuniyet alanları</td>
+                        <td class="col-md-9">@Model.EmployeeDesc</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-3">Kuruluşun proje geliştirmek için kullandığı teknolojiler</td>
+                        <td class="col-md-9">@Model.Tech</td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-3">Stajyerin staj konusu</td>
+                        <td class="col-md-9">@Model.Subject</td>
+                    </tr>
+                </table>
+                <br />
+                if (Model.Student == null)
+                {
+                    <p>Stajyer (Ad-Soyad-İmza-Tarih)</p>
+                }
+                else
+                {
+                    <p>Stajyer (@Model.Student.Name @Model.Student.Surname , İmza) [@DateTime.Now.ToShortDateString()]</p>
+                }
+                <br />
+                <br />
+                <p>
+                    Yukarıda adı ve soyadı yazan Mersin Üniversitesi Bilgisayar Mühendisliği öğrencisinin yetkilisi olduğum kuruluşta 20 iş günü staj yapması uygundur.
+                </p>
+                <br />
+                <br />
+              <table class="table">
+                  <tr class="col-md-12">
+                      <td class="col-md-6"> <p style="text-align:left">Birim Yetkilisi (Ad Soyad,Unvan,İmza,Tarih,Kaşe)</p></td>
+                      @if (ViewBag.Adviser == null)
+                      {
+                          <td class="col-md-6"> <p style="text-align:right">Staj Danışman(Ad Soyad,İmza)</p></td>
+                      }
+                      else
+                      {
+                          <td class="col-md-6"> <p style="text-align:right">Staj Danışman(@ViewBag.Adviser,İmza)</p></td>
+                      }
+                  </tr>
+              </table>
+               
+               
+              
+            }
+            else
+            {
+                < p style = "color:red; font-size:16px;" > Ön Başvuru Formuna Erişilemiyor </ p >
+            }
+
+        </div>
+    </div>
+</div>

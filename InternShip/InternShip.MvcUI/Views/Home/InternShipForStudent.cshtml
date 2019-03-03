@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "InternShipForStudent";
+    Layout = "/Views/Shared/_Layout2.cshtml";
+}
+
+@using System.Web.Security;
+@using InternShip.MvcUI.Models;
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Stajlar
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    <a href="/Internship/Internship/-1" class="btn btn-success rounded" role="button">Yeni Staj</a>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner" style="overflow-x: auto;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-condensed" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>Öğrenci Numarası</th>
+                                    <th>Öğrenci</th>
+                                    <th>Danışman</th>
+                                    <th>Şirket</th>
+                                    <th>Gün</th>
+                                    <th>Detay</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ if (ViewBag.Internships != null)
+                                    {
+                                        foreach (InternShip item in ViewBag.Internships)
+                                        {
+                                            <tr>
+                                                @if (item.Student != null)
+                                                {
+                                                    <td>@item.Student.StudentNumber</td>
+                                                    <td>@item.Student.Name @item.Student.Surname</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                    <td>-</td>
+
+                                                }
+                                                @if (item.AdviserID != null && Membership.GetUser(item.AdviserID) != null)
+                                                {
+                                                    <td>@Membership.GetUser(item.AdviserID).Comment</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                @if (item.Company != null)
+                                                {
+                                                    <td>@item.Company.CompanyName</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                <td>@item.Time</td>
+                                                <td>
+                                                    <a href="/InternShip/IntershipDetail/@item.InternShipID" class="btn btn-warning rounded">Detay</a>
+                                                    <a href="/InternShip/IntershipDetail/@item.InternShipID" class="btn btn-warning rounded">Dosya Yükle</a>
+                                                </td>
+                                               
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

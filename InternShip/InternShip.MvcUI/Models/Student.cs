@@ -8,6 +8,7 @@ namespace InternShip.MvcUI.Models
         public Student()
         {
             this.InternShips = new List<InternShip>();
+            this.PreInternships = new List<PreInternship>();
         }
 
         public int StudentID { get; set; }
@@ -22,5 +23,6 @@ namespace InternShip.MvcUI.Models
         public Nullable<System.DateTime> CrtDate { get; set; }
         public Nullable<System.DateTime> DelDate { get; set; }
         public virtual ICollection<InternShip> InternShips { get; set; }
+        public virtual ICollection<PreInternship> PreInternships { get; set; }
     }
 }

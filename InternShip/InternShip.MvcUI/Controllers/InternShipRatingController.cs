@@ -20,7 +20,7 @@ namespace InternShip.MvcUI.Controllers
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"];
             string _adviser = User.Identity.Name;
-            ViewBag.Internships = context.InternShips.Where(x => x.AdviserID == _adviser).OrderByDescending(x => x.CrtDate).ToList();
+            ViewBag.Internships = context.InternShips.Where(x => x.AdviserID == _adviser & x.DelDate==null).OrderByDescending(x => x.CrtDate).ToList();
             return View();
         }
 
