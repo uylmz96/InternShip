@@ -34,7 +34,9 @@ namespace InternShip.MvcUI.Controllers
         [HttpPost]
         public ActionResult ReasonAdd(string Reason, string Desc)
         {
+
             RefusalReason _reason = new RefusalReason();
+            _reason.CrtDate = DateTime.Now;
             _reason.Reason = Reason;
             _reason.Desc = Desc;
             ctx.Set<RefusalReason>().Add(_reason);

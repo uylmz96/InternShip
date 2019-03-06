@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "Ön Başvuru Onaylama";
+}
+@using InternShip.MvcUI.Models;
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Ön Başvuru Formları
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                    <a href="/PreInternShip/PreInternShip/-1" class="btn btn-success rounded" role="button">Yeni Ekle</a>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner" style="overflow-x: auto;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-condensed" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>Öğrenci Numarası</th>
+                                    <th>Şiket Adı</th>
+                                    <th>Adres</th>
+                                    <th>Mail</th>
+                                    <th>Telefon</th>
+                                    <th>Departman</th>
+                                    <th>Faaliyet Alanı</th>
+                                    <th>Teknolojiler</th>
+                                    <th>Çalışan Bilgileri</th>
+                                    <th>Staj Konusu</th>
+                                    <th>Başlama Tarihi</th>
+                                    <th>Bitiş Tarihi</th>
+                                    <th>Onay Durumu</th>
+                                    <th>Çıktı</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.PreInternShips != null)
+                                {
+                                    foreach (PreInternship item in ViewBag.PreInternShips)
+                                    {
+                                        <tr>
+                                            <td>@item.StudentNumber</td>
+                                            <td>@item.CompanyName</td>
+                                            <td>@item.CompanyAddress</td>
+                                            <td>@item.CompanyMail</td>
+                                            <td>@item.CompanyPhone</td>
+                                            <td>@item.Department</td>
+                                            <td>@item.Activity</td>
+                                            <td>@item.Tech</td>
+                                            <td>@item.EmployeeDesc</td>
+                                            <td>@item.Subject</td>
+                                            <td>@item.StartDate</td>
+                                            <td>@item.EndDate</td>
+                                            <td>
+                                                @if (item.InternshipID == null)
+                                                {
+
+                                                    <a href="#" class="btn btn-primary rounded adviser-popup-button" data-pre-id="@item.PreInternshipID">Danışman Ata</a>
+                                                }
+                                                else
+                                                {
+                                                    if (item.InternShip.DelDate == null)
+                                                    {
+                                                        <span class="label label-primary">Onaylanmış</span>
+                                                        <br />
+                                                        <a href="/InternShip/PreInternShipRemove/@item.InternshipID" class="btn btn-primary rounded adviser-popup-button">İptal Et</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="label label-danger">İptal Edilmiş</span>
+                                                    }
+                                                }
+                                            </td>
+                                            <td><a href="/PreInternShip/PreInternShipPrint/@item.PreInternshipID" class="btn btn-info rounded ">Çıktı</a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section modalSection{
+    <div class="modal fade" id="default-modal-adviertointernship" tabindex="-1" role="dialog" aria-labelledby="default-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" data-border-top="multi">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="default-modal-label">Danışman Ata</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="modal-preinternship-id" />
+                    @if (ViewBag.Advisers != null)
+                    {
+                        <span>Sıradaki akademisyeni seçiniz.</span>
+                        <select id="modal-adviser_Select" class="form-control">
+                            @foreach (MembershipUser item in ViewBag.Advisers)
+                            {
+                                <option value="@item.UserName">@item.Comment</option>
+                            }
+                        </select>
+
+                    }
+                    else
+                    {
+                        <span>Akademisyen rolünde kullanıcı bulunamadı.</span>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modal-button-close" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button type="button" id="modal-button-save-adviser" data-pre-id="-1" class="btn btn-primary">Tamam</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+}
+@section scriptSection{
+    <script>
+        $("#modal-button-save-adviser").click(function () {
+            console.log("uylmz96");
+            debugger;
+            var adviser = $('#modal-adviser_Select').val();
+            var id = $('#modal-preinternship-id').val();
+            $('#default-modal-adviertointernship').modal('hide');
+            $.ajax({
+                method: "POST",
+                url: "/InternShip/PreInternShipAccept",
+                data: {
+                    ID: id,
+                    Adviser: adviser
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 1) {
+                        success();
+                    } else if (data == -1) {
+                        error();
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: AdviserToInternship()");
+                }
+            });
+        });
+
+
+        $(".adviser-popup-button").click(function () {
+            $('#default-modal-adviertointernship').modal();
+            var val = $(this).data('pre-id');
+            console.log("PreInternshipID : " + val);
+            $('#modal-preinternship-id').val(val);
+        });
+    </script>
+
+}

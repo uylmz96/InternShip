@@ -30,27 +30,39 @@ namespace InternShip.MvcUI.Controllers
                 TempData["JsFunc"] = "errorMessage('Öğrenci girişi yapılmamış. Lütfen giriş yapınız.')";
                 return RedirectToAction("StudentLogin", "Login");
             }
-           
+
         }
 
         //GET:PreInternShip
         public ActionResult PreInternShip(int id)
         {
-           
-            PreInternship model = context.PreInternships.FirstOrDefault(x => x.PreInternshipID == id);
-            return View(model);
+            if (Session["studentNumber"] != null)
+            {
+                PreInternship model = context.PreInternships.FirstOrDefault(x => x.PreInternshipID == id);
+                return View(model);
+            }
+            else
+            {
+                ViewBag.Internships = null;
+                TempData["JsFunc"] = "errorMessage('Öğrenci girişi yapılmamış. Lütfen giriş yapınız.')";
+                return RedirectToAction("StudentLogin", "Login");
+            }
         }
 
         //POST: PreInternShipAdd
         [HttpPost]
         public ActionResult PreInternShipAdd(PreInternship internship)
         {
+            internship.CrtDate = DateTime.Now;
             if (Session["studentNumber"] != null)
             {
                 string number = Session["studentNumber"].ToString();
                 Student student = context.Students.FirstOrDefault(x => x.StudentNumber == number);
                 if (student != null)
+                {
                     internship.StudentID = student.StudentID;
+                    internship.StudentNumber = student.StudentNumber;
+                }
                 context.Set<PreInternship>().Add(internship);
                 TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");
@@ -87,12 +99,12 @@ namespace InternShip.MvcUI.Controllers
             PreInternship model = context.PreInternships.FirstOrDefault(x => x.PreInternshipID == id);
             if (model != null)
             {
-                ViewBag.Student = context.Students.FirstOrDefault(x=>x.StudentID==model.StudentID);
-                
-                if (model.InternshipID!=null)
+                ViewBag.Student = context.Students.FirstOrDefault(x => x.StudentID == model.StudentID);
+
+                if (model.InternshipID != null)
                 {
-                    InternShip intern = context.InternShips.FirstOrDefault(x=>x.InternShipID==model.InternshipID);
-                    MembershipUser adviser=Membership.GetUser(intern.AdviserID);
+                    InternShip intern = context.InternShips.FirstOrDefault(x => x.InternShipID == model.InternshipID);
+                    MembershipUser adviser = Membership.GetUser(intern.AdviserID);
                     ViewBag.Adviser = adviser.Comment;
                 }
                 else

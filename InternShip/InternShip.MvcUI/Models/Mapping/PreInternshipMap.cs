@@ -54,6 +54,7 @@ namespace InternShip.MvcUI.Models.Mapping
             this.Property(t => t.Department).HasColumnName("Department");
             this.Property(t => t.Activity).HasColumnName("Activity");
             this.Property(t => t.Tech).HasColumnName("Tech");
+            this.Property(t => t.Time).HasColumnName("Time");
             this.Property(t => t.Subject).HasColumnName("Subject");
             this.Property(t => t.EmployeeDesc).HasColumnName("EmployeeDesc");
             this.Property(t => t.StartDate).HasColumnName("StartDate");

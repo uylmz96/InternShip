@@ -22,11 +22,7 @@
                 <div class="block-content-inner">
                     @if (Model == null)
                     {
-                        <form role="form" action="/PreInternShip/PreInternShipAdd" method="post">
-                            <div class="form-group">
-                                <label for="studentNumber">Öğrenci Numarası</label>
-                                <input type="text" class="form-control" id="studentNumber" placeholder="Öğrenci numaranızı giriniz." name="StudentNumber">
-                            </div>
+                        <form role="form" action="/PreInternShip/PreInternShipAdd" method="post">                            
                             <div class="form-group">
                                 <label for="companyname">Şirket Adı</label>
                                 <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName">
@@ -81,6 +77,9 @@
                                     <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" readonly />
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı"/>
+                            </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
                     }
@@ -97,19 +96,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="companyname">Şirket Adı</label>
-                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName"  value="@Model.CompanyName">
+                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName" value="@Model.CompanyName">
                             </div>
                             <div class="form-group">
                                 <label for="address">Şirket Adresi</label>
-                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress"  value="@Model.CompanyAddress">
+                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress" value="@Model.CompanyAddress">
                             </div>
                             <div class="form-group">
                                 <label for="mail">Şirket E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail"  value="@Model.CompanyMail">
+                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail" value="@Model.CompanyMail">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Şirket Telefon</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone"  value="@Model.CompanyPhone">
+                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone" value="@Model.CompanyPhone">
                             </div>
                             <div class="form-group">
                                 <label for="department">Departman</label>
@@ -117,15 +116,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="activity">Faaliyet Alanı</label>
-                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity"  value="@Model.Activity">
+                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity" value="@Model.Activity">
                             </div>
                             <div class="form-group">
                                 <label for="tech">Teknolojiler</label>
-                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech"  value="@Model.Tech">
+                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech" value="@Model.Tech">
                             </div>
                             <div class="form-group">
                                 <label for="employeeDesc">Çalışan Bilgileri</label>
-                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc"  value="@Model.EmployeeDesc">
+                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc" value="@Model.EmployeeDesc">
                             </div>
                             <div class="form-group">
                                 <label for="subject">Staj Konusu</label>
@@ -148,6 +147,9 @@
                                     </span>
                                     <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly />
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" value="@Model.Time"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>

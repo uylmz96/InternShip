@@ -1,0 +1,322 @@
+﻿
+@{
+    ViewBag.Title = "IntershipDetailForStudent";
+    Layout = "/Views/Shared/_Layout2.cshtml";
+}
+
+@model MembershipUser
+<div class="row hidden-print">
+    <div class="col-md-6">
+        <h1>
+            <span aria-hidden="true" class="icon icon-documents"></span>
+            <span class="main-text">
+                Staj Detay
+            </span>
+        </h1>
+    </div>
+    <div class="col-md-6">
+        <div class="page-heading-controls">
+            <a class="btn btn-primary" role="button" href="javascript:window.print();">
+                Print
+                <span class="glyphicon glyphicon-print"></span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- START Block: Order View -->
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    @if (ViewBag.Student != null)
+                    {
+                        <span>@ViewBag.Student.StudentNumber - @ViewBag.Student.Name @ViewBag.Student.Surname</span>
+                    }
+                </div>
+            </div>
+            <div class="block-content-outer" style="min-height:350px;">
+                <div class="block-content-inner">
+                    <div id="order-view-content" class="table-responsive">
+                        <ul id="order-view-tabs" class="nav nav-tabs tabs-left">
+                            <li class="active"><a href="#order-view-tabs-order-student" data-toggle="tab">Öğrenci Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-company" data-toggle="tab">Şirket Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-internship" data-toggle="tab">Staj Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-preinternship" data-toggle="tab">Ön Başvuru Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-rating" data-toggle="tab">Kabul Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-document" data-toggle="tab">Belgeler</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="order-view-tabs-order-student" class="tab-pane active">
+                                <table class="table table-hover">
+                                    @if (ViewBag.Student != null)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-3">Numarası:</td>
+                                                <td class="col-md-9">@ViewBag.Student.StudentNumber</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Adı:</td>
+                                                <td class="col-md-9">@ViewBag.Student.Name</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Soyadı:</td>
+                                                <td class="col-md-9">@ViewBag.Student.Surname</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Mail:</td>
+                                                <td class="col-md-9">@ViewBag.Student.Mail</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Telefon:</td>
+                                                <td class="col-md-9">@ViewBag.Student.Phone</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Okula Giriş Tarihi:</td>
+                                                <td class="col-md-9">@ViewBag.Student.EntryDate
+                                                <td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Mezuniyet Durumu:</td>
+                                                <td class="col-md-9">@ViewBag.Student.isGraduate</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Sisteme Kayıt Tarihi:</td>
+                                                <td class="col-md-9">@ViewBag.Student.CrtDate</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-12">Öğrenci Bilgisi Bulunamadı.</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="order-view-tabs-company">
+                                <table class="table table-hover">
+                                    @if (ViewBag.Company != null)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-3">Adı:</td>
+                                                <td class="col-md-9">@ViewBag.Company.CompanyName</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Adres:</td>
+                                                <td class="col-md-9">@ViewBag.Company.Address</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Mail:</td>
+                                                <td class="col-md-9">@ViewBag.Company.Mail</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Telefon:</td>
+                                                <td class="col-md-9">@ViewBag.Company.Phone</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Açıklama:</td>
+                                                <td class="col-md-9">@ViewBag.Company.Desc</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Kara Liste:</td>
+                                                <td class="col-md-9">@ViewBag.Company.IsBlackCompany</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Sisteme Kayıt Tarihi:</td>
+                                                <td class="col-md-9">@ViewBag.Company.CrtDate</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-12">Şirket Bilgisi Bulunamadı.</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="order-view-tabs-internship">
+                                <table class="table table-hover">
+                                    @if (ViewBag.InternShip != null)
+                                    {
+                                        <tbody>
+                                            @if (Model != null)
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Danışman:</td>
+                                                    <td class="col-md-9">@Model.Comment.ToString()</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Danışman:</td>
+                                                    <td class="col-md-9">Danışman Ataması Yapılmamış</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td class="col-md-3">Başlangıç Tarihi:</td>
+                                                <td class="col-md-9">@ViewBag.InternShip.StartDate</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Bitiş Tarihi:</td>
+                                                <td class="col-md-9">@ViewBag.InternShip.EndDate</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Süre:</td>
+                                                <td class="col-md-9">@ViewBag.InternShip.Time</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Notlandırma:</td>
+                                                <td class="col-md-9">Yeni Sekme Yapılacak</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-12">Staj Detay Bilgisi Bulunamadı.</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="order-view-tabs-preinternship">
+                                <table class="table table-hover">
+                                    @if (ViewBag.PreInternShip != null)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-3">Çalışan Bilgisi:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.EmployeeDesc</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Faaliyet Alanı:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.Activity</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Teknolojiler:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.Tech</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Stajın Konusu:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.Subject</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-12">Ön Başvuru Detay Bilgisi Bulunamadı.</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="order-view-tabs-rating">
+                                <table class="table table-hover">
+                                    @if (ViewBag.Result != null)
+                                    {
+                                        <tbody>
+                                            @if (ViewBag.Result.RefusalReason != null)
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Sonuç:</td>
+                                                    <td class="col-md-9">@ViewBag.Result.RefusalReason.Reason (@ViewBag.Result.RefusalReason.Desc)</td>
+                                                </tr>
+
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Sonuç:</td>
+                                                    <td class="col-md-9">-</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td class="col-md-3">Kabul Edilen Süre:</td>
+                                                <td class="col-md-9">@ViewBag.Result.AcceptedTime</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Açıklama:</td>
+                                                <td class="col-md-9">@ViewBag.Result.Desc</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-12">Notlandırma Bilgisi Bulunamadı.</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="order-view-tabs-document">
+                                <table class="table table-hover">
+                                    @if (ViewBag.InternShip != null)
+                                    {
+                                        <tbody>
+                                            @if (Model != null)
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Danışman:</td>
+                                                    <td class="col-md-9">@Model.Comment.ToString()</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Danışman:</td>
+                                                    <td class="col-md-9">Danışman Ataması Yapılmamış</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td class="col-md-3">Başlangıç Tarihi:</td>
+                                                <td class="col-md-9">@ViewBag.InternShip.StartDate</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Bitiş Tarihi:</td>
+                                                <td class="col-md-9">@ViewBag.InternShip.EndDate</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Süre:</td>
+                                                <td class="col-md-9">@ViewBag.InternShip.Time</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Notlandırma:</td>
+                                                <td class="col-md-9">Yeni Sekme Yapılacak</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-12">Staj Detay Bilgisi Bulunamadı.</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Block: Order View -->
+
+    </div>
+</div>

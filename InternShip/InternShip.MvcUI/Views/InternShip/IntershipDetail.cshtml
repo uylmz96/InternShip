@@ -38,14 +38,15 @@
                 <div class="block-content-inner">
                     <div id="order-view-content" class="table-responsive">
                         <ul id="order-view-tabs" class="nav nav-tabs tabs-left">
-                            <li class="active"><a href="#order-view-tabs-order-details" data-toggle="tab">Öğrenci Detay</a></li>
-                            <li class=""><a href="#order-view-tabs-payment" data-toggle="tab">Şirket Detay</a></li>
-                            <li class=""><a href="#order-view-tabs-products" data-toggle="tab">Staj Detay</a></li>
-                            <li class=""><a href="#order-view-tabs-rating" data-toggle="tab">Kabul Detay</a></li>
+                            <li class="active"><a href="#order-view-tabs-order-student" data-toggle="tab">Öğrenci Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-company" data-toggle="tab">Şirket Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-internship" data-toggle="tab">Staj Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-preinternship" data-toggle="tab">Ön Başvuru Detay</a></li>
+                            <li class=""><a href="#order-view-tabs-result" data-toggle="tab">Kabul Detay</a></li>
                             <li class=""><a href="#order-view-tabs-document" data-toggle="tab">Belgeler</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div id="order-view-tabs-order-details" class="tab-pane active">
+                            <div id="order-view-tabs-order-student" class="tab-pane active">
                                 <table class="table table-hover">
                                     @if (ViewBag.Student != null)
                                     {
@@ -96,7 +97,7 @@
 
                                 </table>
                             </div>
-                            <div class="tab-pane" id="order-view-tabs-payment">
+                            <div class="tab-pane" id="order-view-tabs-company">
                                 <table class="table table-hover">
                                     @if (ViewBag.Company != null)
                                     {
@@ -141,7 +142,7 @@
                                     }
                                 </table>
                             </div>
-                            <div class="tab-pane" id="order-view-tabs-products">
+                            <div class="tab-pane" id="order-view-tabs-internship">
                                 <table class="table table-hover">
                                     @if (ViewBag.InternShip != null)
                                     {
@@ -188,40 +189,26 @@
                                     }
                                 </table>
                             </div>
-                            <div class="tab-pane" id="order-view-tabs-rating">
+                            <div class="tab-pane" id="order-view-tabs-preinternship">
                                 <table class="table table-hover">
-                                    @if (ViewBag.InternShip != null)
+                                    @if (ViewBag.PreInternShip != null)
                                     {
                                         <tbody>
-                                            @if (Model != null)
-                                            {
-                                                <tr>
-                                                    <td class="col-md-3">Danışman:</td>
-                                                    <td class="col-md-9">@Model.Comment.ToString()</td>
-                                                </tr>
-                                            }
-                                            else
-                                            {
-                                                <tr>
-                                                    <td class="col-md-3">Danışman:</td>
-                                                    <td class="col-md-9">Danışman Ataması Yapılmamış</td>
-                                                </tr>
-                                            }
                                             <tr>
-                                                <td class="col-md-3">Başlangıç Tarihi:</td>
-                                                <td class="col-md-9">@ViewBag.InternShip.StartDate</td>
+                                                <td class="col-md-3">Çalışan Bilgisi:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.EmployeeDesc</td>
                                             </tr>
                                             <tr>
-                                                <td class="col-md-3">Bitiş Tarihi:</td>
-                                                <td class="col-md-9">@ViewBag.InternShip.EndDate</td>
+                                                <td class="col-md-3">Faaliyet Alanı:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.Activity</td>
                                             </tr>
                                             <tr>
-                                                <td class="col-md-3">Süre:</td>
-                                                <td class="col-md-9">@ViewBag.InternShip.Time</td>
+                                                <td class="col-md-3">Teknolojiler:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.Tech</td>
                                             </tr>
                                             <tr>
-                                                <td class="col-md-3">Notlandırma:</td>
-                                                <td class="col-md-9">Yeni Sekme Yapılacak</td>
+                                                <td class="col-md-3">Stajın Konusu:</td>
+                                                <td class="col-md-9">@ViewBag.PreInternShip.Subject</td>
                                             </tr>
                                         </tbody>
                                     }
@@ -229,7 +216,47 @@
                                     {
                                         <tbody>
                                             <tr>
-                                                <td class="col-md-12">Staj Detay Bilgisi Bulunamadı.</td>
+                                                <td class="col-md-12">Ön Başvuru Detay Bilgisi Bulunamadı.</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="order-view-tabs-result">
+                                <table class="table table-hover">
+                                    @if (ViewBag.Result != null)
+                                    {
+                                        <tbody>
+                                            @if (ViewBag.Result.RefusalReason != null)
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Sonuç:</td>
+                                                    <td class="col-md-9">@ViewBag.Result.RefusalReason.Reason (@ViewBag.Result.RefusalReason.Desc)</td>
+                                                </tr>
+
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td class="col-md-3">Sonuç:</td>
+                                                    <td class="col-md-9">-</td>
+                                                </tr>
+                                            }
+                                            <tr>
+                                                <td class="col-md-3">Kabul Edilen Süre:</td>
+                                                <td class="col-md-9">@ViewBag.Result.AcceptedTime</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-3">Açıklama:</td>
+                                                <td class="col-md-9">@ViewBag.Result.Desc</td>
+                                            </tr>                                           
+                                        </tbody>
+                                    }
+                                    else
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td class="col-md-12">Notlandırma Bilgisi Bulunamadı.</td>
                                             </tr>
                                         </tbody>
                                     }
@@ -240,35 +267,9 @@
                                     @if (ViewBag.InternShip != null)
                                     {
                                         <tbody>
-                                            @if (Model != null)
-                                            {
-                                                <tr>
-                                                    <td class="col-md-3">Danışman:</td>
-                                                    <td class="col-md-9">@Model.Comment.ToString()</td>
-                                                </tr>
-                                            }
-                                            else
-                                            {
-                                                <tr>
-                                                    <td class="col-md-3">Danışman:</td>
-                                                    <td class="col-md-9">Danışman Ataması Yapılmamış</td>
-                                                </tr>
-                                            }
                                             <tr>
-                                                <td class="col-md-3">Başlangıç Tarihi:</td>
-                                                <td class="col-md-9">@ViewBag.InternShip.StartDate</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-3">Bitiş Tarihi:</td>
-                                                <td class="col-md-9">@ViewBag.InternShip.EndDate</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-3">Süre:</td>
-                                                <td class="col-md-9">@ViewBag.InternShip.Time</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-3">Notlandırma:</td>
-                                                <td class="col-md-9">Yeni Sekme Yapılacak</td>
+                                                <td class="col-md-3">TEST :</td>
+                                                <td class="col-md-9"> Tasarım Aşamasında </td>
                                             </tr>
                                         </tbody>
                                     }
@@ -276,7 +277,8 @@
                                     {
                                         <tbody>
                                             <tr>
-                                                <td class="col-md-12">Staj Detay Bilgisi Bulunamadı.</td>
+                                                <td class="col-md-3">TEST :</td>
+                                                <td class="col-md-9"> Tasarım Aşamasında </td>
                                             </tr>
                                         </tbody>
                                     }

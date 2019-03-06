@@ -22,6 +22,12 @@
                         {
                             <form role="form" action="/InternShipRating/InternshipRatingAdd" method="post">
                                 <div class="form-group">
+                                    @if (ViewBag.InternshipID != null)
+                                    {
+                                        <input type="hidden" class="form-control" id="internshipid" placeholder="Gerekçe başlığını giriniz." name="InternShipID" value="@ViewBag.InternshipID" />
+                                    }
+                                </div>
+                                <div class="form-group">
                                     <label for="reason_select">Staj Değerlendirme Sonucu Seçiniz : </label>
                                     <select id="reason_select" class="form-control" name="RefusalReasonID_select">
                                         @if (ViewBag.Reasons != null)
@@ -36,7 +42,7 @@
                                             <option value="-1" disabled>Lütfen parametre ekleyiniz.</option>
                                         }
                                     </select>      
-                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID" value="@Model.RefusalReasonID" />
+                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID" />
                                 </div>
                                 <div class="form-group">
                                     <label for="acceptedTime">Kabul Edilen Gün Sayısı : </label>

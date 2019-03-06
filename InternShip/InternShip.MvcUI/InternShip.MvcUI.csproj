@@ -1004,6 +1004,7 @@
     <Content Include="Content\ui-tooltips-popover.html" />
     <Content Include="Content\ui-typography.html" />
     <Content Include="Content\ui-widgets.html" />
+    <Content Include="Documents\InternShipAlgoritma.png" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -1163,6 +1164,8 @@
     <Content Include="Views\PreInternShip\PreInternShip.cshtml" />
     <Content Include="Views\PreInternShip\PreInternShipPrint.cshtml" />
     <None Include="packages.config" />
+    <Content Include="Views\InternShip\IntershipDetailForStudent.cshtml" />
+    <Content Include="Views\InternShip\PreInternShip.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

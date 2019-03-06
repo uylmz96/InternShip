@@ -40,6 +40,7 @@ namespace InternShip.MvcUI.Controllers
             Student insertedStudent = context.Students.SingleOrDefault(x => x.StudentNumber == student.StudentNumber & x.DelDate == null);
             if (insertedStudent == null)
             {
+                student.CrtDate = DateTime.Now;
                 context.Set<Student>().Add(student);
                 TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");

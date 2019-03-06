@@ -157,6 +157,20 @@
                                                 <li><a href="/Role/Index">Yetkiler</a></li>
                                             </ul>
                                         </li>}
+                                    <li class="menu-item-top">
+                                        <a href="/Internship/PreInternShip" class="top">
+                                            <span class="main-menu-icon">
+                                                <span aria-hidden="true" class="icon icon-grid-big icon-size-medium"></span>
+                                            </span>
+                                            <span class="main-menu-text">Ön Başvurular</span>
+                                        </a>
+                                        @*<ul>
+                                                <li><a href="/Internship/Index">Stajlar</a></li>
+                                                <li><a href="/RefusalReason/Index">Staj Sonuç Bilgileri</a></li>
+                                                <li><a href="/Internship/Result">Sonuç</a></li>
+                                                <li><a href="/InternShipRating/Index">Notlandırılacak Stajlar</a></li>
+                                            </ul>*@
+                                    </li>
                                 }
                                 @* Öğrenciler Menü Item *@
                                 <li class="menu-item-top">
@@ -247,11 +261,13 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="modal-button-close" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="modal-button-close" class="btn btn-default" data-dismiss="modal">Kapat</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    @RenderSection("modalSection", false)
+
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- Required JS Files -->
     <script type="text/javascript" src="/Content/assets/js/required/jquery-1.11.1.min.js"></script>

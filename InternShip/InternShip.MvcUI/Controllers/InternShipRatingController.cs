@@ -31,7 +31,8 @@ namespace InternShip.MvcUI.Controllers
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             
             InternShipResult model= context.InternShipResults.SingleOrDefault(x => x.InternShipID == id);
-            ViewBag.Reasons = context.RefusalReasons.ToList();
+            ViewBag.Reasons = context.RefusalReasons.Where(x=>x.DelDate==null).ToList();
+            ViewBag.InternshipID = id;
             return View(model);
             //Staj Detay için 
             int _id = Convert.ToInt32(id);
@@ -48,6 +49,7 @@ namespace InternShip.MvcUI.Controllers
         //POST:InternshipRatingAdd
         public ActionResult InternshipRatingAdd(InternShipResult rating)
         {
+            //CRT DATE Yok
             context.Set<InternShipResult>().Add(rating);
             TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
             return RedirectToAction("Index");

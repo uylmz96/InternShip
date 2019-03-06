@@ -23,5 +23,20 @@ namespace InternShip.MvcUI.App_Classes
                 return "errorMessage('Program Derleme Hatası. Hata:isAppliedSaveChanges');";
             }
         }
+        public static bool SaveChanges2(DbContext context)
+        {
+            try
+            {
+                int isApplied = context.SaveChanges();
+                if (isApplied > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

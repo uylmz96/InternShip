@@ -103,27 +103,6 @@
                                             </span>
                                         </a>
                                         <ul>
-                                            @{ Page page = new Page();
-                                                string username = page.User.Identity.Name;
-
-                                                if (username != null)
-                                                {
-                                                    <li>
-                                                        <a href="/Personal/UpdateUser/0">
-                                                            <span aria-hidden="true" class="icon icon-user"></span>
-                                                            <span class="main-text">Profil</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="/Personal/PasswordChange">
-                                                            <span aria-hidden="true" class="icon icon-key"></span>
-                                                            <span class="main-text">
-                                                                Parola Değiltir
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                }
-                                            }
                                             <li>
                                                 <a href="/Login/Logout">
                                                     <span aria-hidden="true" class="icon icon-arrow-curve-right"></span>
@@ -209,7 +188,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="modal-button-close" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" id="modal-button-save" class="btn btn-primary" onclick="ModalConfirmOK()">Tamam</button>
+                    <button type="button" id="modal-button-save" class="btn btn-primary" onclick="
+    ()">
+                        Tamam
+                    </button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

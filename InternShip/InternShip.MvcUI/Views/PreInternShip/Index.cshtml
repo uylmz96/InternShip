@@ -58,7 +58,22 @@
                                             <td>@item.StartDate</td>
                                             <td>@item.EndDate</td>
                                             <td>
-                                                <a href="/PreInternShip/PreInternShip/@item.PreInternshipID" class="btn btn-warning rounded ">Güncelle</a>
+                                                @if (item.InternshipID == null)
+                                                {
+
+                                                    <a href="#" class="btn btn-primary rounded adviser-popup-button" data-pre-id="@item.PreInternshipID">Danışman Ata</a>
+                                                }
+                                                else
+                                                {
+                                                    if (item.InternShip.DelDate == null)
+                                                    {
+                                                        <span class="label label-primary">Onaylanmış</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="label label-danger">İptal Edilmiş</span>
+                                                    }
+                                                }
                                             </td>
                                             <td><a href="/PreInternShip/PreInternShipPrint/@item.PreInternshipID" class="btn btn-info rounded ">Çıktı</a></td>
                                         </tr>

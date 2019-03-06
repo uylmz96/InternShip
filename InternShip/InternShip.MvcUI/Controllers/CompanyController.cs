@@ -37,6 +37,7 @@ namespace InternShip.MvcUI.Controllers
         [HttpPost]
         public ActionResult CompanyAdd(Company company)
         {
+            company.CrtDate = DateTime.Now;
             context.Set<Company>().Add(company);
             TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
             return RedirectToAction("Index");

@@ -17,6 +17,7 @@ namespace InternShip.MvcUI.Models
         public string Tech { get; set; }
         public string Subject { get; set; }
         public string EmployeeDesc { get; set; }
+        public string Time { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<System.DateTime> CrtDate { get; set; }

@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace InternShip.MvcUI.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         // GET: Role
@@ -51,19 +51,28 @@ namespace InternShip.MvcUI.Controllers
             int count = Roles.GetUsersInRole(id).Count();
             if (count == 0)
             {
-                bool result= Roles.DeleteRole(id);
-                if (result)
-                    TempData["JsFunc"] = "success();";
+                if (id != "Admin" & id != "Akademisyen")
+                {
+                    bool result = Roles.DeleteRole(id);
+                    if (result)
+                        TempData["JsFunc"] = "success();";
+                    else
+                        TempData["JsFunc"] = "error();";
+                    return RedirectToAction("Index");
+                }
                 else
-                    TempData["JsFunc"] = "error();";
-                return RedirectToAction("Index");
+                {
+                    TempData["JsFunc"] = "warningMessage('Admin ve Akademisyen Silinemez');";
+                    return RedirectToAction("Index");
+                }
+
             }
             else
             {
                 TempData["JsFunc"] = "warningMessage('Yetki Kullanılmaktadır.');";
                 return RedirectToAction("Index");
             }
-           
+
         }
 
         //GET: AddUser2Role

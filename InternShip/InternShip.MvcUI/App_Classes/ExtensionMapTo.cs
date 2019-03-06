@@ -25,7 +25,7 @@ namespace InternShip.MvcUI
                 object val = item.GetValue(source);
 
                 PropertyInfo targetProperty = targetProps.FirstOrDefault(x => x.Name == item.Name);
-                if (targetProperty != null && val != null)
+                if (targetProperty != null && val != null &item.Name!="CrtDate")
                     targetProperty.SetValue(target, val);
             }
         }
