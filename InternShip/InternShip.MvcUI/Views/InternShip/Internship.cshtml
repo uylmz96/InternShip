@@ -58,7 +58,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly />
+                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -67,7 +67,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" readonly />
+                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="enddate" name="EndDate" readonly />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -117,7 +117,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly value="@Model.StartDate" />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" readonly value="@Model.StartDate" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -126,7 +126,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -260,6 +260,6 @@
         if ($("#adviser").val() != "") {
             $("#adviser_select").val($("#adviser").val());
         }
-     
+    
     </script>
 }   

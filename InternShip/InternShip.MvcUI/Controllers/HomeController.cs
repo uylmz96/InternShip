@@ -7,18 +7,21 @@ using System.Web.Mvc;
 namespace InternShip.MvcUI.Controllers
 {
     using Models;
+
     public class HomeController : Controller
     {
         InternShipContext context = new InternShipContext();
         // GET: Home
-        public ActionResult Index(string id)
+        public ActionResult Index()
         {
             return View();
-        }
-
+        }        
+        
         //GET: InternShipForStudent
         public ActionResult InternShipForStudent()
         {
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
             //Öğrenciye ait stajlar
             if (Session["studentNumber"] != null)
             {
@@ -30,10 +33,11 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 ViewBag.Internships = null;
-                ViewBag.JsFunc = "errorMessage('Öğrenci girişi yapılmamış. Lütfen giriş yapınız.')";
-                return RedirectToAction("StudentLogin","Login");
+                // ViewBag.JsFunc = "errorMessage('Öğrenci girişi yapılmamış. Lütfen giriş yapınız.')";
+                return RedirectToAction("StudentLogin", "Login");
             }
-            
+
         }
+
     }
 }

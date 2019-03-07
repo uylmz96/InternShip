@@ -1011,6 +1011,7 @@
   <ItemGroup>
     <Compile Include="App_Classes\Result.cs" />
     <Compile Include="App_Classes\User.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InternShipController.cs" />
     <Compile Include="Controllers\InternShipRatingController.cs" />
@@ -1166,6 +1167,7 @@
     <None Include="packages.config" />
     <Content Include="Views\InternShip\IntershipDetailForStudent.cshtml" />
     <Content Include="Views\InternShip\PreInternShip.cshtml" />
+    <Content Include="Views\File\FileUpload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1175,6 +1177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Document\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

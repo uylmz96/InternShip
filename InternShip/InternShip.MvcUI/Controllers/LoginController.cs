@@ -75,7 +75,7 @@ namespace InternShip.MvcUI.Controllers
             {
                 Session.Add("studentNumber", student.StudentNumber);
                 Session.Add("studentName", string.Format(" {0} {1}",student.Name,student.Surname));
-                return RedirectToAction("Index", "Home", new { id = studentNumber });
+                return RedirectToAction("InternShipForStudent", "Home");
             }
             else
             {

@@ -262,9 +262,13 @@ $(document).ready(function(){
 	// Linked Event
 	var eventStartDate = $('#datetimepicker5');
 	var eventEndDate = $('#datetimepicker6');
-
-	eventStartDate.datetimepicker();
-	eventEndDate.datetimepicker();
+	eventStartDate.datetimepicker({
+		pickTime: false,
+		monthNames: ["Ocak", "Þubat", "Mart", "Nisan", "Mayýs", "Haziran", "Temmuz", "Aðustos", "Eylül", "Ekim", "Kasým", "Aralýk"]
+	});
+	eventEndDate.datetimepicker({
+		pickTime: false
+	});
 	eventStartDate.on("dp.change",function(e) {
 		eventEndDate.data("DateTimePicker").setMinDate(e.date);
 	});

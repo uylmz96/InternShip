@@ -9,7 +9,7 @@ namespace InternShip.MvcUI.Controllers
     using InternShip.MvcUI.App_Classes;
     using Models;
     using System.Web.Security;
-
+    [Authorize]
     public class InternShipRatingController : Controller
     {
 
