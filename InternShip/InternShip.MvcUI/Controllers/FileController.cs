@@ -68,6 +68,6 @@ namespace InternShip.MvcUI.Controllers
                 TempData["JsFunc"] = "warningMessage('Seçili dosya yok')";
                 return RedirectToAction("FileUpload", new { id = internshipID });
             }
-        }       
+        }
     }
 }

@@ -608,6 +608,8 @@
     <Content Include="Content\assets\js\demo-files\ui-notification-toastr.js" />
     <Content Include="Content\assets\js\demo-files\ui-typography.js" />
     <Content Include="Content\assets\js\demo-files\ui-widgets.js" />
+    <Content Include="Content\assets\js\locale\moment.js" />
+    <Content Include="Content\assets\js\locale\tr.js" />
     <Content Include="Content\assets\js\optional\bootstrap-datetimepicker.min.js" />
     <Content Include="Content\assets\js\optional\bootstrap-multiselect.min.js" />
     <Content Include="Content\assets\js\optional\bootstrap-tagsinput.min.js" />
@@ -1177,7 +1179,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Document\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -263,11 +263,10 @@ $(document).ready(function(){
 	var eventStartDate = $('#datetimepicker5');
 	var eventEndDate = $('#datetimepicker6');
 	eventStartDate.datetimepicker({
-		pickTime: false,
-		monthNames: ["Ocak", "Þubat", "Mart", "Nisan", "Mayýs", "Haziran", "Temmuz", "Aðustos", "Eylül", "Ekim", "Kasým", "Aralýk"]
+		pickTime: false
 	});
 	eventEndDate.datetimepicker({
-		pickTime: false
+		pickTime: false,
 	});
 	eventStartDate.on("dp.change",function(e) {
 		eventEndDate.data("DateTimePicker").setMinDate(e.date);

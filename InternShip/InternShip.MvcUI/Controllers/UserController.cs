@@ -2,6 +2,7 @@
 using InternShip.MvcUI.App_Classes.DTO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -12,7 +13,7 @@ using System.Web.UI;
 
 namespace InternShip.MvcUI.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         // GET: User
@@ -57,7 +58,7 @@ namespace InternShip.MvcUI.Controllers
 
                     ViewBag.Message = "Parolalar uyuşmamaktadır.";
                     TempData["JsFunc"] = "warning();";
-                    return RedirectToAction("User","User",new {id=user.UserName});
+                    return RedirectToAction("User", "User", new { id = user.UserName });
                 }
             }
             catch (Exception ex)
@@ -145,7 +146,7 @@ namespace InternShip.MvcUI.Controllers
                 allsearch.Add(new autocomplete
                 {
                     id = item.UserName,
-                    value = string.Format("{0} - [{1}]", item.Comment,item.UserName)
+                    value = string.Format("{0} - [{1}]", item.Comment, item.UserName)
                 });
             }
             return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -179,24 +180,28 @@ namespace InternShip.MvcUI.Controllers
 
             if (user != null)
             {
+                string newPassword= user.ResetPassword();
+                //meubilgisayarmuhstaj@gmail.com
+                var message = new MailMessage();
+                string url = "http://"+Request.Url.Authority+"/Login/Login";
 
-                //MailMessage mail = new MailMessage();
-                //mail.IsBodyHtml = true;
-                //mail.To.Add("uylmz96@gmail.com");
-                ////From
-                //mail.From= new MailAddress("uylmz96@gmail.com", "Parola Sıfırlama", System.Text.Encoding.UTF8);
-                //mail.Subject="Parola Sıfırlama 2";
-
-                //mail.Body = "E-Posta:" + "P1" + "Konu:" + "P2" + "Içerik:" + "P3";
-                //mail.IsBodyHtml = true;
-
-                //SmtpClient smp = new SmtpClient();
-                //smp.Credentials = new NetworkCredential("uylmz96@gmail.com", "1uu9mm9uu6tt");
-                //smp.Port = 587;
-                //smp.Host = "smtp.gmail.com";//gmail üzerinden gönderiliyor.
-                //smp.EnableSsl = true;
-                //smp.Send(mail);//mail isimli mail gönderiliyor.
-
+                message.From = new MailAddress("meubilgisayarmuhstaj@gmail.com");
+                message.To.Add(new MailAddress(user.Email));
+                message.Subject = "Şifre Sıfırlama";
+                message.Body = "Yeni Şifreniz : "+newPassword +"\n <a href="+url+"> Giriş Yap </a>";
+                message.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                var credential = new NetworkCredential
+                {
+                    UserName = "meubilgisayarmuhstaj@gmail.com",
+                    Password = "aQW75TETvyAm][{@"
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;//25 dene
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+                TempData["JsFunc"] = "successMessage('" + user.Email + " mail adresine yeni şifreniz gönderilmiştir.')";
                 return RedirectToAction("Login", "Login");
             }
             else
@@ -205,7 +210,7 @@ namespace InternShip.MvcUI.Controllers
                 return View();
             }
         }
-       
+
 
         //GET: ActivePasive
         //[HttpPost]

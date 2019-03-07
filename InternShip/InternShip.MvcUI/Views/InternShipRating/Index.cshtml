@@ -77,7 +77,8 @@
                                                 <td>
                                                     @if (item.Student != null)
                                                     {
-                                                        
+                                                        string path = "/Documents/" + item.Student.StudentNumber + "_" + item.InternShipID + ".rar";
+                                                        <a href="@path" class="btn btn-default rounded">Dosya İndir</a>
                                                     }
                                                 </td>
                                             </tr>
