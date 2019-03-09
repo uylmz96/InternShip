@@ -2,17 +2,14 @@
 using InternShip.MvcUI.App_Classes.DTO;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.UI;
+
 
 namespace InternShip.MvcUI.Controllers
 {
+    using App_Classes;
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
@@ -180,28 +177,13 @@ namespace InternShip.MvcUI.Controllers
 
             if (user != null)
             {
-                string newPassword= user.ResetPassword();
-                //meubilgisayarmuhstaj@gmail.com
-                var message = new MailMessage();
-                string url = "http://"+Request.Url.Authority+"/Login/Login";
+                string newPassword = user.ResetPassword();
+                
+                string body = "Yeni Şifreniz : " + 
+                                newPassword + 
+                                "<a href=http://" + Request.Url.Authority + "/Login/Login> Giriş Yap </a>";   
 
-                message.From = new MailAddress("meubilgisayarmuhstaj@gmail.com");
-                message.To.Add(new MailAddress(user.Email));
-                message.Subject = "Şifre Sıfırlama";
-                message.Body = "Yeni Şifreniz : "+newPassword +"\n <a href="+url+"> Giriş Yap </a>";
-                message.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                var credential = new NetworkCredential
-                {
-                    UserName = "meubilgisayarmuhstaj@gmail.com",
-                    Password = "aQW75TETvyAm][{@"
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;//25 dene
-                smtp.EnableSsl = true;
-                smtp.Send(message);
-                TempData["JsFunc"] = "successMessage('" + user.Email + " mail adresine yeni şifreniz gönderilmiştir.')";
+                TempData["JsFunc"] = Mail.sendMail(user.Email, "Şifre Sıfırlama", body);
                 return RedirectToAction("Login", "Login");
             }
             else
@@ -209,8 +191,7 @@ namespace InternShip.MvcUI.Controllers
                 TempData["JsFunc"] = "error();";
                 return View();
             }
-        }
-
+        }       
 
         //GET: ActivePasive
         //[HttpPost]

@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace InternShip.MvcUI.Controllers
 {
+    using InternShip.MvcUI.App_Classes.DTO;
     using Models;
     using System.IO;
+    using static System.Net.Mime.MediaTypeNames;
 
     public class FileController : Controller
     {
@@ -18,8 +20,8 @@ namespace InternShip.MvcUI.Controllers
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             if (Session["studentNumber"] != null)
             {
-                InternShip _is = context.InternShips.FirstOrDefault(x => x.InternShipID == id);
-                if (_is != null)
+                InternShip _internship = context.InternShips.FirstOrDefault(x => x.InternShipID == id);
+                if (_internship != null)
                 {
                     ViewBag.ID = id.ToString();
                     return View();
@@ -41,19 +43,24 @@ namespace InternShip.MvcUI.Controllers
         [HttpPost]
         public ActionResult FileUpload(HttpPostedFileBase file, int internshipID)
         {
+            //Staj notlandırılmışsa belge yüklenemez.
+            InternShipResult _result = context.InternShipResults.FirstOrDefault(x => x.InternShipID == internshipID);
+            if (_result != null)
+            {
+                TempData["JsFunc"] = "warningMessage('Notlandırılmış staja belge yüklenemez.')";
+                return RedirectToAction("InternShipForStudent", "Home");
+            }
+
+            //Belge Yükleme işlemi
             string studentNumber = Session["studentNumber"].ToString();
-            if (file != null && file.ContentLength > 0)
+            if (file != null && file.ContentLength > 0 & file.ContentLength < 4000000)
                 try
                 {
-                    string[] names = file.FileName.Split('.');
-                    if (names[names.Length - 1] != "rar" & names[names.Length - 1] != "zip")
-                    {
-                        TempData["JsFunc"] = "warningMessage('Yüklenen dosyanın uzantısı rar yada zip olmalıdır.')";
-                        return RedirectToAction("FileUpload", new { id = internshipID });
-                    }
-                    string folder = Path.Combine(Server.MapPath("/Documents"));                    
-                    string path = Path.Combine(folder,
-                                              Path.GetFileName(studentNumber + "_" + internshipID + ".rar"));
+                    string folder = Path.Combine(Server.MapPath("/Documents/" + internshipID)); //Folder Path
+                    if (!Directory.Exists(folder))
+                        Directory.CreateDirectory(folder); // Öğrencinin Stajı için klasör oluştur.
+
+                    string path = Path.Combine(folder, Path.GetFileName(studentNumber + "_" + file.FileName));
                     file.SaveAs(path);
                     TempData["JsFunc"] = "success();";
                     return RedirectToAction("InternShipForStudent", "Home");
@@ -63,11 +70,38 @@ namespace InternShip.MvcUI.Controllers
                     TempData["JsFunc"] = "errorMessage('ERROR: " + ex.Message.ToString() + "')";
                     return RedirectToAction("FileUpload", new { id = internshipID });
                 }
+            else if (file.ContentLength > 4000000)
+            {
+                TempData["JsFunc"] = "warningMessage('Dosya Boyutu 4 MB ile sınırlandırılmıştır.')";
+                return RedirectToAction("FileUpload", new { id = internshipID });
+            }
             else
             {
                 TempData["JsFunc"] = "warningMessage('Seçili dosya yok')";
                 return RedirectToAction("FileUpload", new { id = internshipID });
             }
+        }
+
+        [HttpPost]
+        public JsonResult FileDownload(int id)
+        {
+            string[] files = null;
+            List<autocomplete> allsearch = new List<autocomplete>();
+            string fileNames="",folder = Server.MapPath("/Documents/" + id); //Path.Combine(Server.MapPath("/Documents/" + id)); //Folder Path
+            if (Directory.Exists(folder))
+            {
+                files = Directory.GetFiles(folder);
+                foreach (string item in files)
+                {
+                    allsearch.Add(new autocomplete
+                    {
+                        //id = Request.Url.Authority+"/Documents/" +id+"/",
+                        id="/Documents/"+id+"/",
+                        value = item
+                    });
+                }
+            }
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

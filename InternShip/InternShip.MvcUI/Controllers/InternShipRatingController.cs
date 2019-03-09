@@ -20,7 +20,7 @@ namespace InternShip.MvcUI.Controllers
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"];
             string _adviser = User.Identity.Name;
-            ViewBag.Internships = context.InternShips.Where(x => x.AdviserID == _adviser & x.DelDate==null).OrderByDescending(x => x.CrtDate).ToList();
+            ViewBag.Internships = context.InternShips.Where(x => x.AdviserID == _adviser & x.DelDate == null).OrderByDescending(x => x.CrtDate).ToList();
             return View();
         }
 
@@ -29,9 +29,9 @@ namespace InternShip.MvcUI.Controllers
         {
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
-            
-            InternShipResult model= context.InternShipResults.SingleOrDefault(x => x.InternShipID == id);
-            ViewBag.Reasons = context.RefusalReasons.Where(x=>x.DelDate==null).ToList();
+
+            InternShipResult model = context.InternShipResults.SingleOrDefault(x => x.InternShipID == id);
+            ViewBag.Reasons = context.RefusalReasons.Where(x => x.DelDate == null).ToList();
             ViewBag.InternshipID = id;
             return View(model);
             //Staj Detay için 
@@ -49,9 +49,13 @@ namespace InternShip.MvcUI.Controllers
         //POST:InternshipRatingAdd
         public ActionResult InternshipRatingAdd(InternShipResult rating)
         {
+            int studentID = Convert.ToInt16(context.InternShips.FirstOrDefault(x => x.InternShipID == rating.InternShipID).StudentID.ToString());
+            string studentMail = context.Students.FirstOrDefault(x => x.StudentID == studentID).Mail.ToString();
             //CRT DATE Yok
             context.Set<InternShipResult>().Add(rating);
-            TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
+            string temp1 = Result.isAppliedSaveChanges(context);
+            string temp2 = Mail.sendMail(studentMail, "Staj Notlandırma", " Staj sonucunuz sisteme girilmiştir.");
+            TempData["JsFunc"] = temp1 + " " + temp2;
             return RedirectToAction("Index");
         }
 

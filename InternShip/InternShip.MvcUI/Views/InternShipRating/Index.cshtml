@@ -77,9 +77,11 @@
                                                 <td>
                                                     @if (item.Student != null)
                                                     {
-                                                        string path = "/Documents/" + item.Student.StudentNumber + "_" + item.InternShipID + ".rar";
-                                                        <a href="@path" class="btn btn-default rounded">Dosya İndir</a>
+                                                        @*string path = "/Documents/" + item.InternShipID;
+                                                            <a href="@path" class="btn btn-default rounded">Dosya İndir</a>*@
                                                     }
+                                                    <a href="#" class="btn btn-default rounded downloadFile" data-id="@item.InternShipID">Dosya İndir</a>
+
                                                 </td>
                                             </tr>
                                         }
@@ -93,4 +95,62 @@
         </div>
     </div>
 </div>
+@section modalSection{
+    <div class="modal fade" id="default-modal-download" tabindex="-1" role="dialog" aria-labelledby="default-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" data-border-top="multi">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="default-modal-label">Dosya İndir</h4>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dosya Adı</th>
+                                <th>İndir</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="modal-button-close" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
+}
+@section scriptSection{
+    <script>
+        $('.downloadFile').click(function () {
+            console.log("dowloadFile");
+            var dataID = $(this).data("id");
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/File/FileDownload",
+                data: { id: dataID },
+                success: function (data) {
+                    var html = "";
+                    if (data.length > 0) {
+                        data.forEach(function (item, index, arr) {
+                            console.log(item.value);
+                            var list = item.value.split('\\');
+                            html = html + "<tr><td>" + list[list.length - 1] + "</td><td><a href=' " + item.id + list[list.length - 1] + "' class='btn btn -default rounded'>Dosya İndir</a></td></tr>"
+                        });
+                    }
+                    else {
+                        html="<tr style='color:red;'><td>Yüklü dosya bulunamadı.</td></tr>"
+                    }
+                    $('#default-modal-download .modal-body #table-body').html(html);
+                    $('#default-modal-download').modal();
+                },
+                error: function () {
+                    console.log("Error : File Download.")
+                }
+            });
+        });
+    </script>
+}

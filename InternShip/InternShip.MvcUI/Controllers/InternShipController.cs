@@ -186,7 +186,7 @@ namespace InternShip.MvcUI.Controllers
                     ctx.Set<PreInternship>();
                     bool isPreAccepted = Result.SaveChanges2(ctx);
                     #endregion
-
+                    
                     return 1;
                 }
                 else
@@ -213,5 +213,6 @@ namespace InternShip.MvcUI.Controllers
             return RedirectToAction("PreInternShip");
         }
 
+        
     }
 }
