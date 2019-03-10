@@ -26,23 +26,23 @@
                         <form role="form" action="/Student/StudentAdd" method="post">
                             <div class="form-group">
                                 <label for="studentnumber">Öğrenci Numarası : </label>
-                                <input type="text" class="form-control" id="studentnumber" placeholder="" name="StudentNumber">
+                                <input type="text" class="form-control" id="studentnumber" placeholder="" name="StudentNumber"  required>
                             </div>
                             <div class="form-group">
                                 <label for="name">Adı : </label>
-                                <input type="text" class="form-control" id="Name" placeholder="" name="Name">
+                                <input type="text" class="form-control" id="Name" placeholder="" name="Name"  required>
                             </div>
                             <div class="form-group">
                                 <label for="surname">Soyadı : </label>
-                                <input type="text" class="form-control" id="surname" placeholder="" name="Surname">
+                                <input type="text" class="form-control" id="surname" placeholder="" name="Surname"  required>
                             </div>
                             <div class="form-group">
                                 <label for="mail">E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail">
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail"  required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Telefon</label>
-                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone">
+                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone" >
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Giriş Tarihi</label>
@@ -64,20 +64,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="studentnumber">Öğrenci Numarası : </label>
-                                <input type="hidden" class="form-control" id="studentid" placeholder="" name="StudentID" value="@Model.StudentID">
-                                <input type="text" class="form-control" id="studentnumber" placeholder="" name="StudentNumber" value="@Model.StudentNumber">
+                                <input type="text" class="form-control" id="studentnumber" placeholder="" name="StudentNumber" value="@Model.StudentNumber"  required>
                             </div>
                             <div class="form-group">
                                 <label for="name">Adı : </label>
-                                <input type="text" class="form-control" id="name" placeholder="" name="Name" value="@Model.Name">
+                                <input type="text" class="form-control" id="name" placeholder="" name="Name" value="@Model.Name"  required>
                             </div>
                             <div class="form-group">
                                 <label for="surname">Soyadı : </label>
-                                <input type="text" class="form-control" id="surname" placeholder="" name="Surname" value="@Model.Surname">
+                                <input type="text" class="form-control" id="surname" placeholder="" name="Surname" value="@Model.Surname"  required>
                             </div>
                             <div class="form-group">
                                 <label for="mail">E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model.Mail">
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model.Mail"  required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Telefon</label>

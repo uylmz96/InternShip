@@ -20,7 +20,7 @@
                 <div class="block-content-inner">
                     @if (Model == null)
                     {
-                        <form id="view-form" role="form" action="/Company/CompanyAdd" method="post">
+                        <form id="companyForm" role="form" action="/Company/CompanyAdd" method="post">
                             <div class="form-group">
                                 <label for="companyname">Şirket Adı : </label>
                                 <input type="text" class="form-control" id="companyname" placeholder="" name="CompanyName" required>
@@ -31,11 +31,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="mail">E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" >
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Telefon</label>
-                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone">
+                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone" required>
                             </div>
                             <div class="form-group">
                                 <label for="desc">Açıklama</label>
@@ -46,7 +46,7 @@
                     }
                     else
                     {
-                        <form role="form" action="/Company/CompanyUpdate" method="post">
+                        <form id="companyForm" role="form" action="/Company/CompanyUpdate" method="post">
                             <div class="form-group">
                                 <input type="hidden" class="form-control" id="companyname" placeholder="" name="CompanyID" value="@Model.CompanyID" readonly>
                             </div>
@@ -60,11 +60,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="mail">E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model.Mail">
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model.Mail" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Telefon</label>
-                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone" value="@Model.Phone">
+                                <input type="text" class="form-control" id="phone" placeholder="555 555 5555" name="Phone" value="@Model.Phone" required>
                             </div>
                             <div class="form-group">
                                 <label for="desc">Açıklama</label>
@@ -87,8 +87,7 @@
         document.getElementById('phone').addEventListener('blur', function (e) {
             var x = e.target.value.replace(/\D/g, '').match(/(\d{3})(\d{3})(\d{4})/);
             e.target.value = '(' + x[1] + ') ' + x[2] + '-' + x[3];
-        });
-
+        });      
     </script>
 }
 

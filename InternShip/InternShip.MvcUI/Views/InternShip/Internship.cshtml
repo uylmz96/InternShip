@@ -10,7 +10,7 @@
         <div class="block">
             <div class="block-heading">
                 <div class="main-text h2">
-                    Staj Ekle
+                    Staj
                 </div>
                 <div class="block-controls">
                     <a href="/User/Index" class="block-control block-control-remove"></a>
@@ -22,24 +22,25 @@
 
                     @if (Model == null)
                     {
-                        <form role="form" action="/InternShip/InternshipAdd" method="post">
+                        <form id="internshipForm" role="form" action="/InternShip/InternshipAdd" method="post">
                             <div class="ui-widget form-group">
                                 <label for="student_autocomplete">Öğrenci </label>
-                                <input id="student_autocomplete" class="form-control" name="autocomplete">
-                                <input type="hidden" id="student" class="form-control" name="StudentID">
+                                <input id="student_autocomplete" class="form-control" name="autocomplete" required>
+                                <input type="hidden" id="student" class="form-control" name="StudentID" required>
                             </div>
                             <div class="ui-widget form-group">
                                 <label for="company_autocomplete">Şirket </label>
-                                <input id="company_autocomplete" class="form-control" name="autocomplete">
-                                <input type="hidden" id="company" class="form-control" name="CompanyID">
+                                <input id="company_autocomplete" class="form-control" name="autocomplete" required>
+                                <input type="hidden" id="company" class="form-control" name="CompanyID" required>
 
                             </div>
                             <div class="ui-widget form-group">
                                 <label for="adviser_select">Danışman </label>
-                                <select id="adviser_select" class="form-control" name="AdviserID_select">
+                                <select id="adviser_select" class="form-control" name="AdviserID_select" required>
+                                   <option>Lütfen Seçiniz</option>
                                     @if (ViewBag.Users == null)
                                     {
-                                        <option value="-1" disabled>Danışman Kullanıcı Bulunamadı.</option>
+                                        <option>Danışman Kullanıcı Bulunamadı.</option>
                                     }
                                     else
                                     {
@@ -50,7 +51,7 @@
 
                                     }
                                 </select>
-                                <input type="hidden" name="AdviserID" id="adviser" />
+                                <input type="hidden" name="AdviserID" id="adviser" required/>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Başlangıç Tarihi</label>
@@ -58,7 +59,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="startdate" name="StartDate" readonly />
+                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="startdate" name="StartDate"  required/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -67,35 +68,35 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="enddate" name="EndDate" readonly />
+                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="enddate" name="EndDate"  required/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="time">Süre : </label>
-                                <input type="number" class="form-control" id="time" placeholder="" name="Time">
+                                <input type="number" class="form-control" id="time" placeholder="" name="Time" value="" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
                     }
                     else
                     {
-                        <form role="form" action="/InternShip/InternshipUpdate" method="post">
+                        <form id="internshipForm" role="form" action="/InternShip/InternshipUpdate" method="post">
                             <div class="ui-widget form-group">
-                                <input type="hidden" id="studentID" class="form-control" name="InternShipID" value="@Model.InternShipID">
+                                <input type="hidden" id="studentID" class="form-control" name="InternShipID" value="@Model.InternShipID" required>
                             </div>
                             <div class="ui-widget form-group">
                                 <label for="student_autocomplete">Öğrenci </label>
-                                <input id="student_autocomplete" class="form-control" name="autocomplete">
-                                <input type="hidden" id="student" class="form-control" name="StudentID" value="@Model.StudentID">
+                                <input id="student_autocomplete" class="form-control" name="autocomplete" required>
+                                <input type="hidden" id="student" class="form-control" name="StudentID" value="@Model.StudentID" required>
                             </div>
                             <div class="ui-widget form-group">
                                 <label for="company">Şirket </label>
-                                <input id="company_autocomplete" class="form-control" name="autocomplete">
-                                <input type="hidden" id="company" class="form-control" name="CompanyID" value="@Model.CompanyID">
+                                <input id="company_autocomplete" class="form-control" name="autocomplete" required>
+                                <input type="hidden" id="company" class="form-control" name="CompanyID" value="@Model.CompanyID" required>
                             </div>
                             <div class="ui-widget form-group">
                                 <label for="adviser_select">Danışman </label>
-                                <select id="adviser_select" class="form-control" name="AdviserID_select">
+                                <select id="adviser_select" class="form-control" name="AdviserID_select" required>
                                     @if (ViewBag.Users == null)
                                     {
                                         <option value="-1" disabled>Danışman Kullanıcı Bulunamadı.</option>
@@ -109,7 +110,7 @@
 
                                     }
                                 </select>
-                                <input type="hidden" name="AdviserID" id="adviser" value="@Model.AdviserID" />
+                                <input type="hidden" name="AdviserID" id="adviser" value="@Model.AdviserID" required />
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Başlangıç Tarihi</label>
@@ -117,7 +118,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" readonly value="@Model.StartDate" />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate"  required/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -126,12 +127,12 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate"  required />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="time">Süre : </label>
-                                <input type="number" class="form-control" id="time" placeholder="" name="Time" value="@Model.Time">
+                                <input type="number" class="form-control" id="time" placeholder="" name="Time" value="@Model.Time" required />
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
@@ -256,10 +257,12 @@
         });
 
         $("#adviser_select").change(function () {
-            $("#adviser").val($("#adviser_select").val());
+            $("#adviser").val("");
         });
         if ($("#adviser").val() != "") {
             $("#adviser_select").val($("#adviser").val());
         }
+
+      
     </script>
 }   

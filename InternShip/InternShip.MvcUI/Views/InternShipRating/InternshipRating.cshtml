@@ -24,14 +24,15 @@
                                 <div class="form-group">
                                     @if (ViewBag.InternshipID != null)
                                     {
-                                        <input type="hidden" class="form-control" id="internshipid" placeholder="Gerekçe başlığını giriniz." name="InternShipID" value="@ViewBag.InternshipID" />
+                                        <input type="hidden" class="form-control" id="internshipid" placeholder="Gerekçe başlığını giriniz." name="InternShipID" value="@ViewBag.InternshipID"  required/>
                                     }
                                 </div>
                                 <div class="form-group">
                                     <label for="reason_select">Staj Değerlendirme Sonucu Seçiniz : </label>
-                                    <select id="reason_select" class="form-control" name="RefusalReasonID_select">
+                                    <select id="reason_select" class="form-control" name="RefusalReasonID_select" required>
                                         @if (ViewBag.Reasons != null)
                                         {
+                                            <option>Lütfen Seçiniz</option>
                                             foreach (RefusalReason item in ViewBag.Reasons)
                                             {
                                                 <option value="@item.ReasonID">@item.Reason</option>
@@ -42,11 +43,11 @@
                                             <option value="-1" disabled>Lütfen parametre ekleyiniz.</option>
                                         }
                                     </select>      
-                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID" />
+                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID"  required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="acceptedTime">Kabul Edilen Gün Sayısı : </label>
-                                    <input type="number" class="form-control" id="acceptedTime" placeholder="Gerekçe başlığını giriniz." name="AcceptedTime">
+                                    <input type="number" class="form-control" id="acceptedTime" placeholder="Gerekçe başlığını giriniz." name="AcceptedTime" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Açıklama</label>
@@ -59,12 +60,12 @@
                         {
                             <form role="form" action="/InternShipRating/InternshipRatingUpdate" method="post">
                                 <div class="form-group">
-                                    <input type="hidden" class="form-control" id="resultid" placeholder="Gerekçe başlığını giriniz." name="ResultID" value="@Model.ResultID">
-                                    <input type="hidden" class="form-control" id="internshipid" placeholder="Gerekçe başlığını giriniz." name="InternShipID" value="@Model.InternShipID"/>
+                                    <input type="hidden" class="form-control" id="resultid" placeholder="Gerekçe başlığını giriniz." name="ResultID" value="@Model.ResultID"  required>
+                                    <input type="hidden" class="form-control" id="internshipid" placeholder="Gerekçe başlığını giriniz." name="InternShipID" value="@Model.InternShipID"  required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="reason_select">Staj Değerlendirme Sonucu Seçiniz : </label>
-                                    <select id="reason_select" class="form-control" name="RefusalReasonID_select">
+                                    <select id="reason_select" class="form-control" name="RefusalReasonID_select"  required>
                                         @if (ViewBag.Reasons != null)
                                         {
                                             foreach (RefusalReason item in ViewBag.Reasons)
@@ -77,11 +78,11 @@
                                             <option value="-1" disabled>Lütfen parametre ekleyiniz.</option>
                                         }
                                     </select>
-                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID" value="@Model.RefusalReasonID" />
+                                    <input type="hidden" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="RefusalReasonID" value="@Model.RefusalReasonID"  required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="acceptedTime">Kabul Edilen Gün Sayısı : </label>
-                                    <input type="number" class="form-control" id="acceptedTime" placeholder="Gerekçe başlığını giriniz." name="AcceptedTime" value="@Model.AcceptedTime">
+                                    <input type="number" class="form-control" id="acceptedTime" placeholder="Gerekçe başlığını giriniz." name="AcceptedTime" value="@Model.AcceptedTime" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Açıklama</label>

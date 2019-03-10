@@ -22,7 +22,7 @@
                         <form role="form" action="/Role/RoleAdd" method="post">
                             <div class="form-group">
                                 <label for="role">Yetki Adı : </label>
-                                <input type="text" class="form-control" id="role" placeholder="Yetki adı giriniz." name="RolName">
+                                <input type="text" class="form-control" id="role" placeholder="Yetki adı giriniz." name="RolName"  required>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
@@ -31,11 +31,11 @@
                     {
                         <form role="form" action="/Role/RoleUpdate" method="post">
                             <div class="form-group">
-                                <input type="hidden" class="form-control" id="role" name="oldRolName" value="@Model" readonly>
+                                <input type="hidden" class="form-control" id="role" name="oldRolName" value="@Model" readonly  required>
                             </div>
                             <div class="form-group">
                                 <label for="role">Rol Adı : </label>
-                                <input type="text" class="form-control" id="role" name="RolName" value="@Model">
+                                <input type="text" class="form-control" id="role" name="RolName" value="@Model"  required>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>

@@ -82,7 +82,7 @@ namespace InternShip.MvcUI.Controllers
         public ActionResult IntershipDetail(string id)
         {
             int _id = Convert.ToInt32(id);
-            if (_id <1)
+            if (_id < 1)
             {
                 return RedirectToAction("Index");
             }
@@ -92,7 +92,9 @@ namespace InternShip.MvcUI.Controllers
                 Company _company = ctx.Companies.FirstOrDefault(x => x.CompanyID == _internship.CompanyID);
                 Student _student = ctx.Students.FirstOrDefault(x => x.StudentID == _internship.StudentID);
                 PreInternship _preInternship = ctx.PreInternships.FirstOrDefault(x => x.InternshipID == _internship.InternShipID);
-                MembershipUser _adviser = Membership.GetUser(_internship.AdviserID);
+                MembershipUser _adviser=null;
+                if (_internship.AdviserID != null)
+                    _adviser = Membership.GetUser(_internship.AdviserID);
                 InternShipResult _result = ctx.InternShipResults.FirstOrDefault(x => x.InternShipID == _internship.InternShipID);
                 ViewBag.InternShip = _internship;
                 ViewBag.Student = _student;
@@ -100,7 +102,7 @@ namespace InternShip.MvcUI.Controllers
                 ViewBag.PreInternShip = _preInternship;
                 ViewBag.Result = _result;
                 return View(_adviser);
-                
+
             }
         }
 
@@ -186,7 +188,14 @@ namespace InternShip.MvcUI.Controllers
                     ctx.Set<PreInternship>();
                     bool isPreAccepted = Result.SaveChanges2(ctx);
                     #endregion
-                    
+
+
+                    if (isCompanyAdd & isInternshipAdd & isPreAccepted)
+                    {
+                        Student _student = ctx.Students.FirstOrDefault(x => x.StudentID == _pre.StudentID);
+                        if (_student.Mail != null)
+                            Mail.sendMail(_student.Mail, "Danışman Atama", "Stajınızın danışman ataması yapılmıştır. Lütfen çıktı alarak danışmanınıza ve ilgili şirkete imzalatınız.");
+                    }
                     return 1;
                 }
                 else
@@ -213,6 +222,6 @@ namespace InternShip.MvcUI.Controllers
             return RedirectToAction("PreInternShip");
         }
 
-        
+
     }
 }

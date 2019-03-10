@@ -23,7 +23,7 @@
                             <form role="form" action="/RefusalReason/ReasonAdd" method="post">
                                 <div class="form-group">
                                     <label for="reason">Gerekçe : </label>
-                                    <input type="text" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="Reason">
+                                    <input type="text" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="Reason" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Açıklama</label>
@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="reason">Gerekçe : </label>
-                                    <input type="text" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="Reason" value="@Model.Reason">
+                                    <input type="text" class="form-control" id="reason" placeholder="Gerekçe başlığını giriniz." name="Reason" value="@Model.Reason" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Açıklama</label>

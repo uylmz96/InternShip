@@ -25,19 +25,19 @@
                         <form role="form" action="/PreInternShip/PreInternShipAdd" method="post">                            
                             <div class="form-group">
                                 <label for="companyname">Şirket Adı</label>
-                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName">
+                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName"  required>
                             </div>
                             <div class="form-group">
                                 <label for="address">Şirket Adresi</label>
-                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress">
+                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress" required>
                             </div>
                             <div class="form-group">
                                 <label for="mail">Şirket E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail">
+                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Şirket Telefon</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone">
+                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone" required>
                             </div>
                             <div class="form-group">
                                 <label for="department">Departman</label>
@@ -45,19 +45,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="activity">Faaliyet Alanı</label>
-                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity">
+                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity" required>
                             </div>
                             <div class="form-group">
                                 <label for="tech">Teknolojiler</label>
-                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech">
+                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech" required>
                             </div>
                             <div class="form-group">
                                 <label for="employeeDesc">Çalışan Bilgileri</label>
-                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc">
+                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc" required>
                             </div>
                             <div class="form-group">
                                 <label for="subject">Staj Konusu</label>
-                                <input type="text" class="form-control" id="subject" placeholder="Stajın konusu" name="Subject">
+                                <input type="text" class="form-control" id="subject" placeholder="Stajın konusu" name="Subject" required>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Başlangıç Tarihi</label>
@@ -65,7 +65,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" readonly />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" readonly  required />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -74,11 +74,11 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" readonly />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" readonly required />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı"/>
+                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" required/>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
@@ -87,28 +87,24 @@
                     {
                         <form role="form" action="/PreInternShip/PreInternShipUpdate" method="post">
                             <div class="form-group">
-                                <input type="hidden" class="form-control" id="preinternshipID" placeholder="Öğrenci numaranızı giriniz." name="PreInternShipID" value="@Model.PreInternshipID">
-                                <input type="hidden" class="form-control" id="preinternshipID" placeholder="Öğrenci numaranızı giriniz." name="StudentID" value="@Model.StudentID">
-                            </div>
-                            <div class="form-group">
-                                <label for="studentNumber">Öğrenci Numarası</label>
-                                <input type="text" class="form-control" id="studentNumber" placeholder="Öğrenci numaranızı giriniz." name="StudentNumber" value="@Model.StudentNumber">
+                                <input type="hidden" class="form-control" id="preinternshipID" placeholder="Öğrenci numaranızı giriniz." name="PreInternShipID" value="@Model.PreInternshipID" required>
+                                <input type="hidden" class="form-control" id="preinternshipID" placeholder="Öğrenci numaranızı giriniz." name="StudentID" value="@Model.StudentID" required>
                             </div>
                             <div class="form-group">
                                 <label for="companyname">Şirket Adı</label>
-                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName" value="@Model.CompanyName">
+                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName" value="@Model.CompanyName" required>
                             </div>
                             <div class="form-group">
                                 <label for="address">Şirket Adresi</label>
-                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress" value="@Model.CompanyAddress">
+                                <input type="text" class="form-control" id="address" placeholder="Staj yapılacak şirketin adresini giriniz." name="CompanyAddress" value="@Model.CompanyAddress" required>
                             </div>
                             <div class="form-group">
                                 <label for="mail">Şirket E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail" value="@Model.CompanyMail">
+                                <input type="email" class="form-control" id="mail" placeholder="Staj yapılacak şirketin E-Mail giriniz." name="CompanyMail" value="@Model.CompanyMail" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Şirket Telefon</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone" value="@Model.CompanyPhone">
+                                <input type="text" class="form-control" id="phone" placeholder="Staj yapılacak şirketin telefonunu giriniz." name="CompanyPhone" value="@Model.CompanyPhone" required>
                             </div>
                             <div class="form-group">
                                 <label for="department">Departman</label>
@@ -116,19 +112,19 @@
                             </div>
                             <div class="form-group">
                                 <label for="activity">Faaliyet Alanı</label>
-                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity" value="@Model.Activity">
+                                <input type="text" class="form-control" id="activity" placeholder="Staj yapılacak şirketin faaliyet alanını giriniz." name="Activity" value="@Model.Activity" required>
                             </div>
                             <div class="form-group">
                                 <label for="tech">Teknolojiler</label>
-                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech" value="@Model.Tech">
+                                <input type="text" class="form-control" id="tech" placeholder="Staj Yapılacak şirkette kullanılan teknolojiler" name="Tech" value="@Model.Tech" required>
                             </div>
                             <div class="form-group">
                                 <label for="employeeDesc">Çalışan Bilgileri</label>
-                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc" value="@Model.EmployeeDesc">
+                                <input type="text" class="form-control" id="employeeDesc" placeholder="Staj yapılacak birimdeki mühendis sayısı ve mezuniyet alanları" name="EmployeeDesc" value="@Model.EmployeeDesc" required>
                             </div>
                             <div class="form-group">
                                 <label for="subject">Staj Konusu</label>
-                                <input type="text" class="form-control" id="subject" placeholder="Stajın konusu" name="Subject">
+                                <input type="text" class="form-control" id="subject" placeholder="Stajın konusu" name="Subject" required>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Başlangıç Tarihi</label>
@@ -136,7 +132,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate" readonly />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate" readonly  required/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -145,11 +141,11 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly  required/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" value="@Model.Time"/>
+                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" value="@Model.Time" required/>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>

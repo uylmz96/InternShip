@@ -32,7 +32,7 @@ namespace InternShip.MvcUI.App_Classes
                 smtp.Send(message);
                 return "successMessage('" + To + " mail adresine yeni şifreniz gönderilmiştir.')";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return "errorMessage('Mail gönderme başarısız.');";
             }

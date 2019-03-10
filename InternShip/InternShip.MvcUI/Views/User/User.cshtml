@@ -23,28 +23,28 @@
                         <form role="form" action="/User/UserAdd" method="post">
                             <div class="form-group">
                                 <label for="name">Adı : </label>
-                                <input type="text" class="form-control" id="name" placeholder="" name="Name">
+                                <input type="text" class="form-control" id="name" placeholder="" name="Name" required>
                             </div>
                             <div class="form-group">
                                 <label for="surname">Soyadı : </label>
-                                <input type="text" class="form-control" id="surname" placeholder="" name="Surname">
+                                <input type="text" class="form-control" id="surname" placeholder="" name="Surname" required>
                             </div>
                             <div class="form-group">
                                 <label for="username">Kullanıcı Adı : </label>
-                                <input type="text" class="form-control" id="username" placeholder="" name="UserName">
+                                <input type="text" class="form-control" id="username" placeholder="" name="UserName" required>
                             </div>
                             <div class="form-group">
                                 <label for="pass">Parola : </label>
-                                <input type="password" class="form-control" id="pass" placeholder="" name="Password">
+                                <input type="password" class="form-control" id="pass" placeholder="" name="Password" required>
                                 <p class="help-block">Parola en az 4 karakter olmalıdır.</p>
                             </div>
                             <div class="form-group">
                                 <label for="pass2">Parola Tekrar : </label>
-                                <input type="password" class="form-control" id="pass2" placeholder="" name="PasswordAgain">
+                                <input type="password" class="form-control" id="pass2" placeholder="" name="PasswordAgain" required>
                             </div>
                             <div class="form-group">
                                 <label for="mail">E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail">
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
@@ -53,15 +53,15 @@
                     {
                         <form role="form" action="/User/UserUpdate" method="post">
                             <div class="form-group">
-                                <input type="hidden" class="form-control" id="username" placeholder="" name="UserName" readonly value="@User.Identity.Name">
+                                <input type="hidden" class="form-control" id="username" placeholder="" name="UserName" readonly value="@User.Identity.Name" required>
                             </div>
                             <div class="form-group">
                                 <label for="name">Ad Soyad : </label>
-                                <input type="text" class="form-control" id="name" placeholder="" name="Name" value="@Model.Comment">
+                                <input type="text" class="form-control" id="name" placeholder="" name="Name" value="@Model.Comment" required>
                             </div>
                             <div class="form-group">
                                 <label for="mail">E-Mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model.Email">
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model.Email" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
