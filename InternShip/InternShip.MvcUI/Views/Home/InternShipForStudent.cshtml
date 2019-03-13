@@ -15,7 +15,6 @@
                 </div>
                 <div class="block-controls">
                     <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
-                    <a href="/Internship/Internship/-1" class="btn btn-success rounded" role="button">Yeni Staj</a>
                 </div>
             </div>
             <div class="block-content-outer">
@@ -33,7 +32,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @{ if (ViewBag.Internships != null)
+                                @{if (ViewBag.Internships != null)
                                     {
                                         foreach (InternShip item in ViewBag.Internships)
                                         {
@@ -65,12 +64,24 @@
                                                 {
                                                     <td>-</td>
                                                 }
+                                                
                                                 <td>@item.Time</td>
+
+                                                @*@if(item.InternShipResults != null)
+                                                {
+                                                    <td>@item.InternShipResults.AcceptedTime</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>Sonuç Girilmedi</td>
+                                                }*@
+
+
                                                 <td>
                                                     <a href="/InternShip/IntershipDetailForStudent/@item.InternShipID" class="btn btn-warning rounded">Detay</a>
                                                     <a href="/File/FileUpload/@item.InternShipID" class="btn btn-warning rounded">Dosya Yükle</a>
                                                 </td>
-                                               
+
                                             </tr>
                                         }
                                     }

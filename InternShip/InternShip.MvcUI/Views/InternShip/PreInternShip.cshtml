@@ -125,31 +125,33 @@
 @section scriptSection{
     <script>
         $("#modal-button-save-adviser").click(function () {
-            console.log("uylmz96");
-            debugger;
-            var adviser = $('#modal-adviser_Select').val();
-            var id = $('#modal-preinternship-id').val();
-            $('#default-modal-adviertointernship').modal('hide');
-            $.ajax({
-                method: "POST",
-                url: "/InternShip/PreInternShipAccept",
-                data: {
-                    ID: id,
-                    Adviser: adviser
-                },
-                success: function (data) {
-                    console.log(data);
-                    if (data == 1) {
-                        success();
-                    } else if (data == -1) {
-                        error();
-                    }
+            if (confirm('İşlemi onaylıyor musunuz?')) {
+                var adviser = $('#modal-adviser_Select').val();
+                var id = $('#modal-preinternship-id').val();
+                $('#default-modal-adviertointernship').modal('hide');
+                $.ajax({
+                    method: "POST",
+                    url: "/InternShip/PreInternShipAccept",
+                    data: {
+                        ID: id,
+                        Adviser: adviser
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data == 1) {
+                            window.location.reload(false);
+                            success();
 
-                },
-                error: function (xhr, status, error) {
-                    console.log("Error: AdviserToInternship()");
-                }
-            });
+                        } else if (data == -1) {
+                            error();
+                        }
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: AdviserToInternship()");
+                    }
+                });
+            }
         });
 
 

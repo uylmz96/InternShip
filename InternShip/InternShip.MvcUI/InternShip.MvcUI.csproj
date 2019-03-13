@@ -1014,6 +1014,7 @@
     <Compile Include="App_Classes\Mail.cs" />
     <Compile Include="App_Classes\Result.cs" />
     <Compile Include="App_Classes\User.cs" />
+    <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InternShipController.cs" />
@@ -1167,10 +1168,14 @@
     <Content Include="Views\PreInternShip\Index.cshtml" />
     <Content Include="Views\PreInternShip\PreInternShip.cshtml" />
     <Content Include="Views\PreInternShip\PreInternShipPrint.cshtml" />
+    <Content Include="Documents\Imports\Student-Import-Excel.xlsx" />
+    <Content Include="Documents\Imports\Graduate-Student-Import-Excel.xlsx" />
     <None Include="packages.config" />
     <Content Include="Views\InternShip\IntershipDetailForStudent.cshtml" />
     <Content Include="Views\InternShip\PreInternShip.cshtml" />
     <Content Include="Views\File\FileUpload.cshtml" />
+    <Content Include="Views\Excel\Student.cshtml" />
+    <Content Include="Views\Excel\GraduateStudent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1180,6 +1185,36 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Documents\Imports\Uploaded\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

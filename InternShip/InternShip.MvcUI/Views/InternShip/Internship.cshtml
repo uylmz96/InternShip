@@ -36,7 +36,7 @@
                             </div>
                             <div class="ui-widget form-group">
                                 <label for="adviser_select">Danışman </label>
-                                <select id="adviser_select" class="form-control" name="AdviserID_select" required>
+                                <select id="adviser_select" class="form-control" name="AdviserID_select">
                                    <option>Lütfen Seçiniz</option>
                                     @if (ViewBag.Users == null)
                                     {
@@ -51,7 +51,7 @@
 
                                     }
                                 </select>
-                                <input type="hidden" name="AdviserID" id="adviser" required/>
+                                <input type="hidden" name="AdviserID" id="adviser"/>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Başlangıç Tarihi</label>
@@ -59,7 +59,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="startdate" name="StartDate"  required/>
+                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="startdate" name="StartDate"  readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -68,7 +68,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="enddate" name="EndDate"  required/>
+                                    <input type="text" data-date-format="DD/MM/YYYY" class="form-control" autocomplete="off" id="enddate" name="EndDate"  readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -96,7 +96,7 @@
                             </div>
                             <div class="ui-widget form-group">
                                 <label for="adviser_select">Danışman </label>
-                                <select id="adviser_select" class="form-control" name="AdviserID_select" required>
+                                <select id="adviser_select" class="form-control" name="AdviserID_select">
                                     @if (ViewBag.Users == null)
                                     {
                                         <option value="-1" disabled>Danışman Kullanıcı Bulunamadı.</option>
@@ -110,7 +110,7 @@
 
                                     }
                                 </select>
-                                <input type="hidden" name="AdviserID" id="adviser" value="@Model.AdviserID" required />
+                                <input type="hidden" name="AdviserID" id="adviser" value="@Model.AdviserID" />
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Başlangıç Tarihi</label>
@@ -118,7 +118,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate"  required/>
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate"  readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -127,7 +127,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate"  required />
+                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate"  readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -257,7 +257,7 @@
         });
 
         $("#adviser_select").change(function () {
-            $("#adviser").val("");
+            $("#adviser").val($("#adviser_select").val());
         });
         if ($("#adviser").val() != "") {
             $("#adviser_select").val($("#adviser").val());

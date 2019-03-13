@@ -29,7 +29,7 @@
                                     <th>Şirket</th>
                                     <th>Gün</th>
                                     <th>Detay</th>
-                                    <th>Güncelle/Sil</th>
+                                    <th>Notlandırma</th>
                                     <th>Dosya</th>
                                 </tr>
                             </thead>
@@ -71,8 +71,14 @@
                                                     <a href="/InternShip/IntershipDetail/@item.InternShipID" class="btn btn-warning rounded">Detay</a>
                                                 </td>
                                                 <td>
-                                                    <a href="/InternshipRating/InternshipRating/@item.InternShipID" class="btn btn-primary rounded">Notlandır</a>
-
+                                                    @if (item.InternShipResults.Count == 0)
+                                                    {
+                                                        <a href="/InternshipRating/InternshipRating/@item.InternShipID" class="btn btn-primary rounded">Notlandır</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/InternshipRating/InternshipRating/@item.InternShipID" class="btn btn-warning rounded">Düzenle</a>
+                                                    }
                                                 </td>
                                                 <td>
                                                     @if (item.Student != null)

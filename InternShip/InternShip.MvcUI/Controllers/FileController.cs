@@ -16,28 +16,28 @@ namespace InternShip.MvcUI.Controllers
         InternShipContext context = new InternShipContext();
         public ActionResult FileUpload(int id)
         {
+            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            {
+                ViewBag.Internships = null;
+                TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
+                return RedirectToAction("StudentLogin", "Login");
+            }
+
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
-            if (Session["studentNumber"] != null)
+
+            InternShip _internship = context.InternShips.FirstOrDefault(x => x.InternShipID == id);
+            if (_internship != null)
             {
-                InternShip _internship = context.InternShips.FirstOrDefault(x => x.InternShipID == id);
-                if (_internship != null)
-                {
-                    ViewBag.ID = id.ToString();
-                    return View();
-                }
-                else
-                {
-                    TempData["JsFunc"] = "warningMessage('Staj Bulunamadı.')";
-                    return RedirectToAction("InternShipForStudent", "Home");
-                }
+                ViewBag.ID = id.ToString();
+                return View();
             }
             else
             {
-                ViewBag.Internships = null;
-                //ViewBag.JsFunc = "errorMessage('Öğrenci girişi yapılmamış. Lütfen giriş yapınız.')";
-                return RedirectToAction("StudentLogin", "Login");
+                TempData["JsFunc"] = "warningMessage('Staj Bulunamadı.')";
+                return RedirectToAction("InternShipForStudent", "Home");
             }
+
         }
 
         [HttpPost]
@@ -87,7 +87,7 @@ namespace InternShip.MvcUI.Controllers
         {
             string[] files = null;
             List<autocomplete> allsearch = new List<autocomplete>();
-            string fileNames="",folder = Server.MapPath("/Documents/" + id); //Path.Combine(Server.MapPath("/Documents/" + id)); //Folder Path
+            string fileNames = "", folder = Server.MapPath("/Documents/" + id); //Path.Combine(Server.MapPath("/Documents/" + id)); //Folder Path
             if (Directory.Exists(folder))
             {
                 files = Directory.GetFiles(folder);
@@ -96,7 +96,7 @@ namespace InternShip.MvcUI.Controllers
                     allsearch.Add(new autocomplete
                     {
                         //id = Request.Url.Authority+"/Documents/" +id+"/",
-                        id="/Documents/"+id+"/",
+                        id = "/Documents/" + id + "/",
                         value = item
                     });
                 }

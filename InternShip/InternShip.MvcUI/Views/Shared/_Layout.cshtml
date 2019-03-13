@@ -34,7 +34,7 @@
     <link type="text/css" href="/Content/assets/css/optional/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
     <link type="text/css" href="/Content/assets/css/optional/fullcalendar/circloid-fullcalendar.css" rel="stylesheet" />
     <link type="text/css" href="/Content/assets/css/optional/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print" />
-   <link type="text/css" href="/Content/assets/css/optional/bootstrapValidator.min.css" rel="stylesheet" />
+    <link type="text/css" href="/Content/assets/css/optional/bootstrapValidator.min.css" rel="stylesheet" />
 
     <link href="~/Content/assets/css/optional/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <!-- add CSS files here -->
@@ -142,37 +142,27 @@
                         <div id="mainnav-horizontal">
                             <ul class="mainnav-horizontal">
                                 <!-- NOTE TO READER: Accepts the following class(es) "animate" class -->
-                                @{ bool isAdminUser = Roles.GetRolesForUser(User.Identity.Name).Contains("Admin");
-                                    if (isAdminUser)
-                                    {
-                                        @*Kullanıcılar Menü İtem*@
-                                        <li class="menu-item-top">
-                                            <a href="#" class="top">
-                                                <span class="main-menu-icon">
-                                                    <span aria-hidden="true" class="icon icon-user icon-size-medium"></span>
-                                                </span>
-                                                <span class="main-menu-text">Kullanıcı Yönetimi</span>
-                                            </a>
-                                            <ul>
-                                                <li><a href="/User/Index">Kullanıcılar</a></li>
-                                                <li><a href="/Role/Index">Yetkiler</a></li>
-                                            </ul>
-                                        </li>}
-                                    <li class="menu-item-top">
-                                        <a href="/Internship/PreInternShip" class="top">
-                                            <span class="main-menu-icon">
-                                                <span aria-hidden="true" class="icon icon-grid-big icon-size-medium"></span>
-                                            </span>
-                                            <span class="main-menu-text">Ön Başvurular</span>
-                                        </a>
-                                        @*<ul>
-                                                <li><a href="/Internship/Index">Stajlar</a></li>
-                                                <li><a href="/RefusalReason/Index">Staj Sonuç Bilgileri</a></li>
-                                                <li><a href="/Internship/Result">Sonuç</a></li>
-                                                <li><a href="/InternShipRating/Index">Notlandırılacak Stajlar</a></li>
-                                            </ul>*@
-                                    </li>
-                                }
+                                @*Kullanıcılar Menü İtem*@
+                                <li class="menu-item-top">
+                                    <a href="#" class="top">
+                                        <span class="main-menu-icon">
+                                            <span aria-hidden="true" class="icon icon-user icon-size-medium"></span>
+                                        </span>
+                                        <span class="main-menu-text">Kullanıcı Yönetimi</span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="/User/Index">Kullanıcılar</a></li>
+                                        <li><a href="/Role/Index">Yetkiler</a></li>
+                                    </ul>
+                                </li>}
+                                <li class="menu-item-top">
+                                    <a href="/Internship/PreInternShip" class="top">
+                                        <span class="main-menu-icon">
+                                            <span aria-hidden="true" class="icon icon-grid-big icon-size-medium"></span>
+                                        </span>
+                                        <span class="main-menu-text">Ön Başvurular</span>
+                                    </a>                                    
+                                </li>
                                 @* Öğrenciler Menü Item *@
                                 <li class="menu-item-top">
                                     <a href="#" class="top">
@@ -183,8 +173,20 @@
                                     </a>
                                     <ul>
                                         <li><a href="/Student/Index">Öğrenciler</a></li>
-                                        <li><a href="/Student/AllStudentEntry">Toplu Öğrenci Girişi</a></li>
-                                        <li><a href="/Student/GraduateStudents">Mezun Öğrenci Girişi</a></li>
+                                        <li>
+                                            <a href="#">Toplu Öğrenci Girişi</a>
+                                            <ul>
+                                                <a href="/Excel/Student">Excel Yükle</a>
+                                                <a href="~/Documents/Imports/Student-Import-Excel.xlsx">Excel İndir</a>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="/Student/GraduateStudents">Mezun Öğrenci Girişi</a>
+                                            <ul>
+                                                <a href="/Excel/GraduateStudent">Excel Yükle</a>
+                                                <a href="~/Documents/Imports/Graduate-Student-Import-Excel.xlsx">Excel İndir</a>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                                 @* Şirketler Menü Item *@

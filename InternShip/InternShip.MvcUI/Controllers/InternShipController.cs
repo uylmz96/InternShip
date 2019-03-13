@@ -96,6 +96,7 @@ namespace InternShip.MvcUI.Controllers
                 if (_internship.AdviserID != null)
                     _adviser = Membership.GetUser(_internship.AdviserID);
                 InternShipResult _result = ctx.InternShipResults.FirstOrDefault(x => x.InternShipID == _internship.InternShipID);
+
                 ViewBag.InternShip = _internship;
                 ViewBag.Student = _student;
                 ViewBag.Company = _company;
@@ -110,19 +111,37 @@ namespace InternShip.MvcUI.Controllers
         [AllowAnonymous]
         public ActionResult IntershipDetailForStudent(string id)
         {
+            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            {
+                ViewBag.Internships = null;
+                TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
+                return RedirectToAction("StudentLogin", "Login");
+            }
+
             int _id = Convert.ToInt32(id);
-            InternShip _internship = ctx.InternShips.FirstOrDefault(x => x.InternShipID == _id);
-            Company _company = ctx.Companies.FirstOrDefault(x => x.CompanyID == _internship.CompanyID);
-            Student _student = ctx.Students.FirstOrDefault(x => x.StudentID == _internship.StudentID);
-            PreInternship _preInternship = ctx.PreInternships.FirstOrDefault(x => x.InternshipID == _internship.InternShipID);
-            MembershipUser _adviser = Membership.GetUser(_internship.AdviserID);
-            InternShipResult _result = ctx.InternShipResults.FirstOrDefault(x => x.InternShipID == _internship.InternShipID);
-            ViewBag.InternShip = _internship;
-            ViewBag.Student = _student;
-            ViewBag.Company = _company;
-            ViewBag.PreInternShip = _preInternship;
-            ViewBag.Result = _result;
-            return View(_adviser);
+            if (_id < 1)
+            {
+                return RedirectToAction("InternShipForStudent", "Home");
+            }
+            else
+            {
+                InternShip _internship = ctx.InternShips.FirstOrDefault(x => x.InternShipID == _id);
+                Company _company = ctx.Companies.FirstOrDefault(x => x.CompanyID == _internship.CompanyID);
+                Student _student = ctx.Students.FirstOrDefault(x => x.StudentID == _internship.StudentID);
+                PreInternship _preInternship = ctx.PreInternships.FirstOrDefault(x => x.InternshipID == _internship.InternShipID);
+                MembershipUser _adviser = null;
+                if (_internship.AdviserID != null)
+                    _adviser = Membership.GetUser(_internship.AdviserID);
+                InternShipResult _result = ctx.InternShipResults.FirstOrDefault(x => x.InternShipID == _internship.InternShipID);
+
+                ViewBag.InternShip = _internship;
+                ViewBag.Student = _student;
+                ViewBag.Company = _company;
+                ViewBag.PreInternShip = _preInternship;
+                ViewBag.Result = _result;
+                return View(_adviser);
+
+            }
         }
 
         //GET: PreInternShipAccept

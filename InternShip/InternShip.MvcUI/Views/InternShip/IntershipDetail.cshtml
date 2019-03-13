@@ -14,10 +14,10 @@
     </div>
     <div class="col-md-6">
         <div class="page-heading-controls">
-            <a class="btn btn-primary" role="button" href="javascript:window.print();">
+            @*<a class="btn btn-primary" role="button" href="javascript:window.print();">
                 Print
                 <span class="glyphicon glyphicon-print"></span>
-            </a>
+            </a>*@
         </div>
     </div>
 </div>
@@ -78,7 +78,14 @@
                                             </tr>
                                             <tr>
                                                 <td class="col-md-3">Mezuniyet Durumu:</td>
-                                                <td class="col-md-9">@ViewBag.Student.isGraduate</td>
+                                                @if (@ViewBag.Student.isGraduate == true)
+                                                {
+                                                    <td class="col-md-9"><span class="label label-success">Mezun</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="col-md-9"><span class="label label-warning">Devam Ediyor</span></td>
+                                                }
                                             </tr>
                                             <tr>
                                                 <td class="col-md-3">Sisteme Kayıt Tarihi:</td>
@@ -124,7 +131,14 @@
                                             </tr>
                                             <tr>
                                                 <td class="col-md-3">Kara Liste:</td>
-                                                <td class="col-md-9">@ViewBag.Company.IsBlackCompany</td>
+                                                @if (@ViewBag.Company.IsBlackCompany == true)
+                                                {
+                                                    <td class="col-md-9"><span class="label label-danger">Güvensiz</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="col-md-9"><span class="label label-success">Güvenli</span></td>
+                                                }
                                             </tr>
                                             <tr>
                                                 <td class="col-md-3">Sisteme Kayıt Tarihi:</td>
@@ -150,7 +164,7 @@
                                             @if (Model != null)
                                             {
                                                 <tr>
-                                                    <td class="col-md-3">Danışman:</td>
+                                                    <td class="col-md-3">Danışman: </td>
                                                     <td class="col-md-9">@Model.Comment.ToString()</td>
                                                 </tr>
                                             }
@@ -163,7 +177,7 @@
                                             }
                                             <tr>
                                                 <td class="col-md-3">Başlangıç Tarihi:</td>
-                                                <td class="col-md-9">@ViewBag.InternShip.StartDate</td>
+                                                <td class="col-md-9">@ViewBag.InternShip.StartDate <input type="hidden" id="internshipID" value="@ViewBag.InternShip.InternShipID" /></td>
                                             </tr>
                                             <tr>
                                                 <td class="col-md-3">Bitiş Tarihi:</td>
@@ -172,7 +186,7 @@
                                             <tr>
                                                 <td class="col-md-3">Süre:</td>
                                                 <td class="col-md-9">@ViewBag.InternShip.Time</td>
-                                            </tr>                                           
+                                            </tr>
                                         </tbody>
                                     }
                                     else
@@ -245,7 +259,7 @@
                                             <tr>
                                                 <td class="col-md-3">Açıklama:</td>
                                                 <td class="col-md-9">@ViewBag.Result.Desc</td>
-                                            </tr>                                           
+                                            </tr>
                                         </tbody>
                                     }
                                     else
@@ -260,24 +274,13 @@
                             </div>
                             <div class="tab-pane" id="order-view-tabs-document">
                                 <table class="table table-hover">
-                                    @if (ViewBag.InternShip != null)
-                                    {
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-md-3">TEST :</td>
-                                                <td class="col-md-9"> Tasarım Aşamasında </td>
-                                            </tr>
-                                        </tbody>
-                                    }
-                                    else
-                                    {
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-md-3">TEST :</td>
-                                                <td class="col-md-9"> Tasarım Aşamasında </td>
-                                            </tr>
-                                        </tbody>
-                                    }
+                                    <thead>
+                                        <tr>
+                                            <th>Dosya Adı</th>
+                                            <th>İndir</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -289,3 +292,34 @@
 
     </div>
 </div>
+@section scriptSection{
+    <script>
+        setTimeout(function () {
+            console.log("dowloadFile");
+            var dataID = $('#internshipID').val();
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/File/FileDownload",
+                data: { id: dataID },
+                success: function (data) {
+                    var html = "";
+                    if (data.length > 0) {
+                        data.forEach(function (item, index, arr) {
+                            console.log(item.value);
+                            var list = item.value.split('\\');
+                            html = html + "<tr><td>" + list[list.length - 1] + "</td><td><a href=' " + item.id + list[list.length - 1] + "' class='btn btn -default rounded'>Dosya İndir</a></td></tr>"
+                        });
+                    }
+                    else {
+                        html = "<tr style='color:red;'><td>Yüklü dosya bulunamadı.</td></tr>"
+                    }
+                    $('#order-view-tabs-document #table-body').html(html);
+                },
+                error: function () {
+                    console.log("Error : File Download.")
+                }
+            });
+        }, 500);
+    </script>
+}

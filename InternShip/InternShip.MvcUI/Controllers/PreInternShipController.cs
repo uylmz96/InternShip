@@ -36,17 +36,15 @@ namespace InternShip.MvcUI.Controllers
         //GET:PreInternShip
         public ActionResult PreInternShip(int id)
         {
-            if (Session["studentNumber"] != null)
-            {
-                PreInternship model = context.PreInternships.FirstOrDefault(x => x.PreInternshipID == id);
-                return View(model);
-            }
-            else
+            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
             {
                 ViewBag.Internships = null;
-                TempData["JsFunc"] = "errorMessage('Öğrenci girişi yapılmamış. Lütfen giriş yapınız.')";
+                TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
                 return RedirectToAction("StudentLogin", "Login");
             }
+
+            PreInternship model = context.PreInternships.FirstOrDefault(x => x.PreInternshipID == id);
+            return View(model);
         }
 
         //POST: PreInternShipAdd
@@ -96,6 +94,13 @@ namespace InternShip.MvcUI.Controllers
         //GET: PreInternShipPrint
         public ActionResult PreInternShipPrint(int id)
         {
+            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            {
+                ViewBag.Internships = null;
+                TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
+                return RedirectToAction("StudentLogin", "Login");
+            }
+
             PreInternship model = context.PreInternships.FirstOrDefault(x => x.PreInternshipID == id);
             if (model != null)
             {
