@@ -36,7 +36,7 @@ namespace InternShip.MvcUI.Controllers
         //GET:PreInternShip
         public ActionResult PreInternShip(int id)
         {
-            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            if (Session["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
             {
                 ViewBag.Internships = null;
                 TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
@@ -94,7 +94,7 @@ namespace InternShip.MvcUI.Controllers
         //GET: PreInternShipPrint
         public ActionResult PreInternShipPrint(int id)
         {
-            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            if (Session["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
             {
                 ViewBag.Internships = null;
                 TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";

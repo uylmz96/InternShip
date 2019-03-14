@@ -1170,6 +1170,7 @@
     <Content Include="Views\PreInternShip\PreInternShipPrint.cshtml" />
     <Content Include="Documents\Imports\Student-Import-Excel.xlsx" />
     <Content Include="Documents\Imports\Graduate-Student-Import-Excel.xlsx" />
+    <Content Include="Documents\Imports\Staj-Dosyası.rar" />
     <None Include="packages.config" />
     <Content Include="Views\InternShip\IntershipDetailForStudent.cshtml" />
     <Content Include="Views\InternShip\PreInternShip.cshtml" />

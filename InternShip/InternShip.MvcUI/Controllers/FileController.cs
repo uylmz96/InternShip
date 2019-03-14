@@ -16,7 +16,7 @@ namespace InternShip.MvcUI.Controllers
         InternShipContext context = new InternShipContext();
         public ActionResult FileUpload(int id)
         {
-            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            if (Session["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
             {
                 ViewBag.Internships = null;
                 TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";

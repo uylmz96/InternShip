@@ -111,7 +111,7 @@ namespace InternShip.MvcUI.Controllers
         [AllowAnonymous]
         public ActionResult IntershipDetailForStudent(string id)
         {
-            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            if (Session["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
             {
                 ViewBag.Internships = null;
                 TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
@@ -155,7 +155,7 @@ namespace InternShip.MvcUI.Controllers
                 Advisers.Add(Membership.GetUser(item));
             }
             ViewBag.Advisers = Advisers;
-            ViewBag.PreInternShips = ctx.PreInternships.Where(x => x.DelDate == null).OrderBy(x => x.StudentID).OrderByDescending(x => x.CrtDate).ToList();
+            ViewBag.PreInternShips = ctx.PreInternships.Where(x => x.DelDate == null).OrderByDescending(x => x.CrtDate).OrderBy(x=>x.InternshipID).ToList();
             return View();
         }
 

@@ -1,6 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "Ön Başvuru Onaylama";
+                /**/
+
+                ViewBag.Title = "Ön Başvuru Onaylama";
 }
 @using InternShip.MvcUI.Models;
 
@@ -66,9 +68,9 @@
                                                 {
                                                     if (item.InternShip.DelDate == null)
                                                     {
-                                                        <span class="label label-primary">Onaylanmış</span>
-                                                        <br />
-                                                        <a href="/InternShip/PreInternShipRemove/@item.InternshipID" class="btn btn-primary rounded adviser-popup-button">İptal Et</a>
+                                                        @*<span class="label label-primary">Onaylanmış</span>
+                                                        <br />*@
+                                                        <a href="/InternShip/PreInternShipRemove/@item.InternshipID" class="btn btn-danger rounded adviser-popup-button">İptal Et</a>
                                                     }
                                                     else
                                                     {

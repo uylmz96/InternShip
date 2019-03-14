@@ -20,7 +20,7 @@ namespace InternShip.MvcUI.Controllers
         //GET: InternShipForStudent
         public ActionResult InternShipForStudent()
         {
-            if (TempData["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            if (Session["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
             {
                 ViewBag.Internships = null;
                 TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
