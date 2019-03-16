@@ -1013,6 +1013,7 @@
   <ItemGroup>
     <Compile Include="App_Classes\Mail.cs" />
     <Compile Include="App_Classes\Result.cs" />
+    <Compile Include="App_Classes\StudentExtentedModel.cs" />
     <Compile Include="App_Classes\User.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -1177,6 +1178,7 @@
     <Content Include="Views\File\FileUpload.cshtml" />
     <Content Include="Views\Excel\Student.cshtml" />
     <Content Include="Views\Excel\GraduateStudent.cshtml" />
+    <Content Include="Views\Student\GraduateStudents.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

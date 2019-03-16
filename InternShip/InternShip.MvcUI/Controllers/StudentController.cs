@@ -10,6 +10,8 @@ namespace InternShip.MvcUI.Controllers
     using InternShip.MvcUI.App_Classes;
     using InternShip.MvcUI.App_Classes.DTO;
     using Models;
+    using System.Data;
+    using System.Data.Entity.Core.EntityClient;
     using System.Reflection;
     [Authorize]
     public class StudentController : Controller
@@ -18,7 +20,80 @@ namespace InternShip.MvcUI.Controllers
         // GET: Index
         public ActionResult Index()
         {
-            ViewBag.Students = context.Students.Where(x => x.DelDate == null).ToList();
+            #region Öğrencilerin listelenmesi tamamlanan staj gün sayıları ile birlikte
+            //Öğrencilerin toplam kabul edilen staj gün sayıları
+            var ExtentedStudent = (from s in context.Students
+                                   join i in context.InternShips on s.StudentID equals i.StudentID
+                                   join r in context.InternShipResults on i.InternShipID equals r.InternShipID
+                                   where s.DelDate == null & i.DelDate == null &(s.isGraduate == false || s.isGraduate == null)
+                                   group r by s.StudentID into t
+                                   select new
+                                   {
+                                       studentID = t.Key,
+                                       sumAcceptedTime = t.Sum(x => x.AcceptedTime)
+                                   }).ToList();
+
+            //Tüm öğrenciler
+            List<StudentExtentedModel> extentedModels = new List<StudentExtentedModel>();
+            foreach (Student item in context.Students.Where(x => x.DelDate == null & (x.isGraduate ==false || x.isGraduate==null)).ToList())
+            {
+                StudentExtentedModel model = new StudentExtentedModel();
+                item.MapTo(model);
+                model.sumAcceptedTime = 0;
+                extentedModels.Add(model);
+            }
+
+            //İkisini birleştirme işlemi
+            foreach (var item in ExtentedStudent)
+            {
+                StudentExtentedModel model = extentedModels.FirstOrDefault(x => x.StudentID == item.studentID) as StudentExtentedModel;
+                model.sumAcceptedTime = Convert.ToInt16(item.sumAcceptedTime);
+            } 
+            #endregion
+            
+            ViewBag.Students = extentedModels.OrderByDescending(x=>x.CrtDate);
+            //  ViewBag.Students = context.Students.Where(x => x.DelDate == null).ToList();
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
+            return View();
+        }
+
+        //GET:
+        public ActionResult GraduateStudents()
+        {
+            #region Öğrencilerin listelenmesi tamamlanan staj gün sayıları ile birlikte
+            //Öğrencilerin toplam kabul edilen staj gün sayıları
+            var ExtentedStudent = (from s in context.Students
+                                   join i in context.InternShips on s.StudentID equals i.StudentID
+                                   join r in context.InternShipResults on i.InternShipID equals r.InternShipID
+                                   where s.DelDate==null & i.DelDate==null & s.isGraduate==true
+                                   group r by s.StudentID into t
+                                   select new
+                                   {
+                                       studentID = t.Key,
+                                       sumAcceptedTime = t.Sum(x => x.AcceptedTime)
+                                   }).ToList();
+
+            //Tüm öğrenciler
+            List<StudentExtentedModel> extentedModels = new List<StudentExtentedModel>();
+            foreach (Student item in context.Students.Where(x => x.DelDate == null & x.isGraduate == true).ToList())
+            {
+                StudentExtentedModel model = new StudentExtentedModel();
+                item.MapTo(model);
+                model.sumAcceptedTime = 0;
+                extentedModels.Add(model);
+            }
+
+            //İkisini birleştirme işlemi
+            foreach (var item in ExtentedStudent)
+            {
+                StudentExtentedModel model = extentedModels.FirstOrDefault(x => x.StudentID == item.studentID) as StudentExtentedModel;
+                model.sumAcceptedTime = Convert.ToInt16(item.sumAcceptedTime);
+            }
+            #endregion
+
+            ViewBag.Students = extentedModels.OrderByDescending(x => x.CrtDate);
+            //  ViewBag.Students = context.Students.Where(x => x.DelDate == null).ToList();
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View();
@@ -48,7 +123,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Öğrenci numarasına ait öğrenci zaten mevcut ');";
-                return RedirectToAction("Student",new { id=insertedStudent.StudentID});
+                return RedirectToAction("Student", new { id = insertedStudent.StudentID });
             }
         }
 
@@ -84,7 +159,7 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 TempData["JsFunc"] = "warningMessage('Bilgilere Erişilemiyor.');";
-                return RedirectToAction("Student", new { id =id});
+                return RedirectToAction("Student", new { id = id });
             }
         }
 

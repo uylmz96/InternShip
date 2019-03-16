@@ -69,25 +69,29 @@ namespace InternShip.MvcUI.Controllers
                         {
 
                             //Excel den okuyup modele ekleme işlemi
+                            string studentNumber = ((Excel.Range)range.Cells[i, 1]).Text;
+                            Student _student = _context.Students.FirstOrDefault(x => x.StudentNumber == studentNumber);
+                            if (_student == null)
+                            {
+                                _student = new Student();
+                                _student.StudentNumber = ((Excel.Range)range.Cells[i, 1]).Text;
+                                _student.Name = ((Excel.Range)range.Cells[i, 2]).Text;
+                                _student.Surname = ((Excel.Range)range.Cells[i, 3]).Text;
+                                _student.Mail = ((Excel.Range)range.Cells[i, 4]).Text;
+                                _student.CrtDate = DateTime.Now;
+                                _student.isGraduate = false;
 
-                            Student _student = new Student();
-                            _student.StudentNumber = ((Excel.Range)range.Cells[i, 1]).Text;
-                            _student.Name = ((Excel.Range)range.Cells[i, 2]).Text;
-                            _student.Surname = ((Excel.Range)range.Cells[i, 3]).Text;
-                            _student.Mail = ((Excel.Range)range.Cells[i, 4]).Text;
-                            _student.CrtDate = DateTime.Now;
-                            _student.isGraduate = false;
+                                if (((Excel.Range)range.Cells[i, 5]).Text != "")
+                                    _student.Phone = ((Excel.Range)range.Cells[i, 5]).Text;
+                                else
+                                    _student.Phone = "(000) 000 0000";
 
-                            if (((Excel.Range)range.Cells[i, 5]).Text != "")
-                                _student.Phone = ((Excel.Range)range.Cells[i, 5]).Text;
-                            else
-                                _student.Phone = "(000) 000 0000";
-
-                            if (((Excel.Range)range.Cells[i, 6]).Text != "")
-                                _student.EntryDate = ((Excel.Range)range.Cells[i, 6]).Text;
-                            else
-                                _student.EntryDate = DateTime.Now;                                                                                  
-                            localList.Add(_student);
+                                if (((Excel.Range)range.Cells[i, 6]).Text != "")
+                                    _student.EntryDate = ((Excel.Range)range.Cells[i, 6]).Text;
+                                else
+                                    _student.EntryDate = DateTime.Now;
+                                localList.Add(_student);
+                            }
                         }
                         application.Quit();
 
@@ -111,7 +115,7 @@ namespace InternShip.MvcUI.Controllers
                     TempData["JsFunc"] = "errorMessage('Hatalı düzenlenmiş dosya lütfen kontol edip tekrar deneyiniz.');";
                     application.Quit();
                     return RedirectToAction("Student");
-                }              
+                }
             }
         }
 
@@ -175,12 +179,13 @@ namespace InternShip.MvcUI.Controllers
 
                             //Excel den okuyup modele ekleme işlemi
                             string studentNumber = ((Excel.Range)range.Cells[i, 1]).Text;
-                            if (studentNumber != "" & studentNumber!=null) {
+                            if (studentNumber != "" & studentNumber != null)
+                            {
                                 Student _student = _context.Students.FirstOrDefault(x => x.StudentNumber == studentNumber);
                                 _student.isGraduate = true;
                                 _student.GraduateDate = DateTime.Now;
                                 localList.Add(_student);
-                            }                            
+                            }
                         }
                         application.Quit();
 

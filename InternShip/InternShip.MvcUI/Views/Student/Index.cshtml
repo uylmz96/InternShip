@@ -4,6 +4,7 @@
 }
 
 @using InternShip.MvcUI.Models;
+@using InternShip.MvcUI.App_Classes;
 
 <div class="row">
     <div class="col-md-12">
@@ -28,7 +29,7 @@
                                     <th>Soyadı</th>
                                     <th>Mail</th>
                                     <th>Telefon</th>
-                                    <th>Giriş Tarihi</th>
+                                    <th>Tamamlanan</th>
                                     <th>Mezun Durumu</th>
                                     <th>Güncelle/Sil</th>
                                 </tr>
@@ -36,7 +37,7 @@
                             <tbody>
                                 @{ if (ViewBag.Students != null)
                                     {
-                                        foreach (Student item in ViewBag.Students)
+                                        foreach (StudentExtentedModel item in ViewBag.Students)
                                         {
                                             <tr>
                                                 <td>@item.StudentNumber</td>
@@ -44,7 +45,7 @@
                                                 <td>@item.Surname</td>
                                                 <td>@item.Mail</td>
                                                 <td>@item.Phone</td>
-                                                <td>@item.EntryDate</td>
+                                                <td>@item.sumAcceptedTime</td>
                                                 <td>
                                                     @{if (item.isGraduate == true)
                                                         {
