@@ -55,6 +55,11 @@ namespace InternShip.MvcUI.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+
+            if (Session["studentNumber"] != null)
+                Session.Remove("studentNumber");
+            if (Session["studentName"] != null)
+                Session.Remove("studentName");
             return RedirectToAction("Login", "Login");
         }
 
@@ -74,7 +79,7 @@ namespace InternShip.MvcUI.Controllers
             if (student != null)
             {
                 Session.Add("studentNumber", student.StudentNumber);
-                Session.Add("studentName", string.Format(" {0} {1}",student.Name,student.Surname));
+                Session.Add("studentName", string.Format(" {0} {1}", student.Name, student.Surname));
                 return RedirectToAction("InternShipForStudent", "Home");
             }
             else

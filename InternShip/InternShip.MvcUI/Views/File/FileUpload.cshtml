@@ -3,36 +3,92 @@
     ViewBag.Title = "FileUpload";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-
-<div class="row">
-    <div class="block">
-        <div class="block-heading">
-            <div class="main-text h2">
-                Dosya Yükle
+<div class="col-sm-6 col-md-6">
+    <div class="row">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Dosya Yükle
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
             </div>
-            <div class="block-controls">
-                <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
-            </div>
-        </div>
-        <div class="block-content-outer">
-            <div class="block-content-inner">
-                @using (Html.BeginForm("FileUpload",
-                                "File",
-                                FormMethod.Post,
-                                new { enctype = "multipart/form-data" }))
-                {
-                    <div class="form-group">
-                        <label for="file">Dosya :</label>
-                        <input type="file" class="form-control" name="file" id="file" required/>
-                    </div>
-                    <div class="form-group">
-                        <input type="hidden" class="form-control" name="internshipID" id="intershipID" value="@ViewBag.ID" />
-                    </div>
-                    <input type="submit" value="Yükle" />
-                }
-
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    @using (Html.BeginForm("FileUpload",
+                            "File",
+                            FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <label for="file">Dosya :</label>
+                            <input type="file" class="form-control" name="file" id="file" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="internshipID" id="intershipID" value="@ViewBag.ID" />
+                        </div>
+                        <input type="submit" value="Yükle" />
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<div class="col-sm-6 col-md-6">
+    <div class="row">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Dosya Yükle
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    <table class="table table-hover" id="table-documents">
+                        <thead>
+                            <tr>
+                                <th>Dosya Adı</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptSection{
+    <script>
+        setTimeout(function () {
+            console.log("dowloadFile");
+            var dataID = $('#intershipID').val();
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/File/FileDownload",
+                data: { id: dataID },
+                success: function (data) {
+                    var html = "";
+                    if (data.length > 0) {
+                        data.forEach(function (item, index, arr) {
+                            console.log(item.value);
+                            var list = item.value.split('\\');
+                            html = html + "<tr><td>" + list[list.length - 1] + "</td></tr>"
+                        });
+                    }
+                    else {
+                        html = "<tr style='color:red;'><td>Yüklü dosya bulunamadı.</td></tr>"
+                    }
+                    $('#table-documents #table-body').html(html);
+                },
+                error: function () {
+                    console.log("Error : File Download.")
+                }
+            });
+        }, 500);
+    </script>
+}

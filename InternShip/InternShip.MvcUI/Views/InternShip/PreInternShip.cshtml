@@ -5,6 +5,7 @@
                 ViewBag.Title = "Ön Başvuru Onaylama";
 }
 @using InternShip.MvcUI.Models;
+@using InternShip.MvcUI.App_Classes;
 
 <div class="row">
     <div class="col-md-12">
@@ -16,6 +17,7 @@
                 <div class="block-controls">
                     <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
                     <a href="/PreInternShip/PreInternShip/-1" class="btn btn-success rounded" role="button">Yeni Ekle</a>
+                    <a href="/InternShip/PreInternShipAcceptAuto" class="btn btn-info rounded" role="button" id="autoAdviser">Otomatik Danışman Ata</a>
                 </div>
             </div>
             <div class="block-content-outer">
@@ -104,9 +106,9 @@
                     {
                         <span>Sıradaki akademisyeni seçiniz.</span>
                         <select id="modal-adviser_Select" class="form-control">
-                            @foreach (MembershipUser item in ViewBag.Advisers)
+                            @foreach (AdviserWithCount item in ViewBag.Advisers)
                             {
-                                <option value="@item.UserName">@item.Comment</option>
+                                <option value="@item.adviserID">@item.adviserID (@item.internshipCount)</option>
                             }
                         </select>
 

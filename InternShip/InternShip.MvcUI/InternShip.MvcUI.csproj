@@ -1011,6 +1011,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Classes\AdviserWithCount.cs" />
     <Compile Include="App_Classes\Mail.cs" />
     <Compile Include="App_Classes\Result.cs" />
     <Compile Include="App_Classes\StudentExtentedModel.cs" />
