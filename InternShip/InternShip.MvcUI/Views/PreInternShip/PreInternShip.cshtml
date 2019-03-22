@@ -22,10 +22,10 @@
                 <div class="block-content-inner">
                     @if (Model == null)
                     {
-                        <form role="form" action="/PreInternShip/PreInternShipAdd" method="post">                            
+                        <form role="form" action="/PreInternShip/PreInternShipAdd" method="post">
                             <div class="form-group">
                                 <label for="companyname">Şirket Adı</label>
-                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName"  required>
+                                <input type="text" class="form-control" id="companyname" placeholder="Staj yapılacak şirketin adını giriniz." name="CompanyName" required>
                             </div>
                             <div class="form-group">
                                 <label for="address">Şirket Adresi</label>
@@ -65,7 +65,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" readonly  required />
+                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" required readonly />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -74,11 +74,11 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" readonly required />
+                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" required readonly />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" required/>
+                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" required />
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>
@@ -132,7 +132,7 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate" readonly  required/>
+                                    <input type="text" class="form-control" autocomplete="off" id="startdate" name="StartDate" value="@Model.StartDate" readonly required />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -141,11 +141,11 @@
                                     <span class="input-group-addon input-group-icon">
                                         <span class="glyphicon-calendar glyphicon"></span>
                                     </span>
-                                    <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly  required/>
+                                    <input type="text" class="form-control" autocomplete="off" id="enddate" name="EndDate" value="@Model.EndDate" readonly required />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" value="@Model.Time" required/>
+                                <input type="number" id="Time" name="Time" class="form-control" placeholder="Staj yapılacak gün sayısı" value="@Model.Time" required />
                             </div>
                             <button type="submit" class="btn btn-primary">Kaydet</button>
                         </form>

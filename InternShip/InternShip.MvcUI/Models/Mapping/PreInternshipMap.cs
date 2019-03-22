@@ -42,6 +42,10 @@ namespace InternShip.MvcUI.Models.Mapping
             this.Property(t => t.StudentNumber)
                 .HasMaxLength(15);
 
+            this.Property(t => t.Time)
+                .IsFixedLength()
+                .HasMaxLength(10);
+
             // Table & Column Mappings
             this.ToTable("PreInternship");
             this.Property(t => t.PreInternshipID).HasColumnName("PreInternshipID");
@@ -54,7 +58,6 @@ namespace InternShip.MvcUI.Models.Mapping
             this.Property(t => t.Department).HasColumnName("Department");
             this.Property(t => t.Activity).HasColumnName("Activity");
             this.Property(t => t.Tech).HasColumnName("Tech");
-            this.Property(t => t.Time).HasColumnName("Time");
             this.Property(t => t.Subject).HasColumnName("Subject");
             this.Property(t => t.EmployeeDesc).HasColumnName("EmployeeDesc");
             this.Property(t => t.StartDate).HasColumnName("StartDate");
@@ -62,6 +65,7 @@ namespace InternShip.MvcUI.Models.Mapping
             this.Property(t => t.CrtDate).HasColumnName("CrtDate");
             this.Property(t => t.DelDate).HasColumnName("DelDate");
             this.Property(t => t.StudentNumber).HasColumnName("StudentNumber");
+            this.Property(t => t.Time).HasColumnName("Time");
 
             // Relationships
             this.HasOptional(t => t.InternShip)

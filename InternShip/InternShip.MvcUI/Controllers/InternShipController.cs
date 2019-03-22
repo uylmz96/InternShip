@@ -22,7 +22,6 @@ namespace InternShip.MvcUI.Controllers
             ViewBag.Internships = ctx.InternShips.ToList().Where(x => x.DelDate == null);
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
-
             return View();
         }
 
@@ -243,7 +242,7 @@ namespace InternShip.MvcUI.Controllers
                     {
                         Student _student = ctx.Students.FirstOrDefault(x => x.StudentID == _pre.StudentID);
                         if (_student.Mail != null)
-                            Mail.sendMail(_student.Mail, "Danışman Atama", "Stajınızın danışman ataması yapılmıştır. Lütfen çıktı alarak danışmanınıza ve ilgili şirkete imzalatınız.");
+                            Mail.sendMailUseThread(_student.Mail, "Danışman Atama", "Stajınızın danışman ataması yapılmıştır. Lütfen çıktı alarak danışmanınıza ve ilgili şirkete imzalatınız.");
                     }
                     return 1;
                 }
@@ -319,13 +318,14 @@ namespace InternShip.MvcUI.Controllers
                         bool isPreAccepted = Result.SaveChanges2(ctx);
                         #endregion
 
-
                         #region Öğrenciye mail gönderme işlemi
                         if (isInternshipAdd & isPreAccepted)
                         {
                             Student _student = ctx.Students.FirstOrDefault(x => x.StudentID == _pre.StudentID);
                             if (_student.Mail != null)
-                                Mail.sendMail(_student.Mail, "Danışman Atama", "Stajınızın danışman ataması yapılmıştır. Lütfen çıktı alarak danışmanınıza ve ilgili şirkete imzalatınız.");
+                                Mail.sendMailUseThread(_student.Mail, "Danışman Atama", "Stajınızın danışman ataması yapılmıştır. Lütfen çıktı alarak danışmanınıza ve ilgili şirkete cv bnmöimzalatınız.");
+
+                             
                         }
                         #endregion
                     }

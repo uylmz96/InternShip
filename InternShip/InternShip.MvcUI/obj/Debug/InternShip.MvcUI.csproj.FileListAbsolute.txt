@@ -108,8 +108,6 @@ E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\System.Web.Razo
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\System.Web.Webpages.Deployment.dll
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\System.Web.Webpages.dll
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\System.Web.Webpages.Razor.dll
-E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.xml
-E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.SqlServer.xml
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\System.Web.Razor.xml
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\System.Web.Webpages.xml
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\System.Web.Webpages.Deployment.xml
@@ -123,3 +121,7 @@ E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\obj\Debug\InternShi
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\obj\Debug\InternShip.MvcUI.dll
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\obj\Debug\InternShip.MvcUI.pdb
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\obj\Debug\InternShip.MvcUI.csproj.ResolveComReference.cache
+E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.dll
+E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.SqlServer.dll
+E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.xml
+E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.SqlServer.xml
