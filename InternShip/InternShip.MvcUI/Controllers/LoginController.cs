@@ -17,8 +17,7 @@ namespace InternShip.MvcUI.Controllers
         InternShipContext context = new InternShipContext();
         // GET: Login
         public ActionResult Login()
-        {
-          
+        {          
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View();

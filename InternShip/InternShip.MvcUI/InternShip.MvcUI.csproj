@@ -1035,6 +1035,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="App_Classes\autocomplete.cs" />
+    <Compile Include="Migrations\201903221234451_first-migration.cs" />
+    <Compile Include="Migrations\201903221234451_first-migration.Designer.cs">
+      <DependentUpon>201903221234451_first-migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\aspnet_Applications.cs" />
     <Compile Include="Models\aspnet_Membership.cs" />
     <Compile Include="Models\aspnet_Paths.cs" />
@@ -1047,6 +1052,7 @@
     <Compile Include="Models\aspnet_WebEvent_Events.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\ExtraData.cs" />
     <Compile Include="Models\InternShip.cs" />
     <Compile Include="Models\InternShipContext.cs" />
     <Compile Include="Models\InternShipResult.cs" />
@@ -1062,6 +1068,7 @@
     <Compile Include="Models\Mapping\aspnet_WebEvent_EventsMap.cs" />
     <Compile Include="Models\Mapping\CompanyMap.cs" />
     <Compile Include="Models\Mapping\DocumentMap.cs" />
+    <Compile Include="Models\Mapping\ExtraDataMap.cs" />
     <Compile Include="Models\Mapping\InternShipMap.cs" />
     <Compile Include="Models\Mapping\InternShipResultMap.cs" />
     <Compile Include="Models\Mapping\PreInternshipMap.cs" />
@@ -1172,7 +1179,6 @@
     <Content Include="Views\PreInternShip\PreInternShipPrint.cshtml" />
     <Content Include="Documents\Imports\Student-Import-Excel.xlsx" />
     <Content Include="Documents\Imports\Graduate-Student-Import-Excel.xlsx" />
-    <Content Include="Documents\Imports\Staj-Dosyası.rar" />
     <None Include="packages.config" />
     <Content Include="Views\InternShip\IntershipDetailForStudent.cshtml" />
     <Content Include="Views\InternShip\PreInternShip.cshtml" />
@@ -1180,6 +1186,8 @@
     <Content Include="Views\Excel\Student.cshtml" />
     <Content Include="Views\Excel\GraduateStudent.cshtml" />
     <Content Include="Views\Student\GraduateStudents.cshtml" />
+    <Content Include="Views\Mail\Index.cshtml" />
+    <Content Include="Views\File\EmptyInternshipFileUpload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1190,7 +1198,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Documents\Imports\Uploaded\" />
-    <Folder Include="Views\Mail\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -1220,6 +1227,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903221234451_first-migration.resx">
+      <DependentUpon>201903221234451_first-migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

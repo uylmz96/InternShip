@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using InternShip.MvcUI.Models;
+@model List<ExtraData>
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Şirket
+                </div>
+                <div class="block-controls">
+                    <a href="/Company/Index" class="block-control block-control-remove"></a>
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    @if (Model == null)
+                    {
+                        <form role="form" action="/Mail/MailChange" method="post">
+                            <div class="form-group">
+                                <label for="companyname">Mail Adresi : </label>
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Şifre : </label>
+                                <input type="password" class="form-control" id="address" placeholder="" name="Password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form role="form" action="/Mail/MailChange" method="post">
+                            <div class="form-group">
+                                <label for="companyname">Mail Adresi : </label>
+                                <input type="email" class="form-control" id="mail" placeholder="" name="Mail" value="@Model[0].Data.ToString()" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Şifre : </label>
+                                <input type="password" class="form-control" id="address" placeholder="" name="Password" value="@Model[1].Data.ToString()" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

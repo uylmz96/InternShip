@@ -27,6 +27,7 @@ namespace InternShip.MvcUI.Models
         public DbSet<aspnet_Users> aspnet_Users { get; set; }
         public DbSet<aspnet_WebEvent_Events> aspnet_WebEvent_Events { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<ExtraData> ExtraDatas { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<InternShip> InternShips { get; set; }
         public DbSet<InternShipResult> InternShipResults { get; set; }

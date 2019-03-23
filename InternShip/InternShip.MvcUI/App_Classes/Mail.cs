@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternShip.MvcUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,8 @@ namespace InternShip.MvcUI.App_Classes
 {
     public static class Mail
     {
+
+        
         public static void sendMailUseThread(string To, string Subject, string Body)
         {
 
@@ -20,10 +23,15 @@ namespace InternShip.MvcUI.App_Classes
 
         public static string sendMail(string To, string Subject, string Body)
         {
+            InternShipContext _context = new InternShipContext();
             try
             {
+                //Veritabanından güncel mail adresi ve parola çekilir.
+                ExtraData MailAddress = _context.ExtraDatas.FirstOrDefault(x => x.DataType == "MailAddress");
+                ExtraData MailPassword = _context.ExtraDatas.FirstOrDefault(x => x.DataType == "MailPassword");
+
                 var message = new MailMessage();
-                message.From = new MailAddress("meubilgisayarmuhstaj@gmail.com");
+                message.From = new MailAddress(MailAddress.Data);
                 message.To.Add(new MailAddress(To));
                 message.Subject = Subject;
                 message.Body = Body;
@@ -31,8 +39,8 @@ namespace InternShip.MvcUI.App_Classes
                 SmtpClient smtp = new SmtpClient();
                 var credential = new NetworkCredential
                 {
-                    UserName = "meubilgisayarmuhstaj@gmail.com",
-                    Password = "aQW75TETvyAm][{@"
+                    UserName = MailAddress.Data,
+                    Password = MailPassword.Data
                 };
                 smtp.Credentials = credential;
                 smtp.Host = "smtp.gmail.com";

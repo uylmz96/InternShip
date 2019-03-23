@@ -35,7 +35,7 @@
                                             <option>Lütfen Seçiniz</option>
                                             foreach (RefusalReason item in ViewBag.Reasons)
                                             {
-                                                <option value="@item.ReasonID">@item.Reason</option>
+                                                <option value="@item.ReasonID">@item.Reason (@item.Desc)</option>
                                             }
                                         }
                                         else
@@ -70,7 +70,7 @@
                                         {
                                             foreach (RefusalReason item in ViewBag.Reasons)
                                             {
-                                                <option value="@item.ReasonID">@item.Reason</option>
+                                                <option value="@item.ReasonID">@item.Reason (@item.Desc)</option>
                                             }
                                         }
                                         else

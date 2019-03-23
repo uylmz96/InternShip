@@ -6,14 +6,16 @@ using System.Web.Mvc;
 
 namespace InternShip.MvcUI.Controllers
 {
+    using InternShip.MvcUI.App_Classes;
     using InternShip.MvcUI.App_Classes.DTO;
     using Models;
     using System.IO;
     using static System.Net.Mime.MediaTypeNames;
-
+    [Authorize]
     public class FileController : Controller
     {
         InternShipContext context = new InternShipContext();
+        [AllowAnonymous]
         public ActionResult FileUpload(int id)
         {
             if (Session["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
@@ -40,9 +42,12 @@ namespace InternShip.MvcUI.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult FileUpload(HttpPostedFileBase file, int internshipID)
         {
+            #region Dosya Yüklenebilirlik Kontrolü
+            ExtraData FileUpload = context.ExtraDatas.FirstOrDefault(x => x.DataType == "FileUpload");
             //Staj notlandırılmışsa belge yüklenemez.
             InternShipResult _result = context.InternShipResults.FirstOrDefault(x => x.InternShipID == internshipID);
             if (_result != null)
@@ -50,10 +55,17 @@ namespace InternShip.MvcUI.Controllers
                 TempData["JsFunc"] = "warningMessage('Notlandırılmış staja belge yüklenemez.')";
                 return RedirectToAction("InternShipForStudent", "Home");
             }
+            if (FileUpload.Data == "close")
+            {
+                TempData["JsFunc"] = "warningMessage('Dosya yükleme süresi bitmiştir.')";
+                return RedirectToAction("InternShipForStudent", "Home");
+            }
+            #endregion
 
             //Belge Yükleme işlemi
             string studentNumber = Session["studentNumber"].ToString();
             if (file != null && file.ContentLength > 0 & file.ContentLength < 4000000)
+            {
                 try
                 {
                     string folder = Path.Combine(Server.MapPath("/Documents/" + internshipID)); //Folder Path
@@ -70,6 +82,7 @@ namespace InternShip.MvcUI.Controllers
                     TempData["JsFunc"] = "errorMessage('ERROR: " + ex.Message.ToString() + "')";
                     return RedirectToAction("FileUpload", new { id = internshipID });
                 }
+            }
             else if (file.ContentLength > 4000000)
             {
                 TempData["JsFunc"] = "warningMessage('Dosya Boyutu 4 MB ile sınırlandırılmıştır.')";
@@ -82,6 +95,7 @@ namespace InternShip.MvcUI.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public JsonResult FileDownload(int id)
         {
@@ -102,6 +116,61 @@ namespace InternShip.MvcUI.Controllers
                 }
             }
             return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        [HttpPost]
+        public string FileUploadActivePasive()
+        {
+            string retValue = "Dosya Yükleme Açık";
+            ExtraData FileUpload = context.ExtraDatas.FirstOrDefault(x => x.DataType == "FileUpload");
+            if (FileUpload == null)//Yokda Açık olarak oluştur.
+            {
+                FileUpload = new ExtraData();
+                FileUpload.DataType = "FileUpload";
+                FileUpload.Data = "open";
+            }
+            else if (FileUpload.Data == "open")
+            {
+                FileUpload.Data = "close";
+                retValue = "Dosya Yükleme Kapalı";
+            }
+            else if (FileUpload.Data == "close")
+            {
+                FileUpload.Data = "open";
+            }
+            Result.isAppliedSaveChanges(context);
+            return retValue;
+        }
+
+        public ActionResult EmptyInternshipFileUpload()
+        {
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EmptyInternshipFileUpload(HttpPostedFileBase file)
+        {
+            string folder = Path.Combine(Server.MapPath("/Documents/Imports/")); //Folder Path
+            string path = Path.Combine(folder, Path.GetFileName("Staj-Dosyası.rar"));
+
+            if (file.FileName.EndsWith("rar") || file.FileName.EndsWith("zip"))
+            {
+                //if (System.IO.File.Exists(path))
+                //{
+                //    System.IO.File.Delete(path);
+                //}
+                file.SaveAs(path);
+                TempData["JsFunc"] = "successMessage('Dosya başarılı şekilde değiştirilmiştir.');";
+                return RedirectToAction("EmptyInternshipFileUpload");
+            }
+            else
+            {
+                TempData["JsFunc"] = "warningMessage('Dosya .rar yada .zip dosyası olmalıdır.');";
+                return RedirectToAction("EmptyInternshipFileUpload");
+            }
+
         }
     }
 }

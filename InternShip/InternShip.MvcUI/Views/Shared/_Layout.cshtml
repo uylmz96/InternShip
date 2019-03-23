@@ -148,21 +148,15 @@
                                         <span class="main-menu-icon">
                                             <span aria-hidden="true" class="icon icon-user icon-size-medium"></span>
                                         </span>
-                                        <span class="main-menu-text">Kullanıcı Yönetimi</span>
+                                        <span class="main-menu-text">Site Yönetimi </span>
                                     </a>
                                     <ul>
                                         <li><a href="/User/Index">Kullanıcılar</a></li>
                                         <li><a href="/Role/Index">Yetkiler</a></li>
-
+                                        <li><a href="/Mail/Index">Mail Adresi</a></li>
+                                        <li><a href="/File/EmptyInternshipFileUpload">Boş Staj Dosyası</a></li>
+                                        <li><a href="#" class="file-upload-button">Dosya Yükleme Durumu</a></li>
                                     </ul>
-                                </li>
-                                <li class="menu-item-top">
-                                    <a href="/Internship/PreInternShip" class="top">
-                                        <span class="main-menu-icon">
-                                            <span aria-hidden="true" class="icon icon-grid-big icon-size-medium"></span>
-                                        </span>
-                                        <span class="main-menu-text">Ön Başvurular</span>
-                                    </a>                                    
                                 </li>
                                 @* Öğrenciler Menü Item *@
                                 <li class="menu-item-top">
@@ -186,10 +180,19 @@
                                             <a href="/Student/GraduateStudents">Mezun Öğrenci Girişi</a>
                                             <ul>
                                                 <a href="/Excel/GraduateStudent">Excel Yükle</a>
-                                                <a href="~/Documents/Imports/Graduate-Student-Import-Excel.xlsx">Excel İndir</a>
+                                                <a href="/Documents/Imports/Graduate-Student-Import-Excel.xlsx">Excel İndir</a>
                                             </ul>
                                         </li>
                                     </ul>
+                                </li>
+                                @*Ön Başvurular *@
+                                <li class="menu-item-top">
+                                    <a href="/Internship/PreInternShip" class="top">
+                                        <span class="main-menu-icon">
+                                            <span aria-hidden="true" class="icon icon-grid-big icon-size-medium"></span>
+                                        </span>
+                                        <span class="main-menu-text">Ön Başvurular</span>
+                                    </a>
                                 </li>
                                 @* Şirketler Menü Item *@
                                 <li class="menu-item-top">
@@ -213,10 +216,9 @@
                                         <span class="main-menu-text">Staj</span>
                                     </a>
                                     <ul>
-                                        <li><a href="/Internship/Index">Stajlar</a></li>
-                                        <li><a href="/RefusalReason/Index">Staj Sonuç Bilgileri</a></li>
-                                        <li><a href="/Internship/Result">Sonuç</a></li>
+                                        <li><a href="/Internship/Index">Tüm Stajlar</a></li>
                                         <li><a href="/InternShipRating/Index">Notlandırılacak Stajlar</a></li>
+                                        <li><a href="/RefusalReason/Index">Staj Sonuçlandırma Bilgisi</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -383,6 +385,19 @@
                 });
             }, 2500);
         }
+        $('.file-upload-button').click(function () {
+            $.ajax({
+                url: "/File/FileUploadActivePasive",
+                method:"POST",                
+                success: function (data) {
+                    successMessage(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: file-upload-button ajax");
+                    error();
+                }
+            });
+        });
     </script>
     @if (ViewBag.JsFunc != null)
     {
