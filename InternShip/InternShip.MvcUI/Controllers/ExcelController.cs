@@ -80,6 +80,7 @@ namespace InternShip.MvcUI.Controllers
                                 _student.Mail = ((Excel.Range)range.Cells[i, 4]).Text;
                                 _student.CrtDate = DateTime.Now;
                                 _student.isGraduate = false;
+                                _student.StudentPassword= ((Excel.Range)range.Cells[i, 1]).Text;
 
                                 if (((Excel.Range)range.Cells[i, 5]).Text != "")
                                     _student.Phone = ((Excel.Range)range.Cells[i, 5]).Text;

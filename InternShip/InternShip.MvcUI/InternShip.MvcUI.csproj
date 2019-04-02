@@ -1035,11 +1035,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="App_Classes\autocomplete.cs" />
-    <Compile Include="Migrations\201903221234451_first-migration.cs" />
-    <Compile Include="Migrations\201903221234451_first-migration.Designer.cs">
-      <DependentUpon>201903221234451_first-migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\aspnet_Applications.cs" />
     <Compile Include="Models\aspnet_Membership.cs" />
     <Compile Include="Models\aspnet_Paths.cs" />
@@ -1188,6 +1183,7 @@
     <Content Include="Views\Student\GraduateStudents.cshtml" />
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\File\EmptyInternshipFileUpload.cshtml" />
+    <Content Include="Views\Student\PasswordChange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1227,11 +1223,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903221234451_first-migration.resx">
-      <DependentUpon>201903221234451_first-migration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

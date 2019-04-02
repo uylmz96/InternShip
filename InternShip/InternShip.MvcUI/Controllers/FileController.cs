@@ -128,6 +128,7 @@ namespace InternShip.MvcUI.Controllers
                 FileUpload = new ExtraData();
                 FileUpload.DataType = "FileUpload";
                 FileUpload.Data = "open";
+                context.ExtraDatas.Add(FileUpload);
             }
             else if (FileUpload.Data == "open")
             {

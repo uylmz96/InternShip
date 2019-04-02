@@ -116,6 +116,7 @@ namespace InternShip.MvcUI.Controllers
             if (insertedStudent == null)
             {
                 student.CrtDate = DateTime.Now;
+                student.StudentPassword = student.StudentNumber;
                 context.Set<Student>().Add(student);
                 TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
                 return RedirectToAction("Index");
@@ -163,6 +164,72 @@ namespace InternShip.MvcUI.Controllers
             }
         }
 
+        //GET PasswordChange
+        [AllowAnonymous]
+        public ActionResult PasswordChange()
+        {
+            if (Session["studentNumber"] == null)//Öğrenci Girişi yapılmış mı
+            {
+                ViewBag.Internships = null;
+                TempData["JsFunc"] = "errorMessage('Lütfen giriş yapınız.')";
+                return RedirectToAction("StudentLogin", "Login");
+            }
+            if (TempData["JsFunc"] != null)
+                ViewBag.JsFunc = TempData["JsFunc"].ToString();
+            return View();
+        }
+
+        //POST: PasswordChage
+        [AllowAnonymous][HttpPost]
+        public ActionResult PasswordChange(string OldPassword, string Password, string PasswordAgain)
+        {
+            try
+            {
+
+                string studentNumber = Session["studentNumber"].ToString();                
+                if (Password.Equals(PasswordAgain))
+                {
+                    Student _student = context.Students.FirstOrDefault(x => x.StudentNumber == studentNumber);
+                    if (_student != null)
+                    {
+
+                        _student.StudentPassword = Password;
+                        TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
+                    }
+                    else
+                    {
+                        TempData["JsFunc"] = "warning('Öğrenci bulunamadı tekrar giriş yapınız.');";
+                    }
+                }
+                else
+                {
+                    TempData["JsFunc"] = "errorMessage('Girilen parolalar eşleşmemektedir.');";
+                }
+                return RedirectToAction("PasswordChange", "Student");
+            }
+            catch (Exception)
+            {
+                TempData["JsFunc"] = "error();";
+                return RedirectToAction("PasswordChange", "Student");
+            }
+            
+        }
+
+        //GET:PasswordReset
+        public ActionResult PasswordReset(int id)
+        {
+            Student updatedStudent = context.Students.FirstOrDefault(x=>x.StudentID==id);
+            if (updatedStudent != null)
+            {
+                updatedStudent.StudentPassword = updatedStudent.StudentNumber;
+                TempData["JsFunc"] = Result.isAppliedSaveChanges(context);
+            }
+            else
+            {
+                TempData["JsFunc"] = "warningMessage('Öğrenci bulunamadı.')";
+            }
+            return RedirectToAction("Index","Student");
+        }
         //GET: GetStudent Autocomplete
         [HttpGet]
         public JsonResult AutoComplete(string search)

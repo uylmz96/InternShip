@@ -35,11 +35,17 @@ namespace InternShip.MvcUI.Controllers
                 //Mail Adresi
                 MailAddress = new ExtraData();
                 MailAddress.DataType = "MailAddress";
-                MailAddress.Data = "meubilgisayarmuhstaj@gmail.com";
+                MailAddress.Data = Mail;
+                //MailAddress.Data = "meubilgisayarmuhstaj@gmail.com";
+                
                 //Mail Şifresi
                 MailPassword = new ExtraData();
                 MailPassword.DataType = "MailPassword";
-                MailPassword.Data = "aQW75TETvyAm][{@";
+                MailPassword.Data = Password;
+                //MailPassword.Data = "aQW75TETvyAm][{@";
+
+                _context.ExtraDatas.Add(MailAddress);
+                _context.ExtraDatas.Add(MailPassword);
 
             }
 

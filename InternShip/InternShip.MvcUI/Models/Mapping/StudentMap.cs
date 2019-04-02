@@ -31,6 +31,7 @@ namespace InternShip.MvcUI.Models.Mapping
             this.ToTable("Student");
             this.Property(t => t.StudentID).HasColumnName("StudentID");
             this.Property(t => t.StudentNumber).HasColumnName("StudentNumber");
+            this.Property(t=>t.StudentPassword).HasColumnName("StudentPassword");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Surname).HasColumnName("Surname");
             this.Property(t => t.Mail).HasColumnName("Mail");

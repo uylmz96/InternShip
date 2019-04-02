@@ -32,6 +32,7 @@
                                     <th>Tamamlanan</th>
                                     <th>Mezun Durumu</th>
                                     <th>Güncelle/Sil</th>
+                                    <th>Parola Sıfırla</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,6 +62,9 @@
                                                 <td>
                                                     <a href="/Student/Student/@item.StudentID" class="btn btn-warning rounded ">Güncelle</a>
                                                     <a href="/Student/StudentDelete/@item.StudentID" class="btn btn-danger rounded">Sil</a>
+                                                </td>
+                                                <td>
+                                                    <a href="/Student/PasswordReset/@item.StudentID" class="btn btn-info rounded ">Şifre Sıfırla</a>
                                                 </td>
                                             </tr>
                                         }

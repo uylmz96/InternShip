@@ -125,5 +125,3 @@ E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.SqlServer.dll
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.xml
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.SqlServer.xml
-E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\obj\Debug\InternShip.MvcUI.Migrations.firstmigration.resources
-E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\obj\Debug\InternShip.MvcUI.csproj.GenerateResource.cache

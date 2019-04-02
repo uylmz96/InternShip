@@ -17,7 +17,7 @@ namespace InternShip.MvcUI.Controllers
         InternShipContext context = new InternShipContext();
         // GET: Login
         public ActionResult Login()
-        {          
+        {
             if (TempData["JsFunc"] != null)
                 ViewBag.JsFunc = TempData["JsFunc"].ToString();
             return View();
@@ -40,10 +40,17 @@ namespace InternShip.MvcUI.Controllers
             else
             {
                 MembershipUser _user = Membership.GetUser(user.UserName);
-                if (!_user.IsApproved)
-                    TempData["JsFunc"] = "errorMessage('Kullanıcı engellenmiş.');";
+                if (_user == null)
+                {
+                    TempData["JsFunc"] = "errorMessage('Bu kullanıcı adı ile tanımlı kullanıcı yok.');";
+                }
                 else
-                    TempData["JsFunc"] = "errorMessage('Kullanıcı adı yada şifre hatalı.');";
+                {
+                    if (!_user.IsApproved)
+                        TempData["JsFunc"] = "errorMessage('Kullanıcı engellenmiş.');";
+                    else
+                        TempData["JsFunc"] = "errorMessage('Kullanıcı adı yada şifre hatalı.');";
+                }
 
 
                 return RedirectToAction("Login");
@@ -55,14 +62,8 @@ namespace InternShip.MvcUI.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-
-            if (Session["studentNumber"] != null)
-                Session.Remove("studentNumber");
-            if (Session["studentName"] != null)
-                Session.Remove("studentName");
             return RedirectToAction("Login", "Login");
         }
-
         //GET: StudentLogin
         public ActionResult StudentLogin()
         {
@@ -73,9 +74,9 @@ namespace InternShip.MvcUI.Controllers
 
         //POST: StudentLogin
         [HttpPost]
-        public ActionResult StudentLogin(string studentNumber)
+        public ActionResult StudentLogin(string studentNumber, string studentPassword)
         {
-            Student student = context.Students.SingleOrDefault(x => x.StudentNumber == studentNumber & x.DelDate == null);
+            Student student = context.Students.SingleOrDefault(x => x.StudentNumber == studentNumber & x.StudentPassword == studentPassword & x.DelDate == null);
             if (student != null)
             {
                 Session.Add("studentNumber", student.StudentNumber);
@@ -84,10 +85,17 @@ namespace InternShip.MvcUI.Controllers
             }
             else
             {
-                TempData["JsFunc"] = "errorMessage('Öğrenci bulunamadı. Yetkili ile görüşünüz.');";
+                TempData["JsFunc"] = "errorMessage('Öğrenci bulunamadı yada şifre yanlış !!!');";
                 return RedirectToAction("StudentLogin");
             }
         }
-
+        public ActionResult LogoutStudent()
+        {
+            if (Session["studentNumber"] != null)
+                Session.Remove("studentNumber");
+            if (Session["studentName"] != null)
+                Session.Remove("studentName");
+            return RedirectToAction("Login", "Login");
+        }
     }
 }

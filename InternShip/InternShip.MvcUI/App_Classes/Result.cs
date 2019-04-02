@@ -13,7 +13,7 @@ namespace InternShip.MvcUI.App_Classes
             try
             {
                 int isApplied=context.SaveChanges();
-                if (isApplied > 0)
+                if (isApplied >= 0)
                     return "success();";
                 else
                     return "error();";

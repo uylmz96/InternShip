@@ -13,6 +13,7 @@ namespace InternShip.MvcUI.Models
 
         public int StudentID { get; set; }
         public string StudentNumber { get; set; }
+        public string StudentPassword { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Mail { get; set; }
