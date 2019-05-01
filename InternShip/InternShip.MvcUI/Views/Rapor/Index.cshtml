@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@using InternShip.MvcUI.Models;
+<div class="row">
+    <div class="col-md-12">
+        <div class="block">
+            <div class="block-heading">
+                <div class="main-text h2">
+                    Rapor
+                </div>
+                <div class="block-controls">
+                    <span aria-hidden="true" class="icon icon-arrow-down icon-size-medium block-control-collapse"></span>
+                </div>
+            </div>
+            <div class="block-content-outer">
+                <div class="block-content-inner">
+                    <form role="form" action="/Rapor/CheckInternships" method="post">
+                        @* Tarihten *@
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Tarihten</label>
+                            <div class="input-group" id="datetimepicker5">
+                                <span class="input-group-addon input-group-icon">
+                                    <span class="glyphicon-calendar glyphicon"></span>
+                                </span>
+                                <input type="text" class="form-control" data-date-format="DD/MM/YYYY" autocomplete="off" id="startdate" name="StartDate" readonly />
+                            </div>
+                        </div>
+                        @* Tarihe Kadar *@
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Tarihe Kadar</label>
+                            <div class="input-group" id="datetimepicker6">
+                                <span class="input-group-addon input-group-icon">
+                                    <span class="glyphicon-calendar glyphicon"></span>
+                                </span>
+                                <input type="text" class="form-control" autocomplete="off" data-date-format="DD/MM/YYYY" id="enddate" name="EndDate" readonly />
+                            </div>
+                        </div>
+                        @* Öğrenci *@
+                        <div class="form-group col-md-12">
+                            <label for="student_autocomplete">Öğrenci </label>
+                            <input id="student_autocomplete" class="form-control" name="autocomplete">
+                            <input type="hidden" id="student" class="form-control" name="StudentID">
+                        </div>
+                        @* Anahtar Kelimeler *@
+                        <div class="form-group col-md-12">
+                            <label for="employeeDesc">Anahtar Kelimeler</label>
+                            <input type="text" class="form-control" id="Keyword" name="KeyWord">
+                            <span class="help-block">Kelimeler arasına virgül koyunuz.</span>
+                        </div>
+                        @* Şirket *@
+                        <div class="form-group col-md-6">
+                            <label for="company">Şirket : </label>
+                            <select id="company" class="form-control" name="CompanyID">
+                                @if (ViewBag.Company != null)
+                                {
+                                    <option value="-1">Lütfen Seçiniz</option>
+                                    foreach (Company item in ViewBag.Company)
+                                    {
+                                        <option value="@item.CompanyID">@item.CompanyName</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="-1">Şirket Bulunamadı..</option>
+                                }
+                            </select>
+                        </div>
+                        @* Şehir *@
+                        <div class="form-group col-md-6">
+                            <label for="city">Şehir : </label>
+                            <select id="city" class="form-control" name="City">
+                                @if (ViewBag.Cities != null)
+                                {
+                                    <option value="-1">Lütfen Seçiniz</option>
+                                    foreach (City item in ViewBag.Cities)
+                                    {
+                                        <option value="@item.id">@item.CityName</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="-1">Şirket Bulunamadı..</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Rapor</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptSection{
+    <script>
+        setTimeout(function () {
+            if ($("#student").val() != "") {
+                debugger;
+                $.ajax({
+                    url: "/Student/AutoCompleteName",
+                    dataType: "json",
+                    data: {
+                        search: $("#student").val()
+                    },
+                    success: function (data) {
+                        debugger;
+                        $("#student_autocomplete").val(data[0].value);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: student autocompleteName");
+                    }
+                });
+            }
+        }, 50);
+        $("#student_autocomplete").autocomplete({            
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Student/AutoComplete",
+                    dataType: "json",
+                    data: {
+                        search: $("#student_autocomplete").val()
+                    },
+                    success: function (data) {
+                        console.log("student_autocomplete");
+                        debugger;
+                        response($.map(data, function (item) {
+                            return {
+                                label: item.value,
+                                id: item.id
+
+                            }
+                        }))
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: student autocomplete " + error);
+                    }
+                });
+            },
+            minLength: 2,
+            select: function (event, ui) {
+                console.log("Selected: " + ui.item.label + " aka " + ui.item.id);
+                $("#student").val(ui.item.id);
+            },
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
+    </script>
+}
+
+
+

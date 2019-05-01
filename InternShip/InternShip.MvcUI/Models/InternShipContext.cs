@@ -26,9 +26,10 @@ namespace InternShip.MvcUI.Models
         public DbSet<aspnet_SchemaVersions> aspnet_SchemaVersions { get; set; }
         public DbSet<aspnet_Users> aspnet_Users { get; set; }
         public DbSet<aspnet_WebEvent_Events> aspnet_WebEvent_Events { get; set; }
+        public DbSet<City> Cities { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<ExtraData> ExtraDatas { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<ExtraData> ExtraDatas { get; set; }
         public DbSet<InternShip> InternShips { get; set; }
         public DbSet<InternShipResult> InternShipResults { get; set; }
         public DbSet<PreInternship> PreInternships { get; set; }
@@ -57,8 +58,10 @@ namespace InternShip.MvcUI.Models
             modelBuilder.Configurations.Add(new aspnet_SchemaVersionsMap());
             modelBuilder.Configurations.Add(new aspnet_UsersMap());
             modelBuilder.Configurations.Add(new aspnet_WebEvent_EventsMap());
+            modelBuilder.Configurations.Add(new CityMap());
             modelBuilder.Configurations.Add(new CompanyMap());
             modelBuilder.Configurations.Add(new DocumentMap());
+            modelBuilder.Configurations.Add(new ExtraDataMap());
             modelBuilder.Configurations.Add(new InternShipMap());
             modelBuilder.Configurations.Add(new InternShipResultMap());
             modelBuilder.Configurations.Add(new PreInternshipMap());

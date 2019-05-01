@@ -65,7 +65,7 @@ namespace InternShip.MvcUI.Controllers
 
                         //tüm verilerde dönüp ilgili veriyi ilgili modele atıyorum. sonrasında modeli
                         //listeye atıyorum.
-                        for (int i = 2; i <= range.Rows.Count; i++)
+                        for (int i = 2; i < range.Rows.Count; i++)
                         {
 
                             //Excel den okuyup modele ekleme işlemi
@@ -80,21 +80,16 @@ namespace InternShip.MvcUI.Controllers
                                 _student.Mail = ((Excel.Range)range.Cells[i, 4]).Text;
                                 _student.CrtDate = DateTime.Now;
                                 _student.isGraduate = false;
+                                _student.EntryDate = DateTime.Now;
                                 _student.StudentPassword= ((Excel.Range)range.Cells[i, 1]).Text;
 
                                 if (((Excel.Range)range.Cells[i, 5]).Text != "")
                                     _student.Phone = ((Excel.Range)range.Cells[i, 5]).Text;
                                 else
                                     _student.Phone = "(000) 000 0000";
-
-                                if (((Excel.Range)range.Cells[i, 6]).Text != "")
-                                    _student.EntryDate = ((Excel.Range)range.Cells[i, 6]).Text;
-                                else
-                                    _student.EntryDate = DateTime.Now;
                                 localList.Add(_student);
                             }
                         }
-                        application.Quit();
 
                         //Database Kaydetme
                         if (localList != null)
@@ -114,8 +109,13 @@ namespace InternShip.MvcUI.Controllers
                 catch (Exception ex)
                 {
                     TempData["JsFunc"] = "errorMessage('Hatalı düzenlenmiş dosya lütfen kontol edip tekrar deneyiniz.');";
-                    application.Quit();
+                    
                     return RedirectToAction("Student");
+                }
+                finally
+                {
+                    if (application != null)
+                        application.Quit();
                 }
             }
         }

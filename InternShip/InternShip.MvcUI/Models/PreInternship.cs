@@ -23,6 +23,8 @@ namespace InternShip.MvcUI.Models
         public Nullable<System.DateTime> DelDate { get; set; }
         public string StudentNumber { get; set; }
         public string Time { get; set; }
+        public Nullable<int> City { get; set; }
+        public virtual City City1 { get; set; }
         public virtual InternShip InternShip { get; set; }
         public virtual Student Student { get; set; }
     }

@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>InternShip.MvcUI</RootNamespace>
     <AssemblyName>InternShip.MvcUI</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -51,6 +51,9 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -1011,7 +1014,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Classes\AdviserWithCount.cs" />
+    <Compile Include="App_Classes\Frequance.cs" />
     <Compile Include="App_Classes\Mail.cs" />
+    <Compile Include="App_Classes\Rapor.cs" />
     <Compile Include="App_Classes\Result.cs" />
     <Compile Include="App_Classes\StudentExtentedModel.cs" />
     <Compile Include="App_Classes\User.cs" />
@@ -1023,6 +1028,7 @@
     <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\PreInternShipController.cs" />
+    <Compile Include="Controllers\RaporController.cs" />
     <Compile Include="Controllers\RefusalReasonController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -1045,6 +1051,7 @@
     <Compile Include="Models\aspnet_SchemaVersions.cs" />
     <Compile Include="Models\aspnet_Users.cs" />
     <Compile Include="Models\aspnet_WebEvent_Events.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\ExtraData.cs" />
@@ -1061,6 +1068,7 @@
     <Compile Include="Models\Mapping\aspnet_SchemaVersionsMap.cs" />
     <Compile Include="Models\Mapping\aspnet_UsersMap.cs" />
     <Compile Include="Models\Mapping\aspnet_WebEvent_EventsMap.cs" />
+    <Compile Include="Models\Mapping\CityMap.cs" />
     <Compile Include="Models\Mapping\CompanyMap.cs" />
     <Compile Include="Models\Mapping\DocumentMap.cs" />
     <Compile Include="Models\Mapping\ExtraDataMap.cs" />
@@ -1184,6 +1192,8 @@
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\File\EmptyInternshipFileUpload.cshtml" />
     <Content Include="Views\Student\PasswordChange.cshtml" />
+    <Content Include="Views\Rapor\Index.cshtml" />
+    <Content Include="Views\Rapor\Print.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -66,8 +66,12 @@ namespace InternShip.MvcUI.Models.Mapping
             this.Property(t => t.DelDate).HasColumnName("DelDate");
             this.Property(t => t.StudentNumber).HasColumnName("StudentNumber");
             this.Property(t => t.Time).HasColumnName("Time");
+            this.Property(t => t.City).HasColumnName("City");
 
             // Relationships
+            this.HasOptional(t => t.City1)
+                .WithMany(t => t.PreInternships)
+                .HasForeignKey(d => d.City);
             this.HasOptional(t => t.InternShip)
                 .WithMany(t => t.PreInternships)
                 .HasForeignKey(d => d.InternshipID);

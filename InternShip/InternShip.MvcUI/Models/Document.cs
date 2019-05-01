@@ -9,7 +9,7 @@ namespace InternShip.MvcUI.Models
         public Nullable<int> InternShipID { get; set; }
         public string DocName { get; set; }
         public string Path { get; set; }
-        public string Desc { get; set; }
+        public string Keyword { get; set; }
         public Nullable<System.DateTime> CrtDate { get; set; }
         public Nullable<System.DateTime> DelDate { get; set; }
         public virtual InternShip InternShip { get; set; }

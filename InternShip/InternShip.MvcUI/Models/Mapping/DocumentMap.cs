@@ -17,8 +17,8 @@ namespace InternShip.MvcUI.Models.Mapping
             this.Property(t => t.Path)
                 .HasMaxLength(1000);
 
-            this.Property(t => t.Desc)
-                .HasMaxLength(1000);
+            this.Property(t => t.Keyword)
+                .HasMaxLength(4000);
 
             // Table & Column Mappings
             this.ToTable("Document");
@@ -26,7 +26,7 @@ namespace InternShip.MvcUI.Models.Mapping
             this.Property(t => t.InternShipID).HasColumnName("InternShipID");
             this.Property(t => t.DocName).HasColumnName("DocName");
             this.Property(t => t.Path).HasColumnName("Path");
-            this.Property(t => t.Desc).HasColumnName("Desc");
+            this.Property(t => t.Keyword).HasColumnName("Keyword");
             this.Property(t => t.CrtDate).HasColumnName("CrtDate");
             this.Property(t => t.DelDate).HasColumnName("DelDate");
 

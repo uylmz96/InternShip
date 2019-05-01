@@ -18,9 +18,11 @@ namespace InternShip.MvcUI.Models
         public string AdviserID { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<int> City { get; set; }
         public string Time { get; set; }
         public Nullable<System.DateTime> CrtDate { get; set; }
         public Nullable<System.DateTime> DelDate { get; set; }
+        public virtual City City1 { get; set; }
         public virtual Company Company { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual Student Student { get; set; }

@@ -1,8 +1,8 @@
 ﻿
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Ön Başvuru Onaylama";
+    ViewBag.Title = "Ön Başvuru Onaylama";
 }
 @using InternShip.MvcUI.Models;
 @using InternShip.MvcUI.App_Classes;
@@ -29,6 +29,7 @@
                                     <th>Öğrenci Numarası</th>
                                     <th>Şiket Adı</th>
                                     <th>Adres</th>
+                                    <th>Şehir</th>
                                     <th>Mail</th>
                                     <th>Telefon</th>
                                     <th>Departman</th>
@@ -38,8 +39,9 @@
                                     <th>Staj Konusu</th>
                                     <th>Başlama Tarihi</th>
                                     <th>Bitiş Tarihi</th>
+                                    <th>Süre</th>
                                     <th>Onay Durumu</th>
-                                    <th>Çıktı</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,6 +53,14 @@
                                             <td>@item.StudentNumber</td>
                                             <td>@item.CompanyName</td>
                                             <td>@item.CompanyAddress</td>
+                                            @if (@item.City1.CityName != null)
+                                            {
+                                                <td>@item.City1.CityName</td>
+                                            }
+                                            else
+                                            {
+                                                <td>Şehir seçilmemiş</td>
+                                            }
                                             <td>@item.CompanyMail</td>
                                             <td>@item.CompanyPhone</td>
                                             <td>@item.Department</td>
@@ -60,6 +70,7 @@
                                             <td>@item.Subject</td>
                                             <td>@item.StartDate</td>
                                             <td>@item.EndDate</td>
+                                            <td>@item.Time</td>
                                             <td>
                                                 @if (item.InternshipID == null)
                                                 {
@@ -71,7 +82,7 @@
                                                     if (item.InternShip.DelDate == null)
                                                     {
                                                         @*<span class="label label-primary">Onaylanmış</span>
-                                                        <br />*@
+                                                            <br />*@
                                                         <a href="/InternShip/PreInternShipRemove/@item.InternshipID" class="btn btn-danger rounded adviser-popup-button">İptal Et</a>
                                                     }
                                                     else
@@ -80,7 +91,7 @@
                                                     }
                                                 }
                                             </td>
-                                            <td><a href="/PreInternShip/PreInternShipPrint/@item.PreInternshipID" class="btn btn-info rounded ">Çıktı</a></td>
+                                           
                                         </tr>
                                     }
                                 }

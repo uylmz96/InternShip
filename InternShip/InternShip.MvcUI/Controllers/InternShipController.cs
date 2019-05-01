@@ -225,6 +225,7 @@ namespace InternShip.MvcUI.Controllers
                     _internship.StudentID = _pre.StudentID;
                     _internship.AdviserID = Adviser;
                     _internship.Time = _pre.Time;
+                    _internship.City = _pre.City;
                     _internship.CrtDate = DateTime.Now;
                     ctx.Set<InternShip>().Add(_internship);
                     bool isInternshipAdd = Result.SaveChanges2(ctx);
@@ -307,6 +308,7 @@ namespace InternShip.MvcUI.Controllers
                         _internship.AdviserID = Adviser;
                         _internship.Time = _pre.Time;
                         _internship.CrtDate = DateTime.Now;
+                        _internship.City = _pre.City;
                         ctx.Set<InternShip>().Add(_internship);
                         bool isInternshipAdd = Result.SaveChanges2(ctx);
                         internshipID = _internship.InternShipID;

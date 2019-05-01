@@ -63,8 +63,10 @@ namespace InternShip.MvcUI.Controllers
             #endregion
 
             //Belge Yükleme işlemi
+
+
             string studentNumber = Session["studentNumber"].ToString();
-            if (file != null && file.ContentLength > 0 & file.ContentLength < 4000000)
+            if (file != null && file.ContentLength > 0 & file.ContentLength < 4000000) // file<4Mb 
             {
                 try
                 {
@@ -73,7 +75,12 @@ namespace InternShip.MvcUI.Controllers
                         Directory.CreateDirectory(folder); // Öğrencinin Stajı için klasör oluştur.
 
                     string path = Path.Combine(folder, Path.GetFileName(studentNumber + "_" + file.FileName));
+                    
                     file.SaveAs(path);
+                    //Dosyanın kelimelerinin frekanslarını hesaplatıp kaydetme işlemi                  
+                    Frequance frequance = new Frequance();
+                    frequance.FileFrequance(path, file, internshipID);
+
                     TempData["JsFunc"] = "success();";
                     return RedirectToAction("InternShipForStudent", "Home");
                 }

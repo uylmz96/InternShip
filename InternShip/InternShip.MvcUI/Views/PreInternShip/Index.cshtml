@@ -26,6 +26,7 @@
                                     <th>Öğrenci Numarası</th>
                                     <th>Şiket Adı</th>
                                     <th>Adres</th>
+                                    <th>Şehir</th>
                                     <th>Mail</th>
                                     <th>Telefon</th>
                                     <th>Departman</th>
@@ -35,6 +36,7 @@
                                     <th>Staj Konusu</th>
                                     <th>Başlama Tarihi</th>
                                     <th>Bitiş Tarihi</th>
+                                    <th>Süre</th>
                                     <th>Güncelle</th>
                                     <th>Çıktı</th>
                                 </tr>
@@ -44,39 +46,48 @@
                                 {
                                     foreach (PreInternship item in ViewBag.PreInternShips)
                                     {
-                                        <tr>
-                                            <td>@item.StudentNumber</td>
-                                            <td>@item.CompanyName</td>
-                                            <td>@item.CompanyAddress</td>
-                                            <td>@item.CompanyMail</td>
-                                            <td>@item.CompanyPhone</td>
-                                            <td>@item.Department</td>
-                                            <td>@item.Activity</td>
-                                            <td>@item.Tech</td>
-                                            <td>@item.EmployeeDesc</td>
-                                            <td>@item.Subject</td>
-                                            <td>@item.StartDate</td>
-                                            <td>@item.EndDate</td>
-                                            <td>
-                                                @if (item.InternshipID == null)
-                                                {
-                                                    <span class="label label-warning">Onay Bekleniyor.</span>
+                                <tr>
+                                    <td>@item.StudentNumber</td>
+                                    <td>@item.CompanyName</td>
+                                    <td>@item.CompanyAddress</td>
+                                    @if (@item.City1.CityName != null)
+                                    {
+                                        <td>@item.City1.CityName</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Şehir seçilmemiş</td>
+                                    }
+                                    <td>@item.CompanyMail</td>
+                                    <td>@item.CompanyPhone</td>
+                                    <td>@item.Department</td>
+                                    <td>@item.Activity</td>
+                                    <td>@item.Tech</td>
+                                    <td>@item.EmployeeDesc</td>
+                                    <td>@item.Subject</td>
+                                    <td>@item.StartDate</td>
+                                    <td>@item.EndDate</td>
+                                    <td>@item.Time</td>
+                                    <td>
+                                        @if (item.InternshipID == null)
+                                        {
+                                            <span class="label label-warning">Onay Bekleniyor.</span>
 
-                                                }
-                                                else
-                                                {
-                                                    if (item.InternShip.DelDate == null)
-                                                    {
-                                                        <span class="label label-primary">Onaylanmış</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="label label-danger">İptal Edilmiş</span>
-                                                    }
-                                                }
-                                            </td>
-                                            <td><a href="/PreInternShip/PreInternShipPrint/@item.PreInternshipID" class="btn btn-info rounded ">Çıktı</a></td>
-                                        </tr>
+                                        }
+                                        else
+                                        {
+                                            if (item.InternShip.DelDate == null)
+                                            {
+                                                <span class="label label-primary">Onaylanmış</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-danger">İptal Edilmiş</span>
+                                            }
+                                        }
+                                    </td>
+                                    <td><a href="/PreInternShip/PreInternShipPrint/@item.PreInternshipID" class="btn btn-info rounded ">Çıktı</a></td>
+                                </tr>
                                     }
                                 }
                             </tbody>

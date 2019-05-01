@@ -234,7 +234,7 @@ namespace InternShip.MvcUI.Controllers
         [HttpGet]
         public JsonResult AutoComplete(string search)
         {
-            List<autocomplete> allsearch = context.Students.Where(x => x.StudentNumber.Contains(search) & x.DelDate == null).Select(x => new autocomplete
+            List<autocomplete> allsearch = context.Students.Where(x => (x.StudentNumber.Contains(search) || x.Name.Contains(search)) & x.DelDate == null).Select(x => new autocomplete
             {
                 id = x.StudentID.ToString(),
                 value = x.StudentNumber + " - " + x.Name + " " + x.Surname
