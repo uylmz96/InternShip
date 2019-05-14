@@ -127,3 +127,5 @@ E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EntityFramework.SqlServer.xml
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\itextsharp.dll
 E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\itextsharp.xml
+E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EPPlus.dll
+E:\VS Projects\GitHub\InternShip\InternShip\InternShip.MvcUI\bin\EPPlus.xml

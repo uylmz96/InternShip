@@ -28,7 +28,6 @@
                                     <th>Şirket</th>
                                     <th>Gün</th>
                                     <th>Detay</th>
-                                    <th>Güncelle/Sil</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,10 +67,6 @@
                                                 <td>
                                                     <a href="/InternShip/IntershipDetail/@item.InternShipID" class="btn btn-warning rounded">Detay</a>
                                                 </td>
-                                                <td>
-                                                    <a href="/InternShip/Internship/@item.InternShipID" class="btn btn-warning rounded">Güncelle</a>
-                                                    <a href="/InternShip/InternshipDelete/@item.InternShipID" class="btn btn-danger rounded">Sil</a>
-                                                </td>
                                             </tr>
                                         }
                                     }
@@ -84,6 +79,7 @@
         </div>
     </div>
 </div>
+<a href="@Url.Action("ExportExcell","Rapor",new {internShipList= Model })">Çıktı</a>
 
 
 

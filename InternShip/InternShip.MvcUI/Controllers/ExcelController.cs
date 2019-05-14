@@ -65,7 +65,7 @@ namespace InternShip.MvcUI.Controllers
 
                         //tüm verilerde dönüp ilgili veriyi ilgili modele atıyorum. sonrasında modeli
                         //listeye atıyorum.
-                        for (int i = 2; i < range.Rows.Count; i++)
+                        for (int i = 2; i <= range.Rows.Count; i++)
                         {
 
                             //Excel den okuyup modele ekleme işlemi

@@ -8,7 +8,7 @@ namespace InternShip.MvcUI.Controllers
 {
     using InternShip.MvcUI.App_Classes;
     using Models;
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class MailController : Controller
     {
         InternShipContext _context = new InternShipContext();

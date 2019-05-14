@@ -44,6 +44,7 @@ namespace InternShip.MvcUI.Controllers
             }
 
             PreInternship model = context.PreInternships.FirstOrDefault(x => x.PreInternshipID == id);
+            ViewBag.Cities = context.Cities.OrderBy(x => x.CityName).ToList();
             return View(model);
         }
 

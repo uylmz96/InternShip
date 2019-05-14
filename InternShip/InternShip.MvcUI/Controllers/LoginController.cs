@@ -76,7 +76,7 @@ namespace InternShip.MvcUI.Controllers
         [HttpPost]
         public ActionResult StudentLogin(string studentNumber, string studentPassword)
         {
-            Student student = context.Students.SingleOrDefault(x => x.StudentNumber == studentNumber & x.StudentPassword == studentPassword & x.DelDate == null);
+            Student student = context.Students.SingleOrDefault(x => x.StudentNumber == studentNumber & x.StudentPassword == studentPassword & x.DelDate == null & x.isGraduate==false);
             if (student != null)
             {
                 Session.Add("studentNumber", student.StudentNumber);
