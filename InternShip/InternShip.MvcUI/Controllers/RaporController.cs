@@ -104,8 +104,8 @@ namespace InternShip.MvcUI.Controllers
                 ws.Cells[string.Format("E{0}", rowStart)].Value = item.AdviserID; //Danışman
                 ws.Cells[string.Format("F{0}", rowStart)].Value = item.Company.CompanyName; //Şirket Adı 
                 ws.Cells[string.Format("G{0}", rowStart)].Value = item.City1.CityName; //Şehir
-                ws.Cells[string.Format("H{0}", rowStart)].Value = item.StartDate; //Başlangıç Tarihi
-                ws.Cells[string.Format("I{0}", rowStart)].Value = item.EndDate;  //Bitiş Tarihi
+                ws.Cells[string.Format("H{0}", rowStart)].Value = item.StartDate.ToString(); //Başlangıç Tarihi
+                ws.Cells[string.Format("I{0}", rowStart)].Value = item.EndDate.ToString();  //Bitiş Tarihi
                 ws.Cells[string.Format("J{0}", rowStart)].Value = item.Time; //Süre
                 InternShipResult shipResult = context.InternShipResults.SingleOrDefault(x => x.InternShipID == item.InternShipID);
                 if (shipResult != null)
